@@ -3,7 +3,6 @@ package code.name.monkey.retromusic.feature.details.artist.presentation
 import android.graphics.Color
 import android.os.Bundle
 import android.text.Spanned
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -24,10 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import code.name.monkey.retromusic.EXTRA_ALBUM_ID
 import code.name.monkey.retromusic.R
 import code.name.monkey.retromusic.databinding.FragmentArtistDetailsBinding
-import code.name.monkey.retromusic.extensions.applyColor
-import code.name.monkey.retromusic.extensions.applyOutlineColor
-import code.name.monkey.retromusic.extensions.show
-import code.name.monkey.retromusic.extensions.surfaceColor
+import code.name.monkey.retromusic.extensions.*
 import code.name.monkey.retromusic.feature.details.artist.presentation.adapter.ArtistDetailsAlbumAdapter
 import code.name.monkey.retromusic.feature.details.artist.presentation.adapter.ArtistDetailsSongAdapter
 import code.name.monkey.retromusic.feature.details.artist.presentation.entity.ArtistDetailsUi
@@ -99,7 +95,6 @@ class ArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_artist_d
         }
         lifecycleScope.launchWhenStarted {
             detailsViewModel.songs.collect {
-                Log.d("Dbg", "Songs count: ${it.size}")
                 songAdapter.swapDataSet(it)
             }
         }
@@ -166,7 +161,13 @@ class ArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_artist_d
         binding.fragmentArtistContent.songTitle.text = songText
         binding.fragmentArtistContent.albumTitle.text = albumText
 
-        binding.fragmentArtistContent.biographyText.text = artistDetails.biography
+        if (artistDetails.biography != null) {
+            binding.fragmentArtistContent.biographyText.text = artistDetails.biography
+            binding.fragmentArtistContent.biographyText.show()
+        } else {
+            binding.fragmentArtistContent.biographyText.hide()
+        }
+
 //        songAdapter.swapDataSet(artistDetails.sortedSongs)
 //        albumAdapter.swapDataSet(artistDetails.albums)
     }
