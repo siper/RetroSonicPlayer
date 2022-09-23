@@ -221,11 +221,9 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
     private fun moreAlbums(albums: List<Album>) {
         binding.fragmentAlbumContent.moreTitle.show()
         binding.fragmentAlbumContent.moreRecyclerView.show()
-        binding.fragmentAlbumContent.moreTitle.text =
-            String.format(getString(R.string.label_more_from), albumDetails.artist)
+        binding.fragmentAlbumContent.moreTitle.text = String.format(getString(R.string.label_more_from), albumDetails.artist)
 
-        val albumAdapter =
-            HorizontalAlbumAdapter(requireActivity() as AppCompatActivity, albums, this)
+        val albumAdapter = HorizontalAlbumAdapter(requireActivity() as AppCompatActivity, albums, this)
         binding.fragmentAlbumContent.moreRecyclerView.layoutManager = GridLayoutManager(
             requireContext(),
             1,

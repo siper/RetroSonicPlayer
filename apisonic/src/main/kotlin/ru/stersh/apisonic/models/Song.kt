@@ -40,7 +40,7 @@ data class Song(
     @Json(name = "album") val album: String,
     @Json(name = "albumId") val albumId: String,
     @Json(name = "artist") val artist: String,
-    @Json(name = "artistId") val artistId: String,
+    @Json(name = "artistId") val artistId: String?,
     @Json(name = "bitRate") val bitRate: Int,
     @Json(name = "contentType") val contentType: String,
     @Json(name = "coverArt") val coverArt: String,
