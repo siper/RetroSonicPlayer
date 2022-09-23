@@ -5,12 +5,12 @@ apply plugin: "androidx.navigation.safeargs.kotlin"
 apply plugin: 'kotlin-parcelize'
 
 android {
-    compileSdk 32
+    compileSdk 33
     namespace "code.name.monkey.retromusic"
 
     defaultConfig {
         minSdk 21
-        targetSdk 32
+        targetSdk 33
 
         vectorDrawables.useSupportLibrary = true
 
@@ -100,8 +100,11 @@ static def getProperty(Properties properties, String name) {
 
 dependencies {
     implementation project(':appthemehelper')
+    implementation project(':apisonic')
+    implementation project(':core')
     implementation "androidx.gridlayout:gridlayout:1.0.0"
 
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.7.10"
     implementation "androidx.appcompat:appcompat:$appcompat_version"
     implementation 'androidx.annotation:annotation:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'

@@ -6,9 +6,11 @@ import code.name.monkey.retromusic.cast.RetroWebServer
 import code.name.monkey.retromusic.db.MIGRATION_23_24
 import code.name.monkey.retromusic.db.PlaylistWithSongs
 import code.name.monkey.retromusic.db.RetroDatabase
+import code.name.monkey.retromusic.feature.details.album.detailsAlbumModule
+import code.name.monkey.retromusic.feature.details.artist.detailsArtistModule
+import code.name.monkey.retromusic.feature.library.album.libraryAlbumModule
+import code.name.monkey.retromusic.feature.library.artist.libraryArtistModule
 import code.name.monkey.retromusic.fragments.LibraryViewModel
-import code.name.monkey.retromusic.fragments.albums.AlbumDetailsViewModel
-import code.name.monkey.retromusic.fragments.artists.ArtistDetailsViewModel
 import code.name.monkey.retromusic.fragments.genres.GenreDetailsViewModel
 import code.name.monkey.retromusic.fragments.playlists.PlaylistDetailsViewModel
 import code.name.monkey.retromusic.model.Genre
@@ -21,6 +23,8 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.bind
 import org.koin.dsl.module
+import ru.stersh.apisonic.ApiSonic
+import ru.stersh.retrosonic.core.storage.coreModule
 
 val networkModule = module {
 
@@ -35,6 +39,16 @@ val networkModule = module {
     }
     single {
         provideLastFmRest(get())
+    }
+
+    single {
+        ApiSonic(
+            url = "http://192.168.1.100:4040/rest/",
+            userName = "admin",
+            password = "admin",
+            apiVersion = "1.15.0",
+            clientId = "retro"
+        )
     }
 }
 
@@ -110,7 +124,7 @@ private val dataModule = module {
     } bind GenreRepository::class
 
     single {
-        RealAlbumRepository(get())
+        RealAlbumRepository(get(), get())
     } bind AlbumRepository::class
 
     single {
@@ -153,21 +167,6 @@ private val viewModules = module {
         LibraryViewModel(get())
     }
 
-    viewModel { (albumId: Long) ->
-        AlbumDetailsViewModel(
-            get(),
-            albumId
-        )
-    }
-
-    viewModel { (artistId: Long?, artistName: String?) ->
-        ArtistDetailsViewModel(
-            get(),
-            artistId,
-            artistName
-        )
-    }
-
     viewModel { (playlist: PlaylistWithSongs) ->
         PlaylistDetailsViewModel(
             get(),
@@ -183,4 +182,16 @@ private val viewModules = module {
     }
 }
 
-val appModules = listOf(mainModule, dataModule, autoModule, viewModules, networkModule, roomModule)
+val appModules = listOf(
+    mainModule,
+    dataModule,
+    autoModule,
+    viewModules,
+    networkModule,
+    roomModule,
+    libraryAlbumModule,
+    detailsAlbumModule,
+    libraryArtistModule,
+    detailsArtistModule,
+    coreModule
+)
