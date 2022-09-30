@@ -31,7 +31,6 @@ import code.name.monkey.retromusic.adapter.base.MediaEntryViewHolder
 import code.name.monkey.retromusic.db.PlaylistWithSongs
 import code.name.monkey.retromusic.glide.GlideApp
 import code.name.monkey.retromusic.glide.RetroGlideExtension
-import code.name.monkey.retromusic.helper.MusicPlayerRemote
 import code.name.monkey.retromusic.helper.menu.SongMenuHelper
 import code.name.monkey.retromusic.model.Album
 import code.name.monkey.retromusic.model.Artist
@@ -203,7 +202,7 @@ class SearchAdapter(
                 }
                 SONG -> {
 //                    MusicPlayerRemote.playNext(item as Song)
-                    MusicPlayerRemote.playNextSong()
+//                    MusicPlayerRemote.playNextSong()
                 }
             }
         }

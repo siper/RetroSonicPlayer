@@ -59,8 +59,11 @@ import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
+import ru.stersh.retrosonic.player.queue.domain.AudioSource
+import ru.stersh.retrosonic.player.queue.domain.PlayerQueueAudioSourceManager
 import java.text.Collator
 
 class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_details), IAlbumClickListener {
@@ -69,7 +72,8 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
     private val binding get() = _binding!!
 
     private val arguments by navArgs<AlbumDetailsFragmentArgs>()
-    private val detailsViewModel by viewModel<AlbumDetailsViewModel> {
+    private val playerQueueAudioSourceManager: PlayerQueueAudioSourceManager by inject()
+    private val viewModel by viewModel<AlbumDetailsViewModel> {
         parametersOf(arguments.extraAlbumId)
     }
 
@@ -99,7 +103,7 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
         binding.albumCoverContainer.transitionName = arguments.extraAlbumId.toString()
         postponeEnterTransition()
         lifecycleScope.launchWhenStarted {
-            detailsViewModel.albumDetails.collect { album ->
+            viewModel.albumDetails.collect { album ->
                 view.doOnPreDraw {
                     startPostponedEnterTransition()
                 }
@@ -136,15 +140,10 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
 
         }
         binding.fragmentAlbumContent.playAction.setOnClickListener {
-// TODO:           fix play
-            //  MusicPlayerRemote.openQueue(album.songs, 0, true)
+            viewModel.playAll()
         }
         binding.fragmentAlbumContent.shuffleAction.setOnClickListener {
-            // TODO:           fix play
-//            MusicPlayerRemote.openAndShuffleQueue(
-//                album.songs,
-//                true
-//            )
+            viewModel.playShuffled()
         }
 
         binding.fragmentAlbumContent.aboutAlbumText.setOnClickListener {
@@ -164,7 +163,11 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
             requireActivity() as AppCompatActivity,
             ArrayList(),
             R.layout.item_song
-        )
+        ) { songId ->
+            lifecycleScope.launch {
+                playerQueueAudioSourceManager.playSource(AudioSource.Song(songId))
+            }
+        }
         binding.fragmentAlbumContent.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())
             itemAnimator = DefaultItemAnimator()

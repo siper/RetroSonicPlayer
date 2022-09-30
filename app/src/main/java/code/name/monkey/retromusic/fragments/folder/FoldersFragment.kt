@@ -55,6 +55,7 @@ import code.name.monkey.retromusic.providers.BlacklistStore
 import code.name.monkey.retromusic.util.FileUtil
 import code.name.monkey.retromusic.util.PreferenceUtil.startDirectory
 import code.name.monkey.retromusic.util.ThemedFastScroller.create
+import code.name.monkey.retromusic.util.defaultNavOptions
 import code.name.monkey.retromusic.util.getExternalStorageDirectory
 import code.name.monkey.retromusic.util.getExternalStoragePublicDirectory
 import code.name.monkey.retromusic.views.BreadCrumbLayout.Crumb
@@ -94,7 +95,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentFolderBinding.bind(view)
-        mainActivity.addMusicServiceEventListener(libraryViewModel)
+//        mainActivity.addMusicServiceEventListener(libraryViewModel)
         mainActivity.setSupportActionBar(toolbar)
         mainActivity.supportActionBar?.title = null
         enterTransition = MaterialFadeThrough()
@@ -119,7 +120,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
 
     private fun setUpTitle() {
         toolbar.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_search, null, navOptions)
+            findNavController().navigate(R.id.action_search, null, defaultNavOptions)
         }
         binding.appBarLayout.title = resources.getString(R.string.folders)
     }
@@ -363,7 +364,7 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
                 findNavController().navigate(
                     R.id.settings_fragment,
                     null,
-                    navOptions
+                    defaultNavOptions
                 )
                 return true
             }

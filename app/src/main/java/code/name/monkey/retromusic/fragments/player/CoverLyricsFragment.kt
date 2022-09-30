@@ -6,13 +6,12 @@ import android.view.View
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import code.name.monkey.retromusic.R
 import code.name.monkey.retromusic.SHOW_LYRICS
 import code.name.monkey.retromusic.databinding.FragmentCoverLyricsBinding
 import code.name.monkey.retromusic.extensions.dipToPix
-import code.name.monkey.retromusic.fragments.NowPlayingScreen
-import code.name.monkey.retromusic.fragments.base.AbsMusicServiceFragment
 import code.name.monkey.retromusic.fragments.base.AbsPlayerFragment
 import code.name.monkey.retromusic.fragments.base.goToLyrics
 import code.name.monkey.retromusic.helper.MusicProgressViewUpdateHelper
@@ -21,7 +20,7 @@ import code.name.monkey.retromusic.model.lyrics.Lyrics
 import code.name.monkey.retromusic.util.PreferenceUtil
 import code.name.monkey.retromusic.util.color.MediaNotificationProcessor
 
-class CoverLyricsFragment : AbsMusicServiceFragment(R.layout.fragment_cover_lyrics),
+class CoverLyricsFragment : Fragment(R.layout.fragment_cover_lyrics),
     MusicProgressViewUpdateHelper.Callback, SharedPreferences.OnSharedPreferenceChangeListener {
     private var progressViewUpdateHelper: MusicProgressViewUpdateHelper? = null
     private var _binding: FragmentCoverLyricsBinding? = null
@@ -41,10 +40,6 @@ class CoverLyricsFragment : AbsMusicServiceFragment(R.layout.fragment_cover_lyri
             progressViewUpdateHelper?.start()
         }
         // Remove background on Fit theme
-        val nps = PreferenceUtil.nowPlayingScreen
-        if (nps == NowPlayingScreen.Fit || nps == NowPlayingScreen.Full) {
-            binding.root.background = null
-        }
         binding.playerLyricsLine2.setOnClickListener {
             goToLyrics(requireActivity())
         }
@@ -71,20 +66,6 @@ class CoverLyricsFragment : AbsMusicServiceFragment(R.layout.fragment_cover_lyri
                 progressViewUpdateHelper?.stop()
                 binding.root.isVisible = false
             }
-        }
-    }
-
-    override fun onPlayingMetaChanged() {
-        super.onPlayingMetaChanged()
-        if (PreferenceUtil.showLyrics) {
-            updateLyrics()
-        }
-    }
-
-    override fun onServiceConnected() {
-        super.onServiceConnected()
-        if (PreferenceUtil.showLyrics) {
-            updateLyrics()
         }
     }
 

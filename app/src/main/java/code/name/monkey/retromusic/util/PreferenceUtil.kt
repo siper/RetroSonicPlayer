@@ -16,7 +16,6 @@ import code.name.monkey.retromusic.extensions.getIntRes
 import code.name.monkey.retromusic.extensions.getStringOrDefault
 import code.name.monkey.retromusic.fragments.AlbumCoverStyle
 import code.name.monkey.retromusic.fragments.GridStyle
-import code.name.monkey.retromusic.fragments.NowPlayingScreen
 import code.name.monkey.retromusic.fragments.folder.FoldersFragment
 import code.name.monkey.retromusic.helper.SortOrder.*
 import code.name.monkey.retromusic.model.CategoryInfo
@@ -570,23 +569,6 @@ object PreferenceUtil {
             return AlbumCoverStyle.Card
         }
         set(value) = sharedPreferences.edit { putInt(ALBUM_COVER_STYLE, value.id) }
-
-
-    var nowPlayingScreen: NowPlayingScreen
-        get() {
-            val id: Int = sharedPreferences.getInt(NOW_PLAYING_SCREEN_ID, 0)
-            for (nowPlayingScreen in NowPlayingScreen.values()) {
-                if (nowPlayingScreen.id == id) {
-                    return nowPlayingScreen
-                }
-            }
-            return NowPlayingScreen.Adaptive
-        }
-        set(value) = sharedPreferences.edit {
-            putInt(NOW_PLAYING_SCREEN_ID, value.id)
-            // Also set a cover theme for that now playing
-            value.defaultCoverTheme?.let { coverTheme -> albumCoverStyle = coverTheme }
-        }
 
     val albumCoverTransform: ViewPager.PageTransformer
         get() {

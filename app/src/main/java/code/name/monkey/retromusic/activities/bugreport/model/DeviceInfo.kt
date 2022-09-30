@@ -9,7 +9,6 @@ import androidx.core.content.pm.PackageInfoCompat
 import code.name.monkey.retromusic.util.PreferenceUtil
 import code.name.monkey.retromusic.util.PreferenceUtil.isAdaptiveColor
 import code.name.monkey.retromusic.util.PreferenceUtil.languageCode
-import code.name.monkey.retromusic.util.PreferenceUtil.nowPlayingScreen
 import java.util.*
 
 class DeviceInfo(context: Context) {
@@ -30,7 +29,6 @@ class DeviceInfo(context: Context) {
     private val isAdaptive: Boolean
     private val manufacturer = Build.MANUFACTURER
     private val model = Build.MODEL
-    private val nowPlayingTheme: String
     private val product = Build.PRODUCT
     private val releaseVersion = Build.VERSION.RELEASE
 
@@ -83,7 +81,6 @@ class DeviceInfo(context: Context) {
             ABIs (32bit): ${Arrays.toString(abis32Bits)}
             ABIs (64bit): ${Arrays.toString(abis64Bits)}
             Base theme: $baseTheme
-            Now playing theme: $nowPlayingTheme
             Adaptive: $isAdaptive
             System language: ${Locale.getDefault().toLanguageTag()}
             In-App Language: $selectedLang
@@ -104,7 +101,6 @@ class DeviceInfo(context: Context) {
             versionName = null
         }
         baseTheme = PreferenceUtil.baseTheme
-        nowPlayingTheme = context.getString(nowPlayingScreen.titleRes)
         isAdaptive = isAdaptiveColor
         selectedLang = languageCode
     }

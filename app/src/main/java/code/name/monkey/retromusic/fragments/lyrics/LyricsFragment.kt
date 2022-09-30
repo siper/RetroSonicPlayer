@@ -38,7 +38,6 @@ import code.name.monkey.retromusic.extensions.materialDialog
 import code.name.monkey.retromusic.extensions.openUrl
 import code.name.monkey.retromusic.extensions.uri
 import code.name.monkey.retromusic.fragments.base.AbsMainActivityFragment
-import code.name.monkey.retromusic.helper.MusicPlayerRemote
 import code.name.monkey.retromusic.helper.MusicProgressViewUpdateHelper
 import code.name.monkey.retromusic.lyrics.LrcView
 import code.name.monkey.retromusic.model.AudioTagInfo
@@ -126,7 +125,7 @@ class LyricsFragment : AbsMainActivityFragment(R.layout.fragment_lyrics),
             setTimelineColor(accentColor())
             setTimelineTextColor(accentColor())
             setDraggable(true, LrcView.OnPlayClickListener {
-                MusicPlayerRemote.seekTo(it.toInt())
+//                MusicPlayerRemote.seekTo(it.toInt())
                 return@OnPlayClickListener true
             })
         }
@@ -148,18 +147,6 @@ class LyricsFragment : AbsMainActivityFragment(R.layout.fragment_lyrics),
                 }
             }
         }
-    }
-
-    override fun onPlayingMetaChanged() {
-        super.onPlayingMetaChanged()
-        updateTitleSong()
-        loadLyrics()
-    }
-
-    override fun onServiceConnected() {
-        super.onServiceConnected()
-        updateTitleSong()
-        loadLyrics()
     }
 
     private fun updateTitleSong() {
@@ -362,9 +349,9 @@ class LyricsFragment : AbsMainActivityFragment(R.layout.fragment_lyrics),
 
     override fun onDestroyView() {
         super.onDestroyView()
-        if (MusicPlayerRemote.playingQueue.isNotEmpty())
-            mainActivity.expandPanel()
-        _binding = null
+//        if (MusicPlayerRemote.playingQueue.isNotEmpty())
+//            mainActivity.expandPanel()
+//        _binding = null
     }
 
     enum class LyricsType {

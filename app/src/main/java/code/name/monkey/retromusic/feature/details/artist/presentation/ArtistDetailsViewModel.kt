@@ -29,9 +29,12 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.stersh.retrosonic.core.extensions.mapItems
+import ru.stersh.retrosonic.player.queue.domain.AudioSource
+import ru.stersh.retrosonic.player.queue.domain.PlayerQueueAudioSourceManager
 
 class ArtistDetailsViewModel(
     private val artistId: String,
+    private val playerQueueAudioSourceManager: PlayerQueueAudioSourceManager,
     private val artistDetailsRepository: ArtistDetailsRepository
 ) : ViewModel() {
     private val _artistDetails = MutableStateFlow<ArtistDetailsUi?>(null)
@@ -65,6 +68,14 @@ class ArtistDetailsViewModel(
                 .mapItems { it.toPresentation() }
                 .collect { _songs.value = it }
         }
+    }
+
+    fun playAll() = viewModelScope.launch {
+        playerQueueAudioSourceManager.playSource(AudioSource.Artist(artistId))
+    }
+
+    fun playShuffled() = viewModelScope.launch {
+        playerQueueAudioSourceManager.playSource(AudioSource.Artist(artistId), true)
     }
 
     private fun ArtistDetails.toPresentation(): ArtistDetailsUi {

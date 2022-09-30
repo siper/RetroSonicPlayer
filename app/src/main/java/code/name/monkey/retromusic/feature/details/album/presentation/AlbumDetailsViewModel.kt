@@ -23,9 +23,12 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
+import ru.stersh.retrosonic.player.queue.domain.AudioSource
+import ru.stersh.retrosonic.player.queue.domain.PlayerQueueAudioSourceManager
 
 class AlbumDetailsViewModel(
     private val albumDetailsRepository: AlbumDetailsRepository,
+    private val playerQueueAudioSourceManager: PlayerQueueAudioSourceManager,
     private val albumId: String
 ) : ViewModel() {
     private val _albumDetails = MutableStateFlow<AlbumDetailsUi?>(null)
@@ -41,6 +44,14 @@ class AlbumDetailsViewModel(
                     _albumDetails.value = it
                 }
         }
+    }
+
+    fun playAll() = viewModelScope.launch {
+        playerQueueAudioSourceManager.playSource(AudioSource.Album(albumId))
+    }
+
+    fun playShuffled() = viewModelScope.launch {
+        playerQueueAudioSourceManager.playSource(AudioSource.Album(albumId), true)
     }
 
     private fun AlbumDetails.toPresentation(): AlbumDetailsUi {

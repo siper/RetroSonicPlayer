@@ -9,6 +9,6 @@ import org.koin.dsl.module
 val detailsAlbumModule = module {
     single<AlbumDetailsRepository> { AlbumDetailsRepositoryImpl(get()) }
     viewModel { (albumId: String) ->
-        AlbumDetailsViewModel(get(), albumId)
+        AlbumDetailsViewModel(get(), get(), albumId)
     }
 }

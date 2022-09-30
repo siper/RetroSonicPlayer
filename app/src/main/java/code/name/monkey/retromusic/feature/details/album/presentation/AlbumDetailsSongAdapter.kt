@@ -30,7 +30,6 @@ import code.name.monkey.retromusic.adapter.base.AbsMultiSelectAdapter
 import code.name.monkey.retromusic.adapter.base.MediaEntryViewHolder
 import code.name.monkey.retromusic.glide.GlideApp
 import code.name.monkey.retromusic.glide.RetroMusicColoredTarget
-import code.name.monkey.retromusic.helper.MusicPlayerRemote
 import code.name.monkey.retromusic.helper.SortOrder
 import code.name.monkey.retromusic.helper.menu.SongMenuHelper
 import code.name.monkey.retromusic.util.MusicUtil
@@ -43,7 +42,8 @@ class AlbumDetailsSongAdapter(
     override val activity: FragmentActivity,
     var dataSet: MutableList<AlbumDetailsUi.SongUi>,
     private var itemLayoutRes: Int,
-    showSectionName: Boolean = true
+    showSectionName: Boolean = true,
+    private val onSongClick: (songId: String) -> Unit
 ) : AbsMultiSelectAdapter<AlbumDetailsSongAdapter.ViewHolder, AlbumDetailsUi.SongUi>(
     activity,
     R.menu.menu_media_selection
@@ -203,7 +203,7 @@ class AlbumDetailsSongAdapter(
             if (isInQuickSelectMode) {
                 toggleChecked(layoutPosition)
             } else {
-                MusicPlayerRemote.openQueue(dataSet.map { it.id }, layoutPosition, true)
+                onSongClick.invoke(song.id)
             }
         }
 

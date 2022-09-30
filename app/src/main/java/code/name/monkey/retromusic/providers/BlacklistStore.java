@@ -14,12 +14,10 @@
 
 package code.name.monkey.retromusic.providers;
 
-import static code.name.monkey.retromusic.service.MusicService.MEDIA_STORE_CHANGED;
 import static code.name.monkey.retromusic.util.FileUtilsKt.getExternalStoragePublicDirectory;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -155,7 +153,7 @@ public class BlacklistStore extends SQLiteOpenHelper {
   }
 
   private void notifyMediaStoreChanged() {
-    context.sendBroadcast(new Intent(MEDIA_STORE_CHANGED));
+//    context.sendBroadcast(new Intent(MEDIA_STORE_CHANGED));
   }
 
   @NonNull

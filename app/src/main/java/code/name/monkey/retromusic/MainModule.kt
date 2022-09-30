@@ -10,6 +10,9 @@ import code.name.monkey.retromusic.feature.details.album.detailsAlbumModule
 import code.name.monkey.retromusic.feature.details.artist.detailsArtistModule
 import code.name.monkey.retromusic.feature.library.album.libraryAlbumModule
 import code.name.monkey.retromusic.feature.library.artist.libraryArtistModule
+import code.name.monkey.retromusic.feature.main.mainFeatureModule
+import code.name.monkey.retromusic.feature.player.playerFeatureModule
+import code.name.monkey.retromusic.feature.queue.queueFeatureModule
 import code.name.monkey.retromusic.fragments.LibraryViewModel
 import code.name.monkey.retromusic.fragments.genres.GenreDetailsViewModel
 import code.name.monkey.retromusic.fragments.playlists.PlaylistDetailsViewModel
@@ -24,7 +27,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.bind
 import org.koin.dsl.module
 import ru.stersh.apisonic.ApiSonic
-import ru.stersh.retrosonic.core.storage.coreModule
+import ru.stersh.retrosonic.player.playerModule
 
 val networkModule = module {
 
@@ -193,5 +196,8 @@ val appModules = listOf(
     detailsAlbumModule,
     libraryArtistModule,
     detailsArtistModule,
-    coreModule
+    playerFeatureModule,
+    mainFeatureModule,
+    playerModule,
+    queueFeatureModule
 )

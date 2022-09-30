@@ -17,8 +17,8 @@ fun Any.logE(message: String) {
     Log.e(name, message)
 }
 
-fun Any.logE(e: Exception) {
-    Log.e(name, e.message ?: "Error")
+fun Any.logE(throwable: Throwable) {
+    Log.e(name, throwable.message ?: "Error")
 }
 
 private val Any.name: String get() = this::class.java.simpleName

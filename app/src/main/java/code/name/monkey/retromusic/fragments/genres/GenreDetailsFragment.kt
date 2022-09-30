@@ -53,7 +53,7 @@ class GenreDetailsFragment : AbsMainActivityFragment(R.layout.fragment_playlist_
         enterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).addTarget(view)
         returnTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
         _binding = FragmentPlaylistDetailBinding.bind(view)
-        mainActivity.addMusicServiceEventListener(detailsViewModel)
+//        mainActivity.addMusicServiceEventListener(detailsViewModel)
         mainActivity.setSupportActionBar(binding.toolbar)
         binding.container.transitionName = "genre"
         genre = arguments.extraGenre

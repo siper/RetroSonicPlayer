@@ -15,20 +15,15 @@
 package code.name.monkey.retromusic.activities
 
 import android.graphics.Color
-import android.graphics.PorterDuff
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import code.name.monkey.retromusic.R
 import code.name.monkey.retromusic.activities.base.AbsMusicServiceActivity
 import code.name.monkey.retromusic.databinding.ActivityDriveModeBinding
 import code.name.monkey.retromusic.extensions.accentColor
 import code.name.monkey.retromusic.extensions.drawAboveSystemBars
-import code.name.monkey.retromusic.helper.MusicPlayerRemote
 import code.name.monkey.retromusic.helper.MusicProgressViewUpdateHelper
 import code.name.monkey.retromusic.helper.MusicProgressViewUpdateHelper.Callback
-import code.name.monkey.retromusic.helper.PlayPauseButtonOnClickHandler
 import code.name.monkey.retromusic.repository.RealRepository
-import code.name.monkey.retromusic.service.MusicService
 import code.name.monkey.retromusic.util.MusicUtil
 import com.google.android.material.slider.Slider
 import kotlinx.coroutines.Dispatchers
@@ -73,7 +68,7 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
 
     private fun setupFavouriteToggle() {
         binding.songFavourite.setOnClickListener {
-            toggleFavorite(MusicPlayerRemote.currentSongId ?: return@setOnClickListener)
+//            toggleFavorite(MusicPlayerRemote.currentSongId ?: return@setOnClickListener)
         }
     }
 
@@ -105,13 +100,13 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
 
     private fun setUpProgressSlider() {
         binding.progressSlider.addOnChangeListener { _: Slider, progress: Float, fromUser: Boolean ->
-            if (fromUser) {
-                MusicPlayerRemote.seekTo(progress.toInt())
-                onUpdateProgressViews(
-                    MusicPlayerRemote.songProgressMillis,
-                    MusicPlayerRemote.songDurationMillis
-                )
-            }
+//            if (fromUser) {
+//                MusicPlayerRemote.seekTo(progress.toInt())
+//                onUpdateProgressViews(
+//                    MusicPlayerRemote.songProgressMillis,
+//                    MusicPlayerRemote.songDurationMillis
+//                )
+//            }
         }
     }
 
@@ -126,102 +121,67 @@ class DriveModeActivity : AbsMusicServiceActivity(), Callback {
     }
 
     private fun setUpPrevNext() {
-        binding.nextButton.setOnClickListener { MusicPlayerRemote.playNextSong() }
-        binding.previousButton.setOnClickListener { MusicPlayerRemote.back() }
+//        binding.nextButton.setOnClickListener { MusicPlayerRemote.playNextSong() }
+//        binding.previousButton.setOnClickListener { MusicPlayerRemote.back() }
     }
 
     private fun setUpShuffleButton() {
-        binding.shuffleButton.setOnClickListener { MusicPlayerRemote.toggleShuffleMode() }
+//        binding.shuffleButton.setOnClickListener { MusicPlayerRemote.toggleShuffleMode() }
     }
 
     private fun setUpRepeatButton() {
-        binding.repeatButton.setOnClickListener { MusicPlayerRemote.cycleRepeatMode() }
+//        binding.repeatButton.setOnClickListener { MusicPlayerRemote.cycleRepeatMode() }
     }
 
     private fun setUpPlayPauseFab() {
-        binding.playPauseButton.setOnClickListener(PlayPauseButtonOnClickHandler())
-    }
-
-    override fun onRepeatModeChanged() {
-        super.onRepeatModeChanged()
-        updateRepeatState()
-    }
-
-    override fun onShuffleModeChanged() {
-        super.onShuffleModeChanged()
-        updateShuffleState()
-    }
-
-    override fun onPlayStateChanged() {
-        super.onPlayStateChanged()
-        updatePlayPauseDrawableState()
-    }
-
-    override fun onServiceConnected() {
-        super.onServiceConnected()
-        updatePlayPauseDrawableState()
-        updateSong()
-        updateRepeatState()
-        updateShuffleState()
-        updateFavorite()
+//        binding.playPauseButton.setOnClickListener(PlayPauseButtonOnClickHandler())
     }
 
     private fun updatePlayPauseDrawableState() {
-        if (MusicPlayerRemote.isPlaying) {
-            binding.playPauseButton.setImageResource(R.drawable.ic_pause)
-        } else {
-            binding.playPauseButton.setImageResource(R.drawable.ic_play_arrow)
-        }
+//        if (MusicPlayerRemote.isPlaying) {
+//            binding.playPauseButton.setImageResource(R.drawable.ic_pause)
+//        } else {
+//            binding.playPauseButton.setImageResource(R.drawable.ic_play_arrow)
+//        }
     }
 
     fun updateShuffleState() {
-        when (MusicPlayerRemote.shuffleMode) {
-            MusicService.SHUFFLE_MODE_SHUFFLE -> binding.shuffleButton.setColorFilter(
-                lastPlaybackControlsColor,
-                PorterDuff.Mode.SRC_IN
-            )
-            else -> binding.shuffleButton.setColorFilter(
-                lastDisabledPlaybackControlsColor,
-                PorterDuff.Mode.SRC_IN
-            )
-        }
+//        when (MusicPlayerRemote.shuffleMode) {
+//            MusicService.SHUFFLE_MODE_SHUFFLE -> binding.shuffleButton.setColorFilter(
+//                lastPlaybackControlsColor,
+//                PorterDuff.Mode.SRC_IN
+//            )
+//            else -> binding.shuffleButton.setColorFilter(
+//                lastDisabledPlaybackControlsColor,
+//                PorterDuff.Mode.SRC_IN
+//            )
+//        }
     }
 
     private fun updateRepeatState() {
-        when (MusicPlayerRemote.repeatMode) {
-            MusicService.REPEAT_MODE_NONE -> {
-                binding.repeatButton.setImageResource(R.drawable.ic_repeat)
-                binding.repeatButton.setColorFilter(
-                    lastDisabledPlaybackControlsColor,
-                    PorterDuff.Mode.SRC_IN
-                )
-            }
-            MusicService.REPEAT_MODE_ALL -> {
-                binding.repeatButton.setImageResource(R.drawable.ic_repeat)
-                binding.repeatButton.setColorFilter(
-                    lastPlaybackControlsColor,
-                    PorterDuff.Mode.SRC_IN
-                )
-            }
-            MusicService.REPEAT_MODE_THIS -> {
-                binding.repeatButton.setImageResource(R.drawable.ic_repeat_one)
-                binding.repeatButton.setColorFilter(
-                    lastPlaybackControlsColor,
-                    PorterDuff.Mode.SRC_IN
-                )
-            }
-        }
-    }
-
-    override fun onPlayingMetaChanged() {
-        super.onPlayingMetaChanged()
-        updateSong()
-        updateFavorite()
-    }
-
-    override fun onFavoriteStateChanged() {
-        super.onFavoriteStateChanged()
-        updateFavorite()
+//        when (MusicPlayerRemote.repeatMode) {
+//            MusicService.REPEAT_MODE_NONE -> {
+//                binding.repeatButton.setImageResource(R.drawable.ic_repeat)
+//                binding.repeatButton.setColorFilter(
+//                    lastDisabledPlaybackControlsColor,
+//                    PorterDuff.Mode.SRC_IN
+//                )
+//            }
+//            MusicService.REPEAT_MODE_ALL -> {
+//                binding.repeatButton.setImageResource(R.drawable.ic_repeat)
+//                binding.repeatButton.setColorFilter(
+//                    lastPlaybackControlsColor,
+//                    PorterDuff.Mode.SRC_IN
+//                )
+//            }
+//            MusicService.REPEAT_MODE_THIS -> {
+//                binding.repeatButton.setImageResource(R.drawable.ic_repeat_one)
+//                binding.repeatButton.setColorFilter(
+//                    lastPlaybackControlsColor,
+//                    PorterDuff.Mode.SRC_IN
+//                )
+//            }
+//        }
     }
 
     private fun updateSong() {

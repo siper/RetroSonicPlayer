@@ -16,28 +16,26 @@ package code.name.monkey.retromusic.fragments.player.normal
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
-import android.content.SharedPreferences
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.widget.Toolbar
-import androidx.core.view.isVisible
-import androidx.preference.PreferenceManager
 import code.name.monkey.appthemehelper.util.ToolbarContentTintHelper
 import code.name.monkey.retromusic.R
-import code.name.monkey.retromusic.SNOWFALL
 import code.name.monkey.retromusic.databinding.FragmentPlayerBinding
-import code.name.monkey.retromusic.extensions.*
+import code.name.monkey.retromusic.extensions.colorControlNormal
+import code.name.monkey.retromusic.extensions.drawAboveSystemBars
+import code.name.monkey.retromusic.extensions.surfaceColor
+import code.name.monkey.retromusic.extensions.whichFragment
+import code.name.monkey.retromusic.feature.player.controls.presentation.PlayerPlaybackControlsFragment
+import code.name.monkey.retromusic.feature.player.cover.presentation.PlayerAlbumCoverFragment
 import code.name.monkey.retromusic.fragments.base.AbsPlayerFragment
-import code.name.monkey.retromusic.fragments.player.PlayerAlbumCoverFragment
-import code.name.monkey.retromusic.helper.MusicPlayerRemote
 import code.name.monkey.retromusic.util.PreferenceUtil
 import code.name.monkey.retromusic.util.ViewUtil
 import code.name.monkey.retromusic.util.color.MediaNotificationProcessor
 import code.name.monkey.retromusic.views.DrawableGradient
 
-class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
-    SharedPreferences.OnSharedPreferenceChangeListener {
+class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player) {
 
     private var lastColor: Int = 0
     override val paletteColor: Int
@@ -47,7 +45,8 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
     private var valueAnimator: ValueAnimator? = null
 
     private var _binding: FragmentPlayerBinding? = null
-    private val binding get() = _binding!!
+    private val binding
+        get() = _binding!!
 
 
     private fun colorize(i: Int) {
@@ -108,9 +107,9 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
 
     override fun toggleFavorite(songId: String) {
         super.toggleFavorite(songId)
-        if (songId == MusicPlayerRemote.currentSongId) {
-            updateIsFavorite()
-        }
+//        if (songId == MusicPlayerRemote.currentSongId) {
+//            updateIsFavorite()
+//        }
     }
 
     override fun onFavoriteToggled() {
@@ -122,17 +121,11 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
         _binding = FragmentPlayerBinding.bind(view)
         setUpSubFragments()
         setUpPlayerToolbar()
-        startOrStopSnow(PreferenceUtil.isSnowFalling)
-
-        PreferenceManager.getDefaultSharedPreferences(requireContext())
-            .registerOnSharedPreferenceChangeListener(this)
         playerToolbar().drawAboveSystemBars()
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        PreferenceManager.getDefaultSharedPreferences(requireContext())
-            .unregisterOnSharedPreferenceChangeListener(this)
         _binding = null
     }
 
@@ -154,31 +147,6 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player),
             colorControlNormal(),
             requireActivity()
         )
-    }
-
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        if (key == SNOWFALL) {
-            startOrStopSnow(PreferenceUtil.isSnowFalling)
-        }
-    }
-
-    private fun startOrStopSnow(isSnowFalling: Boolean) {
-        if (_binding == null) return
-        if (isSnowFalling && !surfaceColor().isColorLight) {
-            binding.snowfallView.isVisible = true
-            binding.snowfallView.restartFalling()
-        } else {
-            binding.snowfallView.isVisible = false
-            binding.snowfallView.stopFalling()
-        }
-    }
-
-    override fun onServiceConnected() {
-        updateIsFavorite()
-    }
-
-    override fun onPlayingMetaChanged() {
-        updateIsFavorite()
     }
 
     override fun playerToolbar(): Toolbar {

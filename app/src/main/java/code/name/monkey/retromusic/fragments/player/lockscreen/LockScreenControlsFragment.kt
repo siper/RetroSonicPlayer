@@ -29,7 +29,6 @@ import code.name.monkey.retromusic.extensions.applyColor
 import code.name.monkey.retromusic.extensions.ripAlpha
 import code.name.monkey.retromusic.extensions.textColorSecondary
 import code.name.monkey.retromusic.fragments.base.AbsPlayerControlsFragment
-import code.name.monkey.retromusic.helper.MusicPlayerRemote
 import code.name.monkey.retromusic.helper.PlayPauseButtonOnClickHandler
 import code.name.monkey.retromusic.util.PreferenceUtil
 import code.name.monkey.retromusic.util.color.MediaNotificationProcessor
@@ -73,33 +72,9 @@ class LockScreenControlsFragment :
     }
 
     private fun updateSong() {
-        val song = MusicPlayerRemote.currentSongId
+//        val song = MusicPlayerRemote.currentSongId
 //        binding.title.text = song.title
 //        binding.text.text = String.format("%s - %s", song.artistName, song.albumName)
-    }
-
-    override fun onServiceConnected() {
-        updatePlayPauseDrawableState()
-        updateRepeatState()
-        updateShuffleState()
-        updateSong()
-    }
-
-    override fun onPlayingMetaChanged() {
-        super.onPlayingMetaChanged()
-        updateSong()
-    }
-
-    override fun onPlayStateChanged() {
-        updatePlayPauseDrawableState()
-    }
-
-    override fun onRepeatModeChanged() {
-        updateRepeatState()
-    }
-
-    override fun onShuffleModeChanged() {
-        updateShuffleState()
     }
 
     override fun setColor(color: MediaNotificationProcessor) {
@@ -147,11 +122,11 @@ class LockScreenControlsFragment :
     }
 
     private fun updatePlayPauseDrawableState() {
-        if (MusicPlayerRemote.isPlaying) {
-            binding.playPauseButton.setImageResource(R.drawable.ic_pause)
-        } else {
-            binding.playPauseButton.setImageResource(R.drawable.ic_play_arrow_white_32dp)
-        }
+//        if (MusicPlayerRemote.isPlaying) {
+//            binding.playPauseButton.setImageResource(R.drawable.ic_pause)
+//        } else {
+//            binding.playPauseButton.setImageResource(R.drawable.ic_play_arrow_white_32dp)
+//        }
     }
 
     public override fun show() {

@@ -51,7 +51,7 @@ class ArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_artist_d
     private val artistId: String
         get() = arguments.extraArtistId
 
-    private val detailsViewModel: ArtistDetailsViewModel by viewModel {
+    private val viewModel: ArtistDetailsViewModel by viewModel {
         parametersOf(arguments.extraArtistId, null)
     }
 
@@ -80,7 +80,7 @@ class ArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_artist_d
         binding.artistCoverContainer.transitionName = artistId
         postponeEnterTransition()
         lifecycleScope.launchWhenStarted {
-            detailsViewModel.artistDetails.collect {
+            viewModel.artistDetails.collect {
                 view.doOnPreDraw {
                     startPostponedEnterTransition()
                 }
@@ -89,25 +89,22 @@ class ArtistDetailsFragment : AbsMainActivityFragment(R.layout.fragment_artist_d
         }
         setupRecyclerView()
         lifecycleScope.launchWhenStarted {
-            detailsViewModel.albums.collect {
+            viewModel.albums.collect {
                 albumAdapter.swapDataSet(it)
             }
         }
         lifecycleScope.launchWhenStarted {
-            detailsViewModel.songs.collect {
+            viewModel.songs.collect {
                 songAdapter.swapDataSet(it)
             }
         }
 
-        binding.fragmentArtistContent.playAction.apply {
-            setOnClickListener {
-//                MusicPlayerRemote.openQueue(artist.sortedSongs, 0, true)
-            }
+        binding.fragmentArtistContent.playAction.setOnClickListener {
+            viewModel.playAll()
         }
-        binding.fragmentArtistContent.shuffleAction.apply {
-            setOnClickListener {
-//                MusicPlayerRemote.openAndShuffleQueue(artist.songs, true)
-            }
+
+        binding.fragmentArtistContent.shuffleAction.setOnClickListener {
+            viewModel.playShuffled()
         }
 
         binding.fragmentArtistContent.biographyText.setOnClickListener {

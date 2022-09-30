@@ -40,17 +40,16 @@ import code.name.monkey.retromusic.fragments.ReloadType
 import code.name.monkey.retromusic.fragments.base.AbsMainActivityFragment
 import code.name.monkey.retromusic.glide.GlideApp
 import code.name.monkey.retromusic.glide.RetroGlideExtension
-import code.name.monkey.retromusic.helper.MusicPlayerRemote
 import code.name.monkey.retromusic.interfaces.IScrollHelper
 import code.name.monkey.retromusic.model.Song
 import code.name.monkey.retromusic.util.PreferenceUtil
 import code.name.monkey.retromusic.util.PreferenceUtil.userName
+import code.name.monkey.retromusic.util.defaultNavOptions
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
 
-class HomeFragment :
-    AbsMainActivityFragment(R.layout.fragment_home), IScrollHelper {
+class HomeFragment : AbsMainActivityFragment(R.layout.fragment_home), IScrollHelper {
 
     private var _binding: HomeBinding? = null
     private val binding get() = _binding!!
@@ -160,7 +159,7 @@ class HomeFragment :
 
     private fun setupTitle() {
         binding.toolbar.setNavigationOnClickListener {
-            findNavController().navigate(R.id.action_search, null, navOptions)
+            findNavController().navigate(R.id.action_search, null, defaultNavOptions)
         }
         val hexColor = String.format("#%06X", 0xFFFFFF and accentColor())
         val appName = "Retro <span  style='color:$hexColor';>Music</span>".parseAsHtml()
@@ -250,9 +249,9 @@ class HomeFragment :
                 it.isClickable = false
                 it.postDelayed({ it.isClickable = true }, 500)
 //                MusicPlayerRemote.playNext(songs.subList(0, 8))
-                if (!MusicPlayerRemote.isPlaying) {
-                    MusicPlayerRemote.playNextSong()
-                }
+//                if (!MusicPlayerRemote.isPlaying) {
+//                    MusicPlayerRemote.playNextSong()
+//                }
             }
         }
         binding.suggestions.card6.setCardBackgroundColor(ColorUtil.withAlpha(color, 0.12f))
@@ -261,9 +260,9 @@ class HomeFragment :
                 it.isClickable = false
                 it.postDelayed({ it.isClickable = true }, 500)
 //                MusicPlayerRemote.playNext(songs[index])
-                if (!MusicPlayerRemote.isPlaying) {
-                    MusicPlayerRemote.playNextSong()
-                }
+//                if (!MusicPlayerRemote.isPlaying) {
+//                    MusicPlayerRemote.playNextSong()
+//                }
             }
             GlideApp.with(this)
                 .load(RetroGlideExtension.getSongModel(songs[index]))
@@ -287,7 +286,7 @@ class HomeFragment :
             R.id.action_settings -> findNavController().navigate(
                 R.id.settings_fragment,
                 null,
-                navOptions
+                defaultNavOptions
             )
             R.id.action_import_playlist -> ImportPlaylistDialog().show(
                 childFragmentManager,

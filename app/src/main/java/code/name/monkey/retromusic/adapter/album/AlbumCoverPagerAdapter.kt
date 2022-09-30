@@ -23,9 +23,8 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import code.name.monkey.retromusic.R
-import code.name.monkey.retromusic.activities.MainActivity
+import code.name.monkey.retromusic.feature.main.presentation.MainActivity
 import code.name.monkey.retromusic.fragments.AlbumCoverStyle
-import code.name.monkey.retromusic.fragments.NowPlayingScreen.*
 import code.name.monkey.retromusic.glide.GlideApp
 import code.name.monkey.retromusic.glide.RetroMusicColoredTarget
 import code.name.monkey.retromusic.misc.CustomFragmentStatePagerAdapter
@@ -123,22 +122,16 @@ class AlbumCoverPagerAdapter(
         }
 
         private fun getLayoutWithPlayerTheme(): Int {
-            return when (PreferenceUtil.nowPlayingScreen) {
-                Card, Fit, Tiny, Classic, Gradient, Full -> R.layout.fragment_album_full_cover
-                Peek -> R.layout.fragment_peek_album_cover
-                else -> {
-                    if (PreferenceUtil.isCarouselEffect) {
-                        R.layout.fragment_album_carousel_cover
-                    } else {
-                        when (PreferenceUtil.albumCoverStyle) {
-                            AlbumCoverStyle.Normal -> R.layout.fragment_album_cover
-                            AlbumCoverStyle.Flat -> R.layout.fragment_album_flat_cover
-                            AlbumCoverStyle.Circle -> R.layout.fragment_album_circle_cover
-                            AlbumCoverStyle.Card -> R.layout.fragment_album_card_cover
-                            AlbumCoverStyle.Full -> R.layout.fragment_album_full_cover
-                            AlbumCoverStyle.FullCard -> R.layout.fragment_album_full_card_cover
-                        }
-                    }
+            return if (PreferenceUtil.isCarouselEffect) {
+                R.layout.fragment_album_carousel_cover
+            } else {
+                when (PreferenceUtil.albumCoverStyle) {
+                    AlbumCoverStyle.Normal -> R.layout.fragment_album_cover
+                    AlbumCoverStyle.Flat -> R.layout.fragment_album_flat_cover
+                    AlbumCoverStyle.Circle -> R.layout.fragment_album_circle_cover
+                    AlbumCoverStyle.Card -> R.layout.fragment_album_card_cover
+                    AlbumCoverStyle.Full -> R.layout.fragment_album_full_cover
+                    AlbumCoverStyle.FullCard -> R.layout.fragment_album_full_card_cover
                 }
             }
         }

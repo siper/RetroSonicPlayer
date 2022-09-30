@@ -20,12 +20,13 @@ import cat.ereza.customactivityoncrash.config.CaocConfig
 import code.name.monkey.appthemehelper.ThemeStore
 import code.name.monkey.appthemehelper.util.VersionUtils
 import code.name.monkey.retromusic.activities.ErrorActivity
-import code.name.monkey.retromusic.activities.MainActivity
 import code.name.monkey.retromusic.appshortcuts.DynamicShortcutManager
 import code.name.monkey.retromusic.billing.BillingManager
+import code.name.monkey.retromusic.feature.main.presentation.MainActivity
 import code.name.monkey.retromusic.helper.WallpaperAccentManager
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
+import timber.log.Timber
 
 class App : Application() {
 
@@ -40,6 +41,7 @@ class App : Application() {
             androidContext(this@App)
             modules(appModules)
         }
+        Timber.plant(Timber.DebugTree())
         // default theme
         if (!ThemeStore.isConfigured(this, 3)) {
             ThemeStore.editTheme(this)

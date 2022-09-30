@@ -86,10 +86,6 @@ abstract class AbsSettingsFragment : ATEPreferenceFragmentCompat() {
                 val fragment = LibraryPreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
             }
-            is NowPlayingScreenPreference -> {
-                val fragment = NowPlayingScreenPreferenceDialog.newInstance()
-                fragment.show(childFragmentManager, preference.key)
-            }
             is AlbumCoverStylePreference -> {
                 val fragment = AlbumCoverStylePreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)

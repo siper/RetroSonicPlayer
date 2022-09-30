@@ -23,17 +23,11 @@ import android.os.Message
 import android.os.PowerManager
 import android.os.PowerManager.WakeLock
 import android.util.Log
-import android.view.KeyEvent
 import androidx.core.content.ContextCompat
 import androidx.core.content.getSystemService
 import androidx.media.session.MediaButtonReceiver
 import code.name.monkey.retromusic.BuildConfig
-import code.name.monkey.retromusic.service.MusicService.Companion.ACTION_PAUSE
-import code.name.monkey.retromusic.service.MusicService.Companion.ACTION_PLAY
-import code.name.monkey.retromusic.service.MusicService.Companion.ACTION_REWIND
-import code.name.monkey.retromusic.service.MusicService.Companion.ACTION_SKIP
-import code.name.monkey.retromusic.service.MusicService.Companion.ACTION_STOP
-import code.name.monkey.retromusic.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
+import ru.stersh.retrosonic.player.android.MusicService
 
 
 /**
@@ -65,89 +59,89 @@ class MediaButtonIntentReceiver : MediaButtonReceiver() {
         private val mHandler = object : Handler(Looper.getMainLooper()) {
 
             override fun handleMessage(msg: Message) {
-                when (msg.what) {
-                    MSG_HEADSET_DOUBLE_CLICK_TIMEOUT -> {
-                        val clickCount = msg.arg1
-
-                        if (DEBUG) Log.v(TAG, "Handling headset click, count = $clickCount")
-                        val command = when (clickCount) {
-                            1 -> ACTION_TOGGLE_PAUSE
-                            2 -> ACTION_SKIP
-                            3 -> ACTION_REWIND
-                            else -> null
-                        }
-
-                        if (command != null) {
-                            val context = msg.obj as Context
-                            startService(context, command)
-                        }
-                    }
-                }
+//                when (msg.what) {
+//                    MSG_HEADSET_DOUBLE_CLICK_TIMEOUT -> {
+//                        val clickCount = msg.arg1
+//
+//                        if (DEBUG) Log.v(TAG, "Handling headset click, count = $clickCount")
+//                        val command = when (clickCount) {
+//                            1 -> ACTION_TOGGLE_PAUSE
+//                            2 -> ACTION_SKIP
+//                            3 -> ACTION_REWIND
+//                            else -> null
+//                        }
+//
+//                        if (command != null) {
+//                            val context = msg.obj as Context
+//                            startService(context, command)
+//                        }
+//                    }
+//                }
                 releaseWakeLockIfHandlerIdle()
             }
         }
 
         fun handleIntent(context: Context, intent: Intent): Boolean {
-            println("Intent Action: ${intent.action}")
-            val intentAction = intent.action
-            if (Intent.ACTION_MEDIA_BUTTON == intentAction) {
-                val event = intent.getParcelableExtra<KeyEvent>(Intent.EXTRA_KEY_EVENT)
-                    ?: return false
-
-                val keycode = event.keyCode
-                val action = event.action
-                val eventTime = if (event.eventTime != 0L)
-                    event.eventTime
-                else
-                    System.currentTimeMillis()
-
-                var command: String? = null
-                when (keycode) {
-                    KeyEvent.KEYCODE_MEDIA_STOP -> command = ACTION_STOP
-                    KeyEvent.KEYCODE_HEADSETHOOK, KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE -> command =
-                        ACTION_TOGGLE_PAUSE
-                    KeyEvent.KEYCODE_MEDIA_NEXT -> command = ACTION_SKIP
-                    KeyEvent.KEYCODE_MEDIA_PREVIOUS -> command = ACTION_REWIND
-                    KeyEvent.KEYCODE_MEDIA_PAUSE -> command = ACTION_PAUSE
-                    KeyEvent.KEYCODE_MEDIA_PLAY -> command = ACTION_PLAY
-                }
-                if (command != null) {
-                    if (action == KeyEvent.ACTION_DOWN) {
-                        if (event.repeatCount == 0) {
-                            // Only consider the first event in a sequence, not the repeat events,
-                            // so that we don't trigger in cases where the first event went to
-                            // a different app (e.g. when the user ends a phone call by
-                            // long pressing the headset button)
-
-                            // The service may or may not be running, but we need to send it
-                            // a command.
-                            if (keycode == KeyEvent.KEYCODE_HEADSETHOOK || keycode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE) {
-                                if (eventTime - mLastClickTime >= DOUBLE_CLICK) {
-                                    mClickCounter = 0
-                                }
-
-                                mClickCounter++
-                                if (DEBUG) Log.v(TAG, "Got headset click, count = $mClickCounter")
-                                mHandler.removeMessages(MSG_HEADSET_DOUBLE_CLICK_TIMEOUT)
-
-                                val msg = mHandler.obtainMessage(
-                                    MSG_HEADSET_DOUBLE_CLICK_TIMEOUT, mClickCounter, 0, context
-                                )
-
-                                val delay = (if (mClickCounter < 3) DOUBLE_CLICK else 0).toLong()
-                                if (mClickCounter >= 3) {
-                                    mClickCounter = 0
-                                }
-                                mLastClickTime = eventTime
-                                acquireWakeLockAndSendMessage(context, msg, delay)
-                            } else {
-                                startService(context, command)
-                            }
-                            return true
-                        }
-                    }
-                }
-            }
+//            println("Intent Action: ${intent.action}")
+//            val intentAction = intent.action
+//            if (Intent.ACTION_MEDIA_BUTTON == intentAction) {
+//                val event = intent.getParcelableExtra<KeyEvent>(Intent.EXTRA_KEY_EVENT)
+//                    ?: return false
+//
+//                val keycode = event.keyCode
+//                val action = event.action
+//                val eventTime = if (event.eventTime != 0L)
+//                    event.eventTime
+//                else
+//                    System.currentTimeMillis()
+//
+//                var command: String? = null
+//                when (keycode) {
+//                    KeyEvent.KEYCODE_MEDIA_STOP -> command = ACTION_STOP
+//                    KeyEvent.KEYCODE_HEADSETHOOK, KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE -> command =
+//                        ACTION_TOGGLE_PAUSE
+//                    KeyEvent.KEYCODE_MEDIA_NEXT -> command = ACTION_SKIP
+//                    KeyEvent.KEYCODE_MEDIA_PREVIOUS -> command = ACTION_REWIND
+//                    KeyEvent.KEYCODE_MEDIA_PAUSE -> command = ACTION_PAUSE
+//                    KeyEvent.KEYCODE_MEDIA_PLAY -> command = ACTION_PLAY
+//                }
+//                if (command != null) {
+//                    if (action == KeyEvent.ACTION_DOWN) {
+//                        if (event.repeatCount == 0) {
+//                            // Only consider the first event in a sequence, not the repeat events,
+//                            // so that we don't trigger in cases where the first event went to
+//                            // a different app (e.g. when the user ends a phone call by
+//                            // long pressing the headset button)
+//
+//                            // The service may or may not be running, but we need to send it
+//                            // a command.
+//                            if (keycode == KeyEvent.KEYCODE_HEADSETHOOK || keycode == KeyEvent.KEYCODE_MEDIA_PLAY_PAUSE) {
+//                                if (eventTime - mLastClickTime >= DOUBLE_CLICK) {
+//                                    mClickCounter = 0
+//                                }
+//
+//                                mClickCounter++
+//                                if (DEBUG) Log.v(TAG, "Got headset click, count = $mClickCounter")
+//                                mHandler.removeMessages(MSG_HEADSET_DOUBLE_CLICK_TIMEOUT)
+//
+//                                val msg = mHandler.obtainMessage(
+//                                    MSG_HEADSET_DOUBLE_CLICK_TIMEOUT, mClickCounter, 0, context
+//                                )
+//
+//                                val delay = (if (mClickCounter < 3) DOUBLE_CLICK else 0).toLong()
+//                                if (mClickCounter >= 3) {
+//                                    mClickCounter = 0
+//                                }
+//                                mLastClickTime = eventTime
+//                                acquireWakeLockAndSendMessage(context, msg, delay)
+//                            } else {
+//                                startService(context, command)
+//                            }
+//                            return true
+//                        }
+//                    }
+//                }
+//            }
             return false
         }
 

@@ -35,10 +35,7 @@ import code.name.monkey.retromusic.R
 import code.name.monkey.retromusic.databinding.DialogSleepTimerBinding
 import code.name.monkey.retromusic.extensions.addAccentColor
 import code.name.monkey.retromusic.extensions.materialDialog
-import code.name.monkey.retromusic.helper.MusicPlayerRemote
-import code.name.monkey.retromusic.service.MusicService
-import code.name.monkey.retromusic.service.MusicService.Companion.ACTION_PENDING_QUIT
-import code.name.monkey.retromusic.service.MusicService.Companion.ACTION_QUIT
+import ru.stersh.retrosonic.player.android.MusicService
 import code.name.monkey.retromusic.util.MusicUtil
 import code.name.monkey.retromusic.util.PreferenceUtil
 
@@ -107,15 +104,15 @@ class SleepTimerDialog : DialogFragment() {
                             requireContext().resources.getString(R.string.sleep_timer_canceled),
                             Toast.LENGTH_SHORT
                         ).show()
-                        val musicService = MusicPlayerRemote.musicService
-                        if (musicService != null && musicService.pendingQuit) {
-                            musicService.pendingQuit = false
-                            Toast.makeText(
-                                requireContext(),
-                                requireContext().resources.getString(R.string.sleep_timer_canceled),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                        }
+//                        val musicService = MusicPlayerRemote.musicService
+//                        if (musicService != null && musicService.pendingQuit) {
+//                            musicService.pendingQuit = false
+//                            Toast.makeText(
+//                                requireContext(),
+//                                requireContext().resources.getString(R.string.sleep_timer_canceled),
+//                                Toast.LENGTH_SHORT
+//                            ).show()
+//                        }
                     }
                 }
             } else {
@@ -163,9 +160,10 @@ class SleepTimerDialog : DialogFragment() {
 
     private fun makeTimerIntent(): Intent {
         val intent = Intent(requireActivity(), MusicService::class.java)
-        return if (shouldFinishLastSong.isChecked) {
-            intent.setAction(ACTION_PENDING_QUIT)
-        } else intent.setAction(ACTION_QUIT)
+        return intent
+//        return if (shouldFinishLastSong.isChecked) {
+//            intent.setAction(ACTION_PENDING_QUIT)
+//        } else intent.setAction(ACTION_QUIT)
     }
 
     override fun onDismiss(dialog: DialogInterface) {

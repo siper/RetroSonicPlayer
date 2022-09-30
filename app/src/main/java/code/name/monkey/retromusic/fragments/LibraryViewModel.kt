@@ -23,12 +23,10 @@ import code.name.monkey.retromusic.db.*
 import code.name.monkey.retromusic.extensions.showToast
 import code.name.monkey.retromusic.fragments.ReloadType.*
 import code.name.monkey.retromusic.fragments.search.Filter
-import code.name.monkey.retromusic.interfaces.IMusicServiceEventListener
 import code.name.monkey.retromusic.model.*
 import code.name.monkey.retromusic.repository.RealRepository
 import code.name.monkey.retromusic.util.DensityUtil
 import code.name.monkey.retromusic.util.PreferenceUtil
-import code.name.monkey.retromusic.util.logD
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
@@ -37,7 +35,7 @@ import java.io.File
 
 class LibraryViewModel(
     private val repository: RealRepository,
-) : ViewModel(), IMusicServiceEventListener {
+) : ViewModel() {
 
     private val _paletteColor = MutableLiveData<Int>()
     private val home = MutableLiveData<List<Home>>()
@@ -135,43 +133,6 @@ class LibraryViewModel(
 
     fun updateColor(newColor: Int) {
         _paletteColor.postValue(newColor)
-    }
-
-    override fun onMediaStoreChanged() {
-        logD("onMediaStoreChanged")
-        loadLibraryContent()
-    }
-
-    override fun onServiceConnected() {
-        logD("onServiceConnected")
-    }
-
-    override fun onServiceDisconnected() {
-        logD("onServiceDisconnected")
-    }
-
-    override fun onQueueChanged() {
-        logD("onQueueChanged")
-    }
-
-    override fun onPlayingMetaChanged() {
-        logD("onPlayingMetaChanged")
-    }
-
-    override fun onPlayStateChanged() {
-        logD("onPlayStateChanged")
-    }
-
-    override fun onRepeatModeChanged() {
-        logD("onRepeatModeChanged")
-    }
-
-    override fun onShuffleModeChanged() {
-        logD("onShuffleModeChanged")
-    }
-
-    override fun onFavoriteStateChanged() {
-        logD("onFavoriteStateChanged")
     }
 
     fun shuffleSongs() = viewModelScope.launch(IO) {

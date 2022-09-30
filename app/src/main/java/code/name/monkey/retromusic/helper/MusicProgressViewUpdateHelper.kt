@@ -58,19 +58,19 @@ class MusicProgressViewUpdateHelper : Handler {
     }
 
     private fun refreshProgressViews(): Int {
-        val progressMillis = MusicPlayerRemote.songProgressMillis
-        val totalMillis = MusicPlayerRemote.songDurationMillis
-        if (totalMillis > 0) {
-            firstUpdate = false
-            callback?.onUpdateProgressViews(progressMillis, totalMillis)
-        }
-        if (!MusicPlayerRemote.isPlaying && !firstUpdate) {
-            return intervalPaused
-        }
+//        val progressMillis = MusicPlayerRemote.songProgressMillis
+//        val totalMillis = MusicPlayerRemote.songDurationMillis
+//        if (totalMillis > 0) {
+//            firstUpdate = false
+//            callback?.onUpdateProgressViews(progressMillis, totalMillis)
+//        }
+//        if (!MusicPlayerRemote.isPlaying && !firstUpdate) {
+//            return intervalPaused
+//        }
+//
+//        val remainingMillis = intervalPlaying - progressMillis % intervalPlaying
 
-        val remainingMillis = intervalPlaying - progressMillis % intervalPlaying
-
-        return max(MIN_INTERVAL, remainingMillis)
+        return max(MIN_INTERVAL, 0)
     }
 
     private fun queueNextRefresh(delay: Long) {

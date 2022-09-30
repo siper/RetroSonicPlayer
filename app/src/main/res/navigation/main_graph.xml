@@ -121,7 +121,7 @@
 
     <fragment
         android:id="@+id/playing_queue_fragment"
-        android:name="code.name.monkey.retromusic.fragments.queue.PlayingQueueFragment" />
+        android:name="code.name.monkey.retromusic.feature.queue.presentation.PlayingQueueFragment" />
 
     <fragment
         android:id="@+id/lyrics_fragment"

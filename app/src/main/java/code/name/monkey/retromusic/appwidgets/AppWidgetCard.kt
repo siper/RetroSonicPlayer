@@ -24,14 +24,11 @@ import androidx.core.graphics.drawable.toBitmap
 import code.name.monkey.appthemehelper.util.MaterialValueHelper
 import code.name.monkey.appthemehelper.util.VersionUtils
 import code.name.monkey.retromusic.R
-import code.name.monkey.retromusic.activities.MainActivity
+import code.name.monkey.retromusic.feature.main.presentation.MainActivity
 import code.name.monkey.retromusic.appwidgets.base.BaseAppWidget
 import code.name.monkey.retromusic.extensions.getTintedDrawable
 import code.name.monkey.retromusic.glide.palette.BitmapPaletteWrapper
-import code.name.monkey.retromusic.service.MusicService
-import code.name.monkey.retromusic.service.MusicService.Companion.ACTION_REWIND
-import code.name.monkey.retromusic.service.MusicService.Companion.ACTION_SKIP
-import code.name.monkey.retromusic.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
+import ru.stersh.retrosonic.player.android.MusicService
 import code.name.monkey.retromusic.util.PreferenceUtil
 import com.bumptech.glide.request.target.Target
 
@@ -79,9 +76,9 @@ class AppWidgetCard : BaseAppWidget() {
      */
     override fun performUpdate(service: MusicService, appWidgetIds: IntArray?) {
         val appWidgetView = RemoteViews(service.packageName, R.layout.app_widget_card)
-
-        val isPlaying = service.isPlaying
-        val song = service.currentSongId
+//
+//        val isPlaying = service.isPlaying
+//        val song = service.currentSongId
 
         // Set the titles and artwork
 //        TODO: Fix widget update
@@ -95,7 +92,7 @@ class AppWidgetCard : BaseAppWidget() {
 
         // Set correct drawable for pause state
         val playPauseRes =
-            if (isPlaying) R.drawable.ic_pause else R.drawable.ic_play_arrow_white_32dp
+            if (true) R.drawable.ic_pause else R.drawable.ic_play_arrow_white_32dp
         appWidgetView.setImageViewBitmap(
             R.id.button_toggle_play_pause,
             service.getTintedDrawable(
@@ -214,20 +211,20 @@ class AppWidgetCard : BaseAppWidget() {
                     PendingIntent.FLAG_IMMUTABLE
                 else 0
             )
-        views.setOnClickPendingIntent(R.id.image, pendingIntent)
-        views.setOnClickPendingIntent(R.id.media_titles, pendingIntent)
-
-        // Previous track
-        pendingIntent = buildPendingIntent(context, ACTION_REWIND, serviceName)
-        views.setOnClickPendingIntent(R.id.button_prev, pendingIntent)
-
-        // Play and pause
-        pendingIntent = buildPendingIntent(context, ACTION_TOGGLE_PAUSE, serviceName)
-        views.setOnClickPendingIntent(R.id.button_toggle_play_pause, pendingIntent)
-
-        // Next track
-        pendingIntent = buildPendingIntent(context, ACTION_SKIP, serviceName)
-        views.setOnClickPendingIntent(R.id.button_next, pendingIntent)
+//        views.setOnClickPendingIntent(R.id.image, pendingIntent)
+//        views.setOnClickPendingIntent(R.id.media_titles, pendingIntent)
+//
+//        // Previous track
+//        pendingIntent = buildPendingIntent(context, ACTION_REWIND, serviceName)
+//        views.setOnClickPendingIntent(R.id.button_prev, pendingIntent)
+//
+//        // Play and pause
+//        pendingIntent = buildPendingIntent(context, ACTION_TOGGLE_PAUSE, serviceName)
+//        views.setOnClickPendingIntent(R.id.button_toggle_play_pause, pendingIntent)
+//
+//        // Next track
+//        pendingIntent = buildPendingIntent(context, ACTION_SKIP, serviceName)
+//        views.setOnClickPendingIntent(R.id.button_next, pendingIntent)
     }
 
     companion object {

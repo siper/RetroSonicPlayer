@@ -1,0 +1,33 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+
+apply from: "${project.rootDir}/buildscripts/android-library.gradle"
+
+android {
+    namespace 'ru.stersh.retrosonic.player'
+}
+
+dependencies {
+    implementation project(':apisonic')
+    implementation project(':core')
+    implementation(libs.kotlin.coroutines.android)
+    implementation(libs.bundles.koin)
+    implementation(libs.timber)
+
+    def media3_version = "1.0.0-beta02"
+
+    // For media playback using ExoPlayer
+    api "androidx.media3:media3-exoplayer:$media3_version"
+    // For HLS playback support with ExoPlayer
+    api "androidx.media3:media3-exoplayer-hls:$media3_version"
+    // For loading data using the OkHttp network stack
+    api "androidx.media3:media3-datasource-okhttp:$media3_version"
+    // For exposing and controlling media sessions
+    api "androidx.media3:media3-session:$media3_version"
+    // For extracting data from media containers
+    api "androidx.media3:media3-extractor:$media3_version"
+    // For scheduling background operations using Jetpack Work's WorkManager with ExoPlayer
+    api "androidx.media3:media3-exoplayer-workmanager:$media3_version"
+    // Common functionality for loading data
+    api "androidx.media3:media3-datasource:$media3_version"
+}

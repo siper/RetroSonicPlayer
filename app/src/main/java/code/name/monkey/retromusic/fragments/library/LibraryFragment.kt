@@ -35,6 +35,7 @@ import code.name.monkey.retromusic.extensions.whichFragment
 import code.name.monkey.retromusic.fragments.base.AbsMainActivityFragment
 import code.name.monkey.retromusic.model.CategoryInfo
 import code.name.monkey.retromusic.util.PreferenceUtil
+import code.name.monkey.retromusic.util.defaultNavOptions
 
 class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
 
@@ -55,7 +56,7 @@ class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
             findNavController().navigate(
                 R.id.action_search,
                 null,
-                navOptions
+                defaultNavOptions
             )
         }
         setupNavigationController()
@@ -107,7 +108,7 @@ class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
             R.id.action_settings -> findNavController().navigate(
                 R.id.settings_fragment,
                 null,
-                navOptions
+                defaultNavOptions
             )
             R.id.action_import_playlist -> ImportPlaylistDialog().show(
                 childFragmentManager,

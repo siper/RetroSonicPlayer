@@ -19,12 +19,13 @@ import android.view.View
 import androidx.annotation.LayoutRes
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import code.name.monkey.retromusic.activities.MainActivity
+import code.name.monkey.retromusic.feature.main.presentation.MainActivity
 import code.name.monkey.retromusic.fragments.LibraryViewModel
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
-abstract class AbsMainActivityFragment(@LayoutRes layout: Int) : AbsMusicServiceFragment(layout), MenuProvider {
+abstract class AbsMainActivityFragment(@LayoutRes layout: Int) : Fragment(layout), MenuProvider {
     val libraryViewModel: LibraryViewModel by sharedViewModel()
 
     val mainActivity: MainActivity

@@ -36,6 +36,7 @@ import code.name.monkey.retromusic.extensions.dip
 import code.name.monkey.retromusic.interfaces.IScrollHelper
 import code.name.monkey.retromusic.util.PreferenceUtil
 import code.name.monkey.retromusic.util.ThemedFastScroller.create
+import code.name.monkey.retromusic.util.defaultNavOptions
 import com.google.android.material.transition.MaterialFadeThrough
 import me.zhanghai.android.fastscroll.FastScroller
 import me.zhanghai.android.fastscroll.FastScrollerBuilder
@@ -104,7 +105,7 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
             findNavController().navigate(
                 R.id.action_search,
                 null,
-                navOptions
+                defaultNavOptions
             )
         }
         val appName = resources.getString(titleRes)
@@ -199,7 +200,7 @@ abstract class AbsRecyclerViewFragment<A : RecyclerView.Adapter<*>, LM : Recycle
             R.id.action_settings -> findNavController().navigate(
                 R.id.settings_fragment,
                 null,
-                navOptions
+                defaultNavOptions
             )
             R.id.action_import_playlist -> ImportPlaylistDialog().show(
                 childFragmentManager,

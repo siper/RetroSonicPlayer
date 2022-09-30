@@ -20,7 +20,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import code.name.monkey.retromusic.service.MusicService
+import ru.stersh.retrosonic.player.android.MusicService
 
 class BootReceiver : BroadcastReceiver() {
     override fun onReceive(context: Context, intent: Intent) {

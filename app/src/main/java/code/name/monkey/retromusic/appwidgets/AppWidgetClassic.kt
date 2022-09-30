@@ -24,14 +24,11 @@ import androidx.core.graphics.drawable.toBitmap
 import code.name.monkey.appthemehelper.util.MaterialValueHelper
 import code.name.monkey.appthemehelper.util.VersionUtils
 import code.name.monkey.retromusic.R
-import code.name.monkey.retromusic.activities.MainActivity
+import code.name.monkey.retromusic.feature.main.presentation.MainActivity
 import code.name.monkey.retromusic.appwidgets.base.BaseAppWidget
 import code.name.monkey.retromusic.extensions.getTintedDrawable
 import code.name.monkey.retromusic.glide.palette.BitmapPaletteWrapper
-import code.name.monkey.retromusic.service.MusicService
-import code.name.monkey.retromusic.service.MusicService.Companion.ACTION_REWIND
-import code.name.monkey.retromusic.service.MusicService.Companion.ACTION_SKIP
-import code.name.monkey.retromusic.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
+import ru.stersh.retrosonic.player.android.MusicService
 import code.name.monkey.retromusic.util.PreferenceUtil
 import com.bumptech.glide.request.target.Target
 
@@ -82,8 +79,8 @@ class AppWidgetClassic : BaseAppWidget() {
     override fun performUpdate(service: MusicService, appWidgetIds: IntArray?) {
         val appWidgetView = RemoteViews(service.packageName, R.layout.app_widget_classic)
 
-        val isPlaying = service.isPlaying
-        val song = service.currentSongId
+//        val isPlaying = service.isPlaying
+//        val song = service.currentSongId
 
         // Set the titles and artwork
         // TODO: fix widget update
@@ -212,16 +209,16 @@ class AppWidgetClassic : BaseAppWidget() {
         views.setOnClickPendingIntent(R.id.media_titles, pendingIntent)
 
         // Previous track
-        pendingIntent = buildPendingIntent(context, ACTION_REWIND, serviceName)
-        views.setOnClickPendingIntent(R.id.button_prev, pendingIntent)
-
-        // Play and pause
-        pendingIntent = buildPendingIntent(context, ACTION_TOGGLE_PAUSE, serviceName)
-        views.setOnClickPendingIntent(R.id.button_toggle_play_pause, pendingIntent)
-
-        // Next track
-        pendingIntent = buildPendingIntent(context, ACTION_SKIP, serviceName)
-        views.setOnClickPendingIntent(R.id.button_next, pendingIntent)
+//        pendingIntent = buildPendingIntent(context, ACTION_REWIND, serviceName)
+//        views.setOnClickPendingIntent(R.id.button_prev, pendingIntent)
+//
+//        // Play and pause
+//        pendingIntent = buildPendingIntent(context, ACTION_TOGGLE_PAUSE, serviceName)
+//        views.setOnClickPendingIntent(R.id.button_toggle_play_pause, pendingIntent)
+//
+//        // Next track
+//        pendingIntent = buildPendingIntent(context, ACTION_SKIP, serviceName)
+//        views.setOnClickPendingIntent(R.id.button_next, pendingIntent)
     }
 
     companion object {

@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewConfiguration
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
-import code.name.monkey.retromusic.helper.MusicPlayerRemote
 import kotlinx.coroutines.*
 import kotlin.math.abs
 
@@ -37,15 +36,15 @@ class MusicSeekSkipTouchListener(val activity: FragmentActivity, val next: Boole
                     while (isActive) {
                         delay(500)
                         wasSeeking = true
-                        var seekingDuration = MusicPlayerRemote.songProgressMillis
-                        if (next) {
-                            seekingDuration += 5000 * (counter.floorDiv(2) + 1)
-                        } else {
-                            seekingDuration -= 5000 * (counter.floorDiv(2) + 1)
-                        }
-                        withContext(Dispatchers.Main) {
-                            MusicPlayerRemote.seekTo(seekingDuration)
-                        }
+//                        var seekingDuration = MusicPlayerRemote.songProgressMillis
+//                        if (next) {
+//                            seekingDuration += 5000 * (counter.floorDiv(2) + 1)
+//                        } else {
+//                            seekingDuration -= 5000 * (counter.floorDiv(2) + 1)
+//                        }
+//                        withContext(Dispatchers.Main) {
+//                            MusicPlayerRemote.seekTo(seekingDuration)
+//                        }
                         counter += 1
                     }
                 }
@@ -56,9 +55,9 @@ class MusicSeekSkipTouchListener(val activity: FragmentActivity, val next: Boole
                 val endY = event.y
                 if (!wasSeeking && isAClick(startX, endX, startY, endY)) {
                     if (next) {
-                        MusicPlayerRemote.playNextSong()
+//                        MusicPlayerRemote.playNextSong()
                     } else {
-                        MusicPlayerRemote.back()
+//                        MusicPlayerRemote.back()
                     }
                 }
 

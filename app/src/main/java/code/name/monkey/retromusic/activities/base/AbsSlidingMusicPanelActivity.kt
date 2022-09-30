@@ -37,31 +37,10 @@ import code.name.monkey.retromusic.*
 import code.name.monkey.retromusic.activities.PermissionActivity
 import code.name.monkey.retromusic.databinding.SlidingMusicPanelLayoutBinding
 import code.name.monkey.retromusic.extensions.*
+import code.name.monkey.retromusic.feature.player.mini.MiniPlayerFragment
 import code.name.monkey.retromusic.fragments.LibraryViewModel
-import code.name.monkey.retromusic.fragments.NowPlayingScreen
-import code.name.monkey.retromusic.fragments.NowPlayingScreen.*
 import code.name.monkey.retromusic.fragments.base.AbsPlayerFragment
-import code.name.monkey.retromusic.fragments.other.MiniPlayerFragment
-import code.name.monkey.retromusic.fragments.player.adaptive.AdaptiveFragment
-import code.name.monkey.retromusic.fragments.player.blur.BlurPlayerFragment
-import code.name.monkey.retromusic.fragments.player.card.CardFragment
-import code.name.monkey.retromusic.fragments.player.cardblur.CardBlurFragment
-import code.name.monkey.retromusic.fragments.player.circle.CirclePlayerFragment
-import code.name.monkey.retromusic.fragments.player.classic.ClassicPlayerFragment
-import code.name.monkey.retromusic.fragments.player.color.ColorFragment
-import code.name.monkey.retromusic.fragments.player.fit.FitFragment
-import code.name.monkey.retromusic.fragments.player.flat.FlatPlayerFragment
-import code.name.monkey.retromusic.fragments.player.full.FullPlayerFragment
-import code.name.monkey.retromusic.fragments.player.gradient.GradientPlayerFragment
-import code.name.monkey.retromusic.fragments.player.material.MaterialFragment
-import code.name.monkey.retromusic.fragments.player.md3.MD3PlayerFragment
 import code.name.monkey.retromusic.fragments.player.normal.PlayerFragment
-import code.name.monkey.retromusic.fragments.player.peek.PeekPlayerFragment
-import code.name.monkey.retromusic.fragments.player.plain.PlainPlayerFragment
-import code.name.monkey.retromusic.fragments.player.simple.SimplePlayerFragment
-import code.name.monkey.retromusic.fragments.player.tiny.TinyPlayerFragment
-import code.name.monkey.retromusic.fragments.queue.PlayingQueueFragment
-import code.name.monkey.retromusic.helper.MusicPlayerRemote
 import code.name.monkey.retromusic.model.CategoryInfo
 import code.name.monkey.retromusic.util.PreferenceUtil
 import code.name.monkey.retromusic.util.ViewUtil
@@ -70,6 +49,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import timber.log.Timber
 
 
 abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
@@ -84,7 +64,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
     private lateinit var playerFragment: AbsPlayerFragment
     private var miniPlayerFragment: MiniPlayerFragment? = null
-    private var nowPlayingScreen: NowPlayingScreen? = null
     private var taskColor: Int = 0
     private var paletteColor: Int = Color.WHITE
     private var navigationBarColor = 0
@@ -113,6 +92,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             }
 
             override fun onStateChanged(bottomSheet: View, newState: Int) {
+                Timber.d("On bottom sheet state: $newState")
                 when (newState) {
                     STATE_EXPANDED -> {
                         onPanelExpanded()
@@ -133,7 +113,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                         }
                     }
                     STATE_HIDDEN -> {
-                        MusicPlayerRemote.clearQueue()
+//                        MusicPlayerRemote.clearQueue()
                     }
                     else -> {
                         logD("Do a flip")
@@ -157,7 +137,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             windowInsets = WindowInsetsCompat.toWindowInsetsCompat(insets)
             insets
         }
-        chooseFragmentForTheme()
+        setupPlayerFragment()
         setupSlidingUpPanel()
         setupBottomSheet()
         updateColor()
@@ -172,16 +152,13 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
     private fun setupBottomSheet() {
         bottomSheetBehavior = from(binding.slidingPanel)
         bottomSheetBehavior.addBottomSheetCallback(bottomSheetCallbackList)
-        bottomSheetBehavior.isHideable = PreferenceUtil.swipeDownToDismiss
+        bottomSheetBehavior.isHideable = true//PreferenceUtil.swipeDownToDismiss
         setMiniPlayerAlphaProgress(0F)
     }
 
     override fun onResume() {
         super.onResume()
         PreferenceUtil.registerOnSharedPreferenceChangedListener(this)
-        if (nowPlayingScreen != PreferenceUtil.nowPlayingScreen) {
-            postRecreate()
-        }
         if (bottomSheetBehavior.state == STATE_EXPANDED) {
             setMiniPlayerAlphaProgress(1f)
         }
@@ -201,32 +178,18 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             TOGGLE_ADD_CONTROLS -> {
                 miniPlayerFragment?.setUpButtons()
             }
-            NOW_PLAYING_SCREEN_ID -> {
-                chooseFragmentForTheme()
-                binding.slidingPanel.updateLayoutParams<ViewGroup.LayoutParams> {
-                    height = if (nowPlayingScreen != Peek) {
-                        ViewGroup.LayoutParams.MATCH_PARENT
-                    } else {
-                        ViewGroup.LayoutParams.WRAP_CONTENT
-                    }
-                    onServiceConnected()
-                }
-            }
-            ALBUM_COVER_TRANSFORM, CAROUSEL_EFFECT,
-            ALBUM_COVER_STYLE, TOGGLE_VOLUME, EXTRA_SONG_INFO, CIRCLE_PLAY_BUTTON,
-            -> {
-                chooseFragmentForTheme()
-                onServiceConnected()
+            ALBUM_COVER_TRANSFORM,
+            CAROUSEL_EFFECT,
+            ALBUM_COVER_STYLE,
+            TOGGLE_VOLUME,
+            EXTRA_SONG_INFO,
+            CIRCLE_PLAY_BUTTON -> {
+                setupPlayerFragment()
             }
             SWIPE_ANYWHERE_NOW_PLAYING -> {
                 playerFragment.addSwipeDetector()
             }
-            ADAPTIVE_COLOR_APP -> {
-                if (PreferenceUtil.nowPlayingScreen in listOf(Normal, Material, Flat)) {
-                    chooseFragmentForTheme()
-                    onServiceConnected()
-                }
-            }
+            ADAPTIVE_COLOR_APP -> setupPlayerFragment()
             LIBRARY_CATEGORIES -> {
                 updateTabs()
             }
@@ -288,13 +251,13 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         setLightStatusBarAuto()
         setLightNavigationBarAuto()
         setTaskDescriptionColor(taskColor)
-        //playerFragment?.onHide()
+        playerFragment.onHide()
     }
 
     open fun onPanelExpanded() {
         setMiniPlayerAlphaProgress(1F)
         onPaletteColorChanged()
-        //playerFragment?.onShow()
+        playerFragment.onShow()
     }
 
     private fun setupSlidingUpPanel() {
@@ -302,17 +265,13 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             ViewTreeObserver.OnGlobalLayoutListener {
             override fun onGlobalLayout() {
                 binding.slidingPanel.viewTreeObserver.removeOnGlobalLayoutListener(this)
-                if (nowPlayingScreen != Peek) {
-                    binding.slidingPanel.updateLayoutParams<ViewGroup.LayoutParams> {
-                        height = ViewGroup.LayoutParams.MATCH_PARENT
-                    }
+                binding.slidingPanel.updateLayoutParams<ViewGroup.LayoutParams> {
+                    height = ViewGroup.LayoutParams.MATCH_PARENT
                 }
                 when (panelState) {
                     STATE_EXPANDED -> onPanelExpanded()
                     STATE_COLLAPSED -> onPanelCollapsed()
-                    else -> {
-                        // playerFragment!!.onHide()
-                    }
+                    else -> playerFragment.onHide()
                 }
             }
         })
@@ -323,20 +282,6 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
     val slidingPanel get() = binding.slidingPanel
 
     val isBottomNavVisible get() = navigationView.isVisible && navigationView is BottomNavigationView
-
-    override fun onServiceConnected() {
-        super.onServiceConnected()
-        hideBottomSheet(false)
-    }
-
-    override fun onQueueChanged() {
-        super.onQueueChanged()
-        // Mini player should be hidden in Playing Queue
-        // it may pop up if hideBottomSheet is called
-        if (currentFragment(R.id.fragment_container) !is PlayingQueueFragment) {
-            hideBottomSheet(MusicPlayerRemote.playingQueue.isEmpty())
-        }
-    }
 
     override fun onBackPressed() {
         if (!handleBackPress()) super.onBackPressed()
@@ -356,28 +301,9 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
             navigationBarColor = surfaceColor()
             setTaskDescColor(paletteColor)
             val isColorLight = paletteColor.isColorLight
-            if (PreferenceUtil.isAdaptiveColor && (nowPlayingScreen == Normal || nowPlayingScreen == Flat || nowPlayingScreen == Material)) {
+            if (PreferenceUtil.isAdaptiveColor) {
                 setLightNavigationBar(true)
                 setLightStatusBar(isColorLight)
-            } else if (nowPlayingScreen == Card || nowPlayingScreen == Blur || nowPlayingScreen == BlurCard) {
-                animateNavigationBarColor(Color.BLACK)
-                navigationBarColor = Color.BLACK
-                setLightStatusBar(false)
-                setLightNavigationBar(true)
-            } else if (nowPlayingScreen == Color || nowPlayingScreen == Tiny || nowPlayingScreen == Gradient) {
-                animateNavigationBarColor(paletteColor)
-                navigationBarColor = paletteColor
-                setLightNavigationBar(isColorLight)
-                setLightStatusBar(isColorLight)
-            } else if (nowPlayingScreen == Full) {
-                animateNavigationBarColor(paletteColor)
-                navigationBarColor = paletteColor
-                setLightNavigationBar(isColorLight)
-                setLightStatusBar(false)
-            } else if (nowPlayingScreen == Classic) {
-                setLightStatusBar(false)
-            } else if (nowPlayingScreen == Fit) {
-                setLightStatusBar(false)
             }
         }
     }
@@ -417,7 +343,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
     fun setBottomNavVisibility(
         visible: Boolean,
         animate: Boolean = false,
-        hideBottomSheet: Boolean = MusicPlayerRemote.playingQueue.isEmpty(),
+        hideBottomSheet: Boolean = false,
     ) {
         if (isInOneTabMode) {
             hideBottomSheet(
@@ -465,30 +391,28 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
                 if (isBottomNavVisible) dip(R.dimen.bottom_nav_height) else 0
             )
         } else {
-            if (MusicPlayerRemote.playingQueue.isNotEmpty()) {
-                binding.slidingPanel.elevation = 0F
-                binding.navigationView.elevation = 5F
-                if (isBottomNavVisible) {
-                    logD("List")
-                    if (animate) {
-                        bottomSheetBehavior.peekHeightAnimate(heightOfBarWithTabs)
-                    } else {
-                        bottomSheetBehavior.peekHeight = heightOfBarWithTabs
-                    }
-                    libraryViewModel.setFabMargin(this,
-                        dip(R.dimen.bottom_nav_mini_player_height))
+            binding.slidingPanel.elevation = 0F
+            binding.navigationView.elevation = 5F
+            if (isBottomNavVisible) {
+                logD("List")
+                if (animate) {
+                    bottomSheetBehavior.peekHeightAnimate(heightOfBarWithTabs)
                 } else {
-                    logD("Details")
-                    if (animate) {
-                        bottomSheetBehavior.peekHeightAnimate(heightOfBar).doOnEnd {
-                            binding.slidingPanel.bringToFront()
-                        }
-                    } else {
-                        bottomSheetBehavior.peekHeight = heightOfBar
+                    bottomSheetBehavior.peekHeight = heightOfBarWithTabs
+                }
+                libraryViewModel.setFabMargin(this,
+                    dip(R.dimen.bottom_nav_mini_player_height))
+            } else {
+                logD("Details")
+                if (animate) {
+                    bottomSheetBehavior.peekHeightAnimate(heightOfBar).doOnEnd {
                         binding.slidingPanel.bringToFront()
                     }
-                    libraryViewModel.setFabMargin(this, dip(R.dimen.mini_player_height))
+                } else {
+                    bottomSheetBehavior.peekHeight = heightOfBar
+                    binding.slidingPanel.bringToFront()
                 }
+                libraryViewModel.setFabMargin(this, dip(R.dimen.mini_player_height))
             }
         }
     }
@@ -498,32 +422,9 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
         hideBottomSheet(false)
     }
 
-    private fun chooseFragmentForTheme() {
-        nowPlayingScreen = PreferenceUtil.nowPlayingScreen
-
-        val fragment: AbsPlayerFragment = when (nowPlayingScreen) {
-            Blur -> BlurPlayerFragment()
-            Adaptive -> AdaptiveFragment()
-            Normal -> PlayerFragment()
-            Card -> CardFragment()
-            BlurCard -> CardBlurFragment()
-            Fit -> FitFragment()
-            Flat -> FlatPlayerFragment()
-            Full -> FullPlayerFragment()
-            Plain -> PlainPlayerFragment()
-            Simple -> SimplePlayerFragment()
-            Material -> MaterialFragment()
-            Color -> ColorFragment()
-            Gradient -> GradientPlayerFragment()
-            Tiny -> TinyPlayerFragment()
-            Peek -> PeekPlayerFragment()
-            Circle -> CirclePlayerFragment()
-            Classic -> ClassicPlayerFragment()
-            MD3 -> MD3PlayerFragment()
-            else -> PlayerFragment()
-        } // must extend AbsPlayerFragment
+    private fun setupPlayerFragment() {
         supportFragmentManager.commit {
-            replace(R.id.playerFragmentContainer, fragment)
+            replace(R.id.playerFragmentContainer, PlayerFragment())
         }
         supportFragmentManager.executePendingTransactions()
         playerFragment = whichFragment(R.id.playerFragmentContainer)

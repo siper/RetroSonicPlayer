@@ -88,16 +88,6 @@ class LockScreenActivity : AbsMusicServiceActivity() {
         }
     }
 
-    override fun onPlayingMetaChanged() {
-        super.onPlayingMetaChanged()
-        updateSongs()
-    }
-
-    override fun onServiceConnected() {
-        super.onServiceConnected()
-        updateSongs()
-    }
-
     private fun updateSongs() {
 //        TODO: fix update songs
 //        val song = MusicPlayerRemote.currentSongId

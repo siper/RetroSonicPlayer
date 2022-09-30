@@ -23,13 +23,11 @@ import androidx.core.graphics.drawable.toBitmap
 import code.name.monkey.appthemehelper.util.MaterialValueHelper
 import code.name.monkey.appthemehelper.util.VersionUtils
 import code.name.monkey.retromusic.R
-import code.name.monkey.retromusic.activities.MainActivity
+import code.name.monkey.retromusic.feature.main.presentation.MainActivity
 import code.name.monkey.retromusic.appwidgets.base.BaseAppWidget
 import code.name.monkey.retromusic.extensions.getTintedDrawable
 import code.name.monkey.retromusic.glide.palette.BitmapPaletteWrapper
-import code.name.monkey.retromusic.service.MusicService
-import code.name.monkey.retromusic.service.MusicService.Companion.ACTION_TOGGLE_PAUSE
-import code.name.monkey.retromusic.service.MusicService.Companion.TOGGLE_FAVORITE
+import ru.stersh.retrosonic.player.android.MusicService
 import code.name.monkey.retromusic.util.PreferenceUtil
 import code.name.monkey.retromusic.util.RetroUtil
 import com.bumptech.glide.request.target.Target
@@ -66,8 +64,7 @@ class AppWidgetCircle : BaseAppWidget() {
     override fun performUpdate(service: MusicService, appWidgetIds: IntArray?) {
         val appWidgetView = RemoteViews(service.packageName, R.layout.app_widget_circle)
 
-        val isPlaying = service.isPlaying
-        val song = service.currentSongId
+        val isPlaying = false
 
         // Set correct drawable for pause state
         val playPauseRes =
@@ -182,12 +179,12 @@ class AppWidgetCircle : BaseAppWidget() {
             )
         views.setOnClickPendingIntent(R.id.image, pendingIntent)
         // Favorite track
-        pendingIntent = buildPendingIntent(context, TOGGLE_FAVORITE, serviceName)
-        views.setOnClickPendingIntent(R.id.button_toggle_favorite, pendingIntent)
-
-        // Play and pause
-        pendingIntent = buildPendingIntent(context, ACTION_TOGGLE_PAUSE, serviceName)
-        views.setOnClickPendingIntent(R.id.button_toggle_play_pause, pendingIntent)
+//        pendingIntent = buildPendingIntent(context, TOGGLE_FAVORITE, serviceName)
+//        views.setOnClickPendingIntent(R.id.button_toggle_favorite, pendingIntent)
+//
+//        // Play and pause
+//        pendingIntent = buildPendingIntent(context, ACTION_TOGGLE_PAUSE, serviceName)
+//        views.setOnClickPendingIntent(R.id.button_toggle_play_pause, pendingIntent)
     }
 
     companion object {

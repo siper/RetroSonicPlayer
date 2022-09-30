@@ -1,0 +1,11 @@
+package ru.stersh.retrosonic.player.queue.domain
+
+import androidx.media3.common.MediaItem
+import kotlinx.coroutines.flow.Flow
+
+interface PlayerQueueManager {
+    fun getQueue(): Flow<List<MediaItem>>
+    fun currentPlayingItemPosition(): Flow<Int>
+    fun clearQueue()
+    fun playPosition(position: Int)
+}

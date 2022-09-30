@@ -30,7 +30,6 @@ import code.name.monkey.retromusic.extensions.extraNotNull
 import code.name.monkey.retromusic.extensions.materialDialog
 import code.name.monkey.retromusic.fragments.LibraryViewModel
 import code.name.monkey.retromusic.fragments.ReloadType
-import code.name.monkey.retromusic.helper.MusicPlayerRemote
 import code.name.monkey.retromusic.model.Song
 import code.name.monkey.retromusic.util.MusicUtil
 import code.name.monkey.retromusic.util.SAFUtil
@@ -65,10 +64,10 @@ class DeleteSongsDialog : DialogFragment() {
             val deleteResultLauncher =
                 registerForActivityResult(ActivityResultContracts.StartIntentSenderForResult()) { result ->
                     if (result.resultCode == Activity.RESULT_OK) {
-                        if ((songs.size == 1) && MusicPlayerRemote.isPlaying(songs[0])) {
-                            MusicPlayerRemote.playNextSong()
-                        }
-                        MusicPlayerRemote.removeFromQueue(songs)
+//                        if ((songs.size == 1) && MusicPlayerRemote.isPlaying(songs[0])) {
+//                            MusicPlayerRemote.playNextSong()
+//                        }
+//                        MusicPlayerRemote.removeFromQueue(songs)
                         reloadTabs()
                     }
                     dismiss()
@@ -109,9 +108,9 @@ class DeleteSongsDialog : DialogFragment() {
                 }
                 .positiveButton(R.string.action_delete)
                 {
-                    if ((songs.size == 1) && MusicPlayerRemote.isPlaying(songs[0])) {
-                        MusicPlayerRemote.playNextSong()
-                    }
+//                    if ((songs.size == 1) && MusicPlayerRemote.isPlaying(songs[0])) {
+//                        MusicPlayerRemote.playNextSong()
+//                    }
 //                    if (!SAFUtil.isSAFRequiredForSongs(songs)) {
 //                        CoroutineScope(Dispatchers.IO).launch {
 //                            dismiss()

@@ -30,7 +30,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
     SharedPreferences.OnSharedPreferenceChangeListener {
 
     override fun invalidateSettings() {
-        updateNowPlayingScreenSummary()
         updateAlbumCoverStyleSummary()
 
         val carouselEffect: TwoStatePreference? = findPreference(CAROUSEL_EFFECT)
@@ -52,11 +51,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
         preference?.setSummary(PreferenceUtil.albumCoverStyle.titleRes)
     }
 
-    private fun updateNowPlayingScreenSummary() {
-        val preference: Preference? = findPreference(NOW_PLAYING_SCREEN_ID)
-        preference?.setSummary(PreferenceUtil.nowPlayingScreen.titleRes)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         PreferenceUtil.registerOnSharedPreferenceChangedListener(this)
@@ -74,7 +68,6 @@ class NowPlayingSettingsFragment : AbsSettingsFragment(),
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
         when (key) {
-            NOW_PLAYING_SCREEN_ID -> updateNowPlayingScreenSummary()
             ALBUM_COVER_STYLE -> updateAlbumCoverStyleSummary()
             CIRCULAR_ALBUM_ART, CAROUSEL_EFFECT -> invalidateSettings()
         }

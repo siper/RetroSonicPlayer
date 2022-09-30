@@ -27,15 +27,14 @@ import android.widget.SeekBar
 import android.widget.TextView
 import androidx.annotation.LayoutRes
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import code.name.monkey.retromusic.R
 import code.name.monkey.retromusic.extensions.whichFragment
 import code.name.monkey.retromusic.fragments.MusicSeekSkipTouchListener
 import code.name.monkey.retromusic.fragments.other.VolumeFragment
-import code.name.monkey.retromusic.helper.MusicPlayerRemote
 import code.name.monkey.retromusic.helper.MusicProgressViewUpdateHelper
-import code.name.monkey.retromusic.service.MusicService
 import code.name.monkey.retromusic.util.MusicUtil
 import code.name.monkey.retromusic.util.PreferenceUtil
 import code.name.monkey.retromusic.util.color.MediaNotificationProcessor
@@ -45,7 +44,7 @@ import com.google.android.material.slider.Slider
  * Created by hemanths on 24/09/17.
  */
 
-abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServiceFragment(layout),
+abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : Fragment(layout),
     MusicProgressViewUpdateHelper.Callback {
 
     protected abstract fun show()
@@ -134,7 +133,7 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
 
     private fun onProgressChange(value: Int, fromUser: Boolean) {
         if (fromUser) {
-            onUpdateProgressViews(value, MusicPlayerRemote.songDurationMillis)
+//            onUpdateProgressViews(value, MusicPlayerRemote.songDurationMillis)
         }
     }
 
@@ -146,7 +145,7 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
 
     private fun onStopTrackingTouch(value: Int) {
         isSeeking = false
-        MusicPlayerRemote.seekTo(value)
+//        MusicPlayerRemote.seekTo(value)
         progressViewUpdateHelper.start()
     }
 
@@ -200,11 +199,15 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
     }
 
     private fun setUpShuffleButton() {
-        shuffleButton.setOnClickListener { MusicPlayerRemote.toggleShuffleMode() }
+        shuffleButton.setOnClickListener {
+//            MusicPlayerRemote.toggleShuffleMode()
+        }
     }
 
     private fun setUpRepeatButton() {
-        repeatButton.setOnClickListener { MusicPlayerRemote.cycleRepeatMode() }
+        repeatButton.setOnClickListener {
+//            MusicPlayerRemote.cycleRepeatMode()
+                    }
     }
 
     fun updatePrevNextColor() {
@@ -213,38 +216,38 @@ abstract class AbsPlayerControlsFragment(@LayoutRes layout: Int) : AbsMusicServi
     }
 
     fun updateShuffleState() {
-        shuffleButton.setColorFilter(
-            when (MusicPlayerRemote.shuffleMode) {
-                MusicService.SHUFFLE_MODE_SHUFFLE -> lastPlaybackControlsColor
-                else -> lastDisabledPlaybackControlsColor
-            }, PorterDuff.Mode.SRC_IN
-        )
+//        shuffleButton.setColorFilter(
+//            when (MusicPlayerRemote.shuffleMode) {
+//                MusicService.SHUFFLE_MODE_SHUFFLE -> lastPlaybackControlsColor
+//                else -> lastDisabledPlaybackControlsColor
+//            }, PorterDuff.Mode.SRC_IN
+//        )
     }
 
     fun updateRepeatState() {
-        when (MusicPlayerRemote.repeatMode) {
-            MusicService.REPEAT_MODE_NONE -> {
-                repeatButton.setImageResource(R.drawable.ic_repeat)
-                repeatButton.setColorFilter(
-                    lastDisabledPlaybackControlsColor,
-                    PorterDuff.Mode.SRC_IN
-                )
-            }
-            MusicService.REPEAT_MODE_ALL -> {
-                repeatButton.setImageResource(R.drawable.ic_repeat)
-                repeatButton.setColorFilter(
-                    lastPlaybackControlsColor,
-                    PorterDuff.Mode.SRC_IN
-                )
-            }
-            MusicService.REPEAT_MODE_THIS -> {
-                repeatButton.setImageResource(R.drawable.ic_repeat_one)
-                repeatButton.setColorFilter(
-                    lastPlaybackControlsColor,
-                    PorterDuff.Mode.SRC_IN
-                )
-            }
-        }
+//        when (MusicPlayerRemote.repeatMode) {
+//            MusicService.REPEAT_MODE_NONE -> {
+//                repeatButton.setImageResource(R.drawable.ic_repeat)
+//                repeatButton.setColorFilter(
+//                    lastDisabledPlaybackControlsColor,
+//                    PorterDuff.Mode.SRC_IN
+//                )
+//            }
+//            MusicService.REPEAT_MODE_ALL -> {
+//                repeatButton.setImageResource(R.drawable.ic_repeat)
+//                repeatButton.setColorFilter(
+//                    lastPlaybackControlsColor,
+//                    PorterDuff.Mode.SRC_IN
+//                )
+//            }
+//            MusicService.REPEAT_MODE_THIS -> {
+//                repeatButton.setImageResource(R.drawable.ic_repeat_one)
+//                repeatButton.setColorFilter(
+//                    lastPlaybackControlsColor,
+//                    PorterDuff.Mode.SRC_IN
+//                )
+//            }
+//        }
     }
 
     protected var volumeFragment: VolumeFragment? = null

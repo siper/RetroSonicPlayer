@@ -28,12 +28,7 @@ import androidx.core.content.ContextCompat
 import code.name.monkey.appthemehelper.util.VersionUtils
 import code.name.monkey.retromusic.R
 import code.name.monkey.retromusic.model.Song
-import code.name.monkey.retromusic.service.MusicService
-import code.name.monkey.retromusic.service.MusicService.Companion.APP_WIDGET_UPDATE
-import code.name.monkey.retromusic.service.MusicService.Companion.EXTRA_APP_WIDGET_NAME
-import code.name.monkey.retromusic.service.MusicService.Companion.FAVORITE_STATE_CHANGED
-import code.name.monkey.retromusic.service.MusicService.Companion.META_CHANGED
-import code.name.monkey.retromusic.service.MusicService.Companion.PLAY_STATE_CHANGED
+import ru.stersh.retrosonic.player.android.MusicService
 
 abstract class BaseAppWidget : AppWidgetProvider() {
 
@@ -46,11 +41,11 @@ abstract class BaseAppWidget : AppWidgetProvider() {
         appWidgetIds: IntArray
     ) {
         defaultAppWidget(context, appWidgetIds)
-        val updateIntent = Intent(APP_WIDGET_UPDATE)
-        updateIntent.putExtra(EXTRA_APP_WIDGET_NAME, NAME)
-        updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds)
-        updateIntent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY)
-        context.sendBroadcast(updateIntent)
+//        val updateIntent = Intent(APP_WIDGET_UPDATE)
+//        updateIntent.putExtra(EXTRA_APP_WIDGET_NAME, NAME)
+//        updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds)
+//        updateIntent.addFlags(Intent.FLAG_RECEIVER_REGISTERED_ONLY)
+//        context.sendBroadcast(updateIntent)
     }
 
     /**
@@ -58,9 +53,9 @@ abstract class BaseAppWidget : AppWidgetProvider() {
      */
     fun notifyChange(service: MusicService, what: String) {
         if (hasInstances(service)) {
-            if (META_CHANGED == what || PLAY_STATE_CHANGED == what || FAVORITE_STATE_CHANGED == what) {
-                performUpdate(service, null)
-            }
+//            if (META_CHANGED == what || PLAY_STATE_CHANGED == what || FAVORITE_STATE_CHANGED == what) {
+//                performUpdate(service, null)
+//            }
         }
     }
 

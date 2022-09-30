@@ -26,32 +26,28 @@ import android.view.View
 import android.widget.RelativeLayout
 import androidx.annotation.LayoutRes
 import androidx.appcompat.widget.Toolbar
-import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.navOptions
 import androidx.viewpager.widget.ViewPager
 import code.name.monkey.appthemehelper.util.VersionUtils
-import code.name.monkey.retromusic.EXTRA_ALBUM_ID
 import code.name.monkey.retromusic.R
-import code.name.monkey.retromusic.activities.MainActivity
-import code.name.monkey.retromusic.activities.tageditor.AbsTagEditorActivity
 import code.name.monkey.retromusic.activities.tageditor.SongTagEditorActivity
-import code.name.monkey.retromusic.dialogs.*
+import code.name.monkey.retromusic.dialogs.PlaybackSpeedDialog
+import code.name.monkey.retromusic.dialogs.SleepTimerDialog
 import code.name.monkey.retromusic.extensions.*
+import code.name.monkey.retromusic.feature.main.presentation.MainActivity
+import code.name.monkey.retromusic.feature.player.cover.presentation.PlayerAlbumCoverFragment
 import code.name.monkey.retromusic.fragments.LibraryViewModel
-import code.name.monkey.retromusic.fragments.NowPlayingScreen
-import code.name.monkey.retromusic.fragments.player.PlayerAlbumCoverFragment
-import code.name.monkey.retromusic.helper.MusicPlayerRemote
 import code.name.monkey.retromusic.interfaces.IPaletteColorHolder
 import code.name.monkey.retromusic.util.NavigationUtil
 import code.name.monkey.retromusic.util.PreferenceUtil
-import code.name.monkey.retromusic.util.RingtoneManager
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import kotlin.math.abs
 
-abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragment(layout),
+abstract class AbsPlayerFragment(@LayoutRes layout: Int) : Fragment(layout),
     Toolbar.OnMenuItemClickListener, IPaletteColorHolder, PlayerAlbumCoverFragment.Callbacks {
 
     val libraryViewModel: LibraryViewModel by sharedViewModel()
@@ -64,7 +60,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
     override fun onMenuItemClick(
         item: MenuItem,
     ): Boolean {
-        val songId = MusicPlayerRemote.currentSongId ?: return false
+//        val songId = MusicPlayerRemote.currentSongId ?: return false
         when (item.itemId) {
             R.id.action_playback_speed -> {
                 PlaybackSpeedDialog.newInstance().show(childFragmentManager, "PLAYBACK_SETTINGS")
@@ -85,11 +81,11 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 return true
             }
             R.id.action_toggle_favorite -> {
-                toggleFavorite(songId)
+//                toggleFavorite(songId)
                 return true
             }
             R.id.action_share -> {
-                SongShareDialog.create(songId).show(childFragmentManager, "SHARE_SONG")
+//                SongShareDialog.create(songId).show(childFragmentManager, "SHARE_SONG")
                 return true
             }
             R.id.action_go_to_drive_mode -> {
@@ -97,7 +93,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 return true
             }
             R.id.action_delete_from_device -> {
-                DeleteSongsDialog.create(songId).show(childFragmentManager, "DELETE_SONGS")
+//                DeleteSongsDialog.create(songId).show(childFragmentManager, "DELETE_SONGS")
                 return true
             }
             R.id.action_add_to_playlist -> {
@@ -112,7 +108,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
                 return true
             }
             R.id.action_clear_playing_queue -> {
-                MusicPlayerRemote.clearQueue()
+//                MusicPlayerRemote.clearQueue()
                 return true
             }
             R.id.action_save_playing_queue -> {
@@ -122,22 +118,22 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             }
             R.id.action_tag_editor -> {
                 val intent = Intent(activity, SongTagEditorActivity::class.java)
-                intent.putExtra(AbsTagEditorActivity.EXTRA_ID, songId)
+//                intent.putExtra(AbsTagEditorActivity.EXTRA_ID, songId)
                 startActivity(intent)
                 return true
             }
             R.id.action_details -> {
-                SongDetailDialog.create(songId).show(childFragmentManager, "SONG_DETAIL")
+//                SongDetailDialog.create(songId).show(childFragmentManager, "SONG_DETAIL")
                 return true
             }
             R.id.action_go_to_album -> {
                 //Hide Bottom Bar First, else Bottom Sheet doesn't collapse fully
                 mainActivity.setBottomNavVisibility(false)
                 mainActivity.collapsePanel()
-                requireActivity().findNavController(R.id.fragment_container).navigate(
-                    R.id.albumDetailsFragment,
-                    bundleOf(EXTRA_ALBUM_ID to songId)
-                )
+//                requireActivity().findNavController(R.id.fragment_container).navigate(
+//                    R.id.albumDetailsFragment,
+//                    bundleOf(EXTRA_ALBUM_ID to songId)
+//                )
                 return true
             }
             R.id.action_go_to_artist -> {
@@ -163,17 +159,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
             }
             R.id.action_sleep_timer -> {
                 SleepTimerDialog().show(parentFragmentManager, "SLEEP_TIMER")
-                return true
-            }
-            R.id.action_set_as_ringtone -> {
-                requireContext().run {
-                    if (RingtoneManager.requiresDialog(this)) {
-                        RingtoneManager.showDialog(this)
-                    } else {
-                        RingtoneManager.setRingtone(this, songId)
-                    }
-                }
-
                 return true
             }
             R.id.action_go_to_genre -> {
@@ -217,18 +202,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
     abstract fun onBackPressed(): Boolean
 
     abstract fun toolbarIconColor(): Int
-
-    override fun onServiceConnected() {
-        updateIsFavorite()
-    }
-
-    override fun onPlayingMetaChanged() {
-        updateIsFavorite()
-    }
-
-    override fun onFavoriteStateChanged() {
-        updateIsFavorite(animate = true)
-    }
 
     protected open fun toggleFavorite(songId: String) {
 //        TODO: fix favorite
@@ -304,15 +277,10 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
     @SuppressLint("ClickableViewAccessibility")
     override fun onResume() {
         super.onResume()
-        val nps = PreferenceUtil.nowPlayingScreen
 
-        if (nps == NowPlayingScreen.Circle || nps == NowPlayingScreen.Peek || nps == NowPlayingScreen.Tiny) {
-            playerToolbar()?.menu?.removeItem(R.id.action_toggle_lyrics)
-        } else {
-            playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
-                isChecked = PreferenceUtil.showLyrics
-                showLyricsIcon(this)
-            }
+        playerToolbar()?.menu?.findItem(R.id.action_toggle_lyrics)?.apply {
+            isChecked = PreferenceUtil.showLyrics
+            showLyricsIcon(this)
         }
     }
 
@@ -372,7 +340,7 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) : AbsMusicServiceFragme
 
 fun goToArtist(activity: Activity) {
     if (activity !is MainActivity) return
-    val song = MusicPlayerRemote.currentSongId
+//    val song = MusicPlayerRemote.currentSongId
     activity.apply {
 
         // Remove exit transition of current fragment so
@@ -394,7 +362,7 @@ fun goToArtist(activity: Activity) {
 
 fun goToAlbum(activity: Activity) {
     if (activity !is MainActivity) return
-    val song = MusicPlayerRemote.currentSongId
+//    val song = MusicPlayerRemote.currentSongId
     // TODO: go to album
 //    activity.apply {
 //        currentFragment(R.id.fragment_container)?.exitTransition = null

@@ -27,8 +27,6 @@ import code.name.monkey.appthemehelper.ThemeStore
 import code.name.monkey.retromusic.R
 import code.name.monkey.retromusic.databinding.FragmentVolumeBinding
 import code.name.monkey.retromusic.extensions.applyColor
-import code.name.monkey.retromusic.helper.MusicPlayerRemote
-import code.name.monkey.retromusic.util.PreferenceUtil
 import code.name.monkey.retromusic.volume.AudioVolumeObserver
 import code.name.monkey.retromusic.volume.OnAudioVolumeChangedListener
 import com.google.android.material.slider.Slider
@@ -120,9 +118,9 @@ class VolumeFragment : Fragment(), Slider.OnChangeListener, OnAudioVolumeChanged
     }
 
     private fun setPauseWhenZeroVolume(pauseWhenZeroVolume: Boolean) {
-        if (PreferenceUtil.isPauseOnZeroVolume)
-            if (MusicPlayerRemote.isPlaying && pauseWhenZeroVolume)
-                MusicPlayerRemote.pauseSong()
+//        if (PreferenceUtil.isPauseOnZeroVolume)
+//            if (MusicPlayerRemote.isPlaying && pauseWhenZeroVolume)
+//                MusicPlayerRemote.pauseSong()
     }
 
     fun setTintableColor(color: Int) {
