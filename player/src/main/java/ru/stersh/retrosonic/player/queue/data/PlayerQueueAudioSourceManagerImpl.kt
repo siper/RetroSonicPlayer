@@ -85,8 +85,6 @@ internal class PlayerQueueAudioSourceManagerImpl(
             ?.takeIf { it.isNotEmpty() }
             ?: return@coroutineScope emptyList()
 
-        val songs = albums.flatMap { getSongs(AudioSource.Album(it.id)) }
-
         return@coroutineScope albums
             .map {
                 async { getSongs(AudioSource.Album(it.id)) }
@@ -104,7 +102,7 @@ internal class PlayerQueueAudioSourceManagerImpl(
             .setExtras(
                 bundleOf(
                     MEDIA_ITEM_ALBUM_ID to albumId,
-                    MEDIA_ITEM_DURATION to duration * 1000
+                    MEDIA_ITEM_DURATION to duration * 1000L
                 )
             )
             .setArtworkUri(apiSonic.getCoverArtUrl(coverArt).toUri())

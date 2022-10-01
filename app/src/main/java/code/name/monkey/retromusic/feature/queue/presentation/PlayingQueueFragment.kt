@@ -28,8 +28,6 @@ import code.name.monkey.appthemehelper.util.ToolbarContentTintHelper
 import code.name.monkey.retromusic.R
 import code.name.monkey.retromusic.databinding.FragmentPlayingQueueBinding
 import code.name.monkey.retromusic.extensions.accentColor
-import code.name.monkey.retromusic.feature.main.presentation.MainActivity
-import code.name.monkey.retromusic.util.MusicUtil
 import code.name.monkey.retromusic.util.ThemedFastScroller
 import com.h6ah4i.android.widget.advrecyclerview.animator.DraggableItemAnimator
 import com.h6ah4i.android.widget.advrecyclerview.draggable.RecyclerViewDragDropManager
@@ -52,26 +50,12 @@ class PlayingQueueFragment : Fragment(R.layout.fragment_playing_queue) {
 
     private val viewModel: PlayingQueueViewModel by viewModel()
 
-    val mainActivity: MainActivity
-        get() = activity as MainActivity
-
-    private fun getUpNextAndQueueTime(): String {
-//        val duration = MusicPlayerRemote.getQueueDurationMillis(MusicPlayerRemote.position)
-        val duration = 0L
-        return MusicUtil.buildInfoString(
-            resources.getString(R.string.up_next),
-            MusicUtil.getReadableDurationString(duration)
-        )
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentPlayingQueueBinding.bind(view)
 
         setupToolbar()
         setUpRecyclerView()
-        checkForPadding()
-        mainActivity.collapsePanel()
 
         lifecycleScope.launchWhenStarted {
             viewModel.queue.collect {
@@ -96,9 +80,12 @@ class PlayingQueueFragment : Fragment(R.layout.fragment_playing_queue) {
         val animator = DraggableItemAnimator()
         animator.supportsChangeAnimations = false
 
-        playingQueueAdapter = PlayingQueueAdapter(requireActivity(), R.layout.item_queue) {
-            viewModel.playSongOnPosition(it)
-        }
+        playingQueueAdapter = PlayingQueueAdapter(
+            activity = requireActivity(),
+            onMoveItem = { from, to -> viewModel.moveSong(from, to) },
+            onSongClick = { viewModel.playSongOnPosition(it) },
+            onRemoveItem = { viewModel.removeSong(it) }
+        )
         wrappedAdapter = recyclerViewDragDropManager?.createWrappedAdapter(playingQueueAdapter!!)
         wrappedAdapter = wrappedAdapter?.let { recyclerViewSwipeManager?.createWrappedAdapter(it) }
 
@@ -123,24 +110,6 @@ class PlayingQueueFragment : Fragment(R.layout.fragment_playing_queue) {
             }
         })
         ThemedFastScroller.create(binding.recyclerView)
-    }
-
-    private fun checkForPadding() {
-    }
-
-    private fun updateCurrentSong() {
-        binding.appBarLayout.toolbar.subtitle = getUpNextAndQueueTime()
-    }
-
-    private fun updateQueuePosition() {
-//        playingQueueAdapter?.setCurrent(MusicPlayerRemote.position)
-        resetToCurrentPosition()
-        binding.appBarLayout.toolbar.subtitle = getUpNextAndQueueTime()
-    }
-
-    private fun resetToCurrentPosition() {
-        binding.recyclerView.stopScroll()
-//        linearLayoutManager.scrollToPositionWithOffset(MusicPlayerRemote.position + 1, 0)
     }
 
     override fun onPause() {
@@ -170,7 +139,6 @@ class PlayingQueueFragment : Fragment(R.layout.fragment_playing_queue) {
     }
 
     private fun setupToolbar() {
-        binding.appBarLayout.toolbar.subtitle = getUpNextAndQueueTime()
         binding.clearQueue.backgroundTintList = ColorStateList.valueOf(accentColor())
         ColorStateList.valueOf(
             MaterialValueHelper.getPrimaryTextColor(

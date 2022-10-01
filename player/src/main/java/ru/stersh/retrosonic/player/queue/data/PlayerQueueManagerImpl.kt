@@ -28,9 +28,11 @@ class PlayerQueueManagerImpl(private val context: Context) : PlayerQueueManager 
             val sessionListener = object : Player.Listener {
                 override fun onEvents(player: Player, events: Player.Events) {
                     if (events.containsAny(
+                            Player.EVENT_TIMELINE_CHANGED,
                             Player.EVENT_IS_PLAYING_CHANGED,
                             Player.EVENT_MEDIA_METADATA_CHANGED,
-                            Player.EVENT_METADATA)
+                            Player.EVENT_METADATA
+                        )
                     ) {
                         trySend(currentMediaItemIndex)
                     }
@@ -59,9 +61,11 @@ class PlayerQueueManagerImpl(private val context: Context) : PlayerQueueManager 
             val sessionListener = object : Player.Listener {
                 override fun onEvents(player: Player, events: Player.Events) {
                     if (events.containsAny(
+                            Player.EVENT_TIMELINE_CHANGED,
                             Player.EVENT_IS_PLAYING_CHANGED,
                             Player.EVENT_MEDIA_METADATA_CHANGED,
-                            Player.EVENT_METADATA)
+                            Player.EVENT_METADATA
+                        )
                     ) {
                         trySend(mediaItems)
                     }
@@ -87,6 +91,18 @@ class PlayerQueueManagerImpl(private val context: Context) : PlayerQueueManager 
     override fun playPosition(position: Int) {
         mediaControllerFuture(context, MusicService::class.java).withPlayer(mainExecutor) {
             seekTo(position, 0L)
+        }
+    }
+
+    override fun moveSong(from: Int, to: Int) {
+        mediaControllerFuture(context, MusicService::class.java).withPlayer(mainExecutor) {
+            moveMediaItem(from, to)
+        }
+    }
+
+    override fun removeSong(position: Int) {
+        mediaControllerFuture(context, MusicService::class.java).withPlayer(mainExecutor) {
+            removeMediaItem(position)
         }
     }
 }

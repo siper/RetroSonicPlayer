@@ -15,7 +15,7 @@
 package code.name.monkey.retromusic.feature.queue.presentation
 
 import android.content.res.ColorStateList
-import android.content.res.Resources
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
@@ -52,7 +52,8 @@ import me.zhanghai.android.fastscroll.PopupTextProvider
 
 class PlayingQueueAdapter(
     override val activity: FragmentActivity,
-    private var itemLayoutRes: Int,
+    private val onMoveItem: (from: Int, to: Int) -> Unit,
+    private val onRemoveItem: (position: Int) -> Unit,
     private val onSongClick: (position: Int) -> Unit
 ) : AbsMultiSelectAdapter<PlayingQueueAdapter.ViewHolder, QueueSongUi>(activity, R.menu.menu_media_selection),
     DraggableItemAdapter<PlayingQueueAdapter.ViewHolder>,
@@ -70,12 +71,11 @@ class PlayingQueueAdapter(
     private var songToRemove: Song? = null
 
     override fun getItemViewType(position: Int): Int {
-        if (position < current) {
-            return HISTORY
-        } else if (position > current) {
-            return UP_NEXT
+        return if (position == current) {
+            VIEW_TYPE_PLAYING
+        } else {
+            VIEW_TYPE_DEFAULT
         }
-        return CURRENT
     }
 
     fun setCurrent(current: Int) {
@@ -109,7 +109,7 @@ class PlayingQueueAdapter(
     }
 
     override fun onMoveItem(fromPosition: Int, toPosition: Int) {
-//        MusicPlayerRemote.moveSong(fromPosition, toPosition)
+        onMoveItem.invoke(fromPosition, toPosition)
     }
 
     override fun onCheckCanDrop(draggingPosition: Int, dropPosition: Int): Boolean {
@@ -132,7 +132,7 @@ class PlayingQueueAdapter(
         return if (result == SwipeableItemConstants.RESULT_CANCELED) {
             SwipeResultActionDefault()
         } else {
-            SwipedResultActionRemoveItem(this, position, activity)
+            SwipedResultActionRemoveItem(position)
         }
     }
 
@@ -150,17 +150,9 @@ class PlayingQueueAdapter(
     override fun onSetSwipeBackground(holder: ViewHolder, position: Int, result: Int) {
     }
 
-    internal class SwipedResultActionRemoveItem(
-        private val adapter: PlayingQueueAdapter,
-        private val position: Int,
-        private val activity: FragmentActivity,
-    ) : SwipeResultActionRemoveItem() {
-
-        private var songToRemove: Song? = null
-        //        private val isPlaying: Boolean = MusicPlayerRemote.isPlaying
-        private val songProgressMillis = 0
+    internal inner class SwipedResultActionRemoveItem(private val position: Int) : SwipeResultActionRemoveItem() {
         override fun onPerformAction() {
-            // currentlyShownSnackbar = null
+            onRemoveItem.invoke(position)
         }
 
         override fun onSlideAnimationEnd() {
@@ -186,16 +178,11 @@ class PlayingQueueAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view =
-            try {
-                LayoutInflater.from(activity).inflate(itemLayoutRes, parent, false)
-            } catch (e: Resources.NotFoundException) {
-                LayoutInflater.from(activity).inflate(R.layout.item_list, parent, false)
-            }
+        val view = LayoutInflater.from(activity).inflate(R.layout.item_queue, parent, false)
         return createViewHolder(view)
     }
 
-    protected open fun createViewHolder(view: View): ViewHolder {
+    private fun createViewHolder(view: View): ViewHolder {
         return ViewHolder(view)
     }
 
@@ -213,8 +200,10 @@ class PlayingQueueAdapter(
             holder.menu?.isVisible = false
         }
         holder.time?.text = MusicUtil.getReadableDurationString(song.duration)
-        if (holder.itemViewType == HISTORY || holder.itemViewType == CURRENT) {
-            setAlpha(holder, 0.5f)
+        if (holder.itemViewType == VIEW_TYPE_PLAYING) {
+            holder.dummyContainer?.setBackgroundColor(Color.parseColor("#0Dffffff"))
+        } else {
+            holder.dummyContainer?.setBackgroundColor(Color.TRANSPARENT)
         }
     }
 
@@ -348,8 +337,7 @@ class PlayingQueueAdapter(
 
     companion object {
         val TAG: String = PlayingQueueAdapter::class.java.simpleName
-        private const val HISTORY = 0
-        private const val CURRENT = 1
-        private const val UP_NEXT = 2
+        private const val VIEW_TYPE_DEFAULT = 0
+        private const val VIEW_TYPE_PLAYING = 1
     }
 }

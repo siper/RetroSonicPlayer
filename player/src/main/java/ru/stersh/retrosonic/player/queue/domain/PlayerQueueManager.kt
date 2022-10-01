@@ -8,4 +8,6 @@ interface PlayerQueueManager {
     fun currentPlayingItemPosition(): Flow<Int>
     fun clearQueue()
     fun playPosition(position: Int)
+    fun moveSong(from: Int, to: Int)
+    fun removeSong(position: Int)
 }

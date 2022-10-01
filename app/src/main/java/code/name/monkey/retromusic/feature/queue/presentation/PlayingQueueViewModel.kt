@@ -42,6 +42,10 @@ class PlayingQueueViewModel(private val playerQueueManager: PlayerQueueManager) 
 
     fun playSongOnPosition(position: Int) = playerQueueManager.playPosition(position)
 
+    fun moveSong(from: Int, to: Int) = playerQueueManager.moveSong(from, to)
+
+    fun removeSong(position: Int) = playerQueueManager.removeSong(position)
+
     private fun MediaItem.toPresentation(): QueueSongUi {
         return QueueSongUi(
             id = mediaId,
