@@ -26,7 +26,7 @@
 
     <fragment
         android:id="@+id/action_playlist"
-        android:name="code.name.monkey.retromusic.fragments.playlists.PlaylistsFragment"
+        android:name="code.name.monkey.retromusic.feature.library.playlist.presentation.LibraryPlaylistFragment"
         tools:layout="@layout/fragment_main_recycler" />
 
     <fragment

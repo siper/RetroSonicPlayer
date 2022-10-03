@@ -25,7 +25,6 @@ import code.name.monkey.retromusic.EXTRA_ARTIST_ID
 import code.name.monkey.retromusic.R
 import code.name.monkey.retromusic.extensions.setUpMediaRouteButton
 import code.name.monkey.retromusic.fragments.GridStyle
-import code.name.monkey.retromusic.fragments.ReloadType
 import code.name.monkey.retromusic.fragments.base.AbsRecyclerViewCustomGridSizeFragment
 import code.name.monkey.retromusic.helper.SortOrder.ArtistSortOrder
 import code.name.monkey.retromusic.util.PreferenceUtil
@@ -54,19 +53,11 @@ class LibraryArtistFragment : AbsRecyclerViewCustomGridSizeFragment<LibraryArtis
         get() = true
 
     override fun onShuffleClicked() {
-        // TODO: fix play
-//        libraryViewModel.getArtists().value?.let {
-//            MusicPlayerRemote.setShuffleMode(MusicService.SHUFFLE_MODE_NONE)
-//            MusicPlayerRemote.openQueue(
-//                queue = it.shuffled().flatMap { artist -> artist.songs },
-//                startPosition = 0,
-//                startPlaying = true
-//            )
-//        }
+
     }
 
     override fun setSortOrder(sortOrder: String) {
-        libraryViewModel.forceReload(ReloadType.Artists)
+
     }
 
     override fun createLayoutManager(): GridLayoutManager {
@@ -256,7 +247,6 @@ class LibraryArtistFragment : AbsRecyclerViewCustomGridSizeFragment<LibraryArtis
         return if (item.itemId == R.id.action_album_artist) {
             PreferenceUtil.albumArtistsOnly = !item.isChecked
             item.isChecked = !item.isChecked
-            libraryViewModel.forceReload(ReloadType.Artists)
             true
         } else {
             false
@@ -319,6 +309,5 @@ class LibraryArtistFragment : AbsRecyclerViewCustomGridSizeFragment<LibraryArtis
 
     override fun onResume() {
         super.onResume()
-        libraryViewModel.forceReload(ReloadType.Artists)
     }
 }

@@ -4,18 +4,18 @@ import androidx.room.Room
 import code.name.monkey.retromusic.auto.AutoMusicProvider
 import code.name.monkey.retromusic.cast.RetroWebServer
 import code.name.monkey.retromusic.db.MIGRATION_23_24
-import code.name.monkey.retromusic.db.PlaylistWithSongs
 import code.name.monkey.retromusic.db.RetroDatabase
-import code.name.monkey.retromusic.feature.details.album.detailsAlbumModule
-import code.name.monkey.retromusic.feature.details.artist.detailsArtistModule
-import code.name.monkey.retromusic.feature.library.album.libraryAlbumModule
-import code.name.monkey.retromusic.feature.library.artist.libraryArtistModule
+import code.name.monkey.retromusic.feature.details.album.detailsAlbumFeatureModule
+import code.name.monkey.retromusic.feature.details.artist.detailsArtistFeatureModule
+import code.name.monkey.retromusic.feature.details.playlist.detailsPlaylistFeatureModule
+import code.name.monkey.retromusic.feature.library.album.libraryAlbumFeatureModule
+import code.name.monkey.retromusic.feature.library.artist.libraryArtistFeatureModule
+import code.name.monkey.retromusic.feature.library.playlist.libraryPlaylistFeatureModule
 import code.name.monkey.retromusic.feature.main.mainFeatureModule
 import code.name.monkey.retromusic.feature.player.playerFeatureModule
 import code.name.monkey.retromusic.feature.queue.queueFeatureModule
 import code.name.monkey.retromusic.fragments.LibraryViewModel
 import code.name.monkey.retromusic.fragments.genres.GenreDetailsViewModel
-import code.name.monkey.retromusic.fragments.playlists.PlaylistDetailsViewModel
 import code.name.monkey.retromusic.model.Genre
 import code.name.monkey.retromusic.network.provideDefaultCache
 import code.name.monkey.retromusic.network.provideLastFmRest
@@ -170,13 +170,6 @@ private val viewModules = module {
         LibraryViewModel(get())
     }
 
-    viewModel { (playlist: PlaylistWithSongs) ->
-        PlaylistDetailsViewModel(
-            get(),
-            playlist
-        )
-    }
-
     viewModel { (genre: Genre) ->
         GenreDetailsViewModel(
             get(),
@@ -192,12 +185,14 @@ val appModules = listOf(
     viewModules,
     networkModule,
     roomModule,
-    libraryAlbumModule,
-    detailsAlbumModule,
-    libraryArtistModule,
-    detailsArtistModule,
+    playerModule,
+    libraryAlbumFeatureModule,
+    detailsAlbumFeatureModule,
+    libraryArtistFeatureModule,
+    detailsArtistFeatureModule,
     playerFeatureModule,
     mainFeatureModule,
-    playerModule,
-    queueFeatureModule
+    queueFeatureModule,
+    libraryPlaylistFeatureModule,
+    detailsPlaylistFeatureModule
 )

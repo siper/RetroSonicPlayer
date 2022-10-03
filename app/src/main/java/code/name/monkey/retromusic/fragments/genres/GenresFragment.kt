@@ -27,7 +27,6 @@ import code.name.monkey.retromusic.EXTRA_GENRE
 import code.name.monkey.retromusic.R
 import code.name.monkey.retromusic.adapter.GenreAdapter
 import code.name.monkey.retromusic.extensions.setUpMediaRouteButton
-import code.name.monkey.retromusic.fragments.ReloadType
 import code.name.monkey.retromusic.fragments.base.AbsRecyclerViewFragment
 import code.name.monkey.retromusic.interfaces.IGenreClickListener
 import code.name.monkey.retromusic.model.Genre
@@ -39,12 +38,8 @@ GenresFragment : AbsRecyclerViewFragment<GenreAdapter, LinearLayoutManager>(),
     IGenreClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        libraryViewModel.getGenre().observe(viewLifecycleOwner) {
-            if (it.isNotEmpty())
-                adapter?.swapDataSet(it)
-            else
-                adapter?.swapDataSet(listOf())
-        }
+
+
     }
 
     override fun createLayoutManager(): LinearLayoutManager {
@@ -72,7 +67,7 @@ GenresFragment : AbsRecyclerViewFragment<GenreAdapter, LinearLayoutManager>(),
 
     override fun onResume() {
         super.onResume()
-        libraryViewModel.forceReload(ReloadType.Genres)
+
     }
 
 

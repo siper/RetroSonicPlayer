@@ -21,9 +21,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import code.name.monkey.retromusic.R
 import code.name.monkey.retromusic.db.PlaylistEntity
-import code.name.monkey.retromusic.db.toSongEntity
-import code.name.monkey.retromusic.db.toSongsEntity
-import code.name.monkey.retromusic.dialogs.RemoveSongFromPlaylistDialog
 import code.name.monkey.retromusic.extensions.accentColor
 import code.name.monkey.retromusic.extensions.accentOutlineColor
 import code.name.monkey.retromusic.fragments.LibraryViewModel
@@ -36,7 +33,6 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OrderablePlaylistSongAdapter(
-    private val playlist: PlaylistEntity,
     activity: FragmentActivity,
     dataSet: MutableList<Song>,
     itemLayoutRes: Int,
@@ -90,12 +86,14 @@ class OrderablePlaylistSongAdapter(
 
     override fun onMultipleItemAction(menuItem: MenuItem, selection: List<Song>) {
         when (menuItem.itemId) {
-            R.id.action_remove_from_playlist -> RemoveSongFromPlaylistDialog.create(
-                selection.toSongsEntity(
-                    playlist
-                )
-            )
-                .show(activity.supportFragmentManager, "REMOVE_FROM_PLAYLIST")
+            R.id.action_remove_from_playlist -> {
+//                RemoveSongFromPlaylistDialog.create(
+//                selection.toSongsEntity(
+//                    playlist
+//                )
+//                )
+//                    .show(activity.supportFragmentManager, "REMOVE_FROM_PLAYLIST")
+            }
             else -> super.onMultipleItemAction(menuItem, selection)
         }
     }
@@ -113,8 +111,8 @@ class OrderablePlaylistSongAdapter(
         override fun onSongMenuItemClick(item: MenuItem): Boolean {
             when (item.itemId) {
                 R.id.action_remove_from_playlist -> {
-                    RemoveSongFromPlaylistDialog.create(song.toSongEntity(playlist.playListId))
-                        .show(activity.supportFragmentManager, "REMOVE_FROM_PLAYLIST")
+//                    RemoveSongFromPlaylistDialog.create(song.toSongEntity(playlist.playListId))
+//                        .show(activity.supportFragmentManager, "REMOVE_FROM_PLAYLIST")
                     return true
                 }
             }
@@ -163,7 +161,7 @@ class OrderablePlaylistSongAdapter(
 
     fun saveSongs(playlistEntity: PlaylistEntity) {
         activity.lifecycleScope.launch(Dispatchers.IO) {
-            libraryViewModel.insertSongs(dataSet.toSongsEntity(playlistEntity))
+
         }
     }
 }

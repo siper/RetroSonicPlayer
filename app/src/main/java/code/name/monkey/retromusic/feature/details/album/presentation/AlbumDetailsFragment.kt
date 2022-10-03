@@ -59,11 +59,8 @@ import com.google.android.material.transition.MaterialArcMotion
 import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
-import ru.stersh.retrosonic.player.queue.domain.AudioSource
-import ru.stersh.retrosonic.player.queue.domain.PlayerQueueAudioSourceManager
 import java.text.Collator
 
 class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_details), IAlbumClickListener {
@@ -72,7 +69,6 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
     private val binding get() = _binding!!
 
     private val arguments by navArgs<AlbumDetailsFragmentArgs>()
-    private val playerQueueAudioSourceManager: PlayerQueueAudioSourceManager by inject()
     private val viewModel by viewModel<AlbumDetailsViewModel> {
         parametersOf(arguments.extraAlbumId)
     }
@@ -100,7 +96,7 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
         mainActivity.setSupportActionBar(binding.toolbar)
 
         binding.toolbar.title = " "
-        binding.albumCoverContainer.transitionName = arguments.extraAlbumId.toString()
+        binding.albumCoverContainer.transitionName = arguments.extraAlbumId
         postponeEnterTransition()
         lifecycleScope.launchWhenStarted {
             viewModel.albumDetails.collect { album ->
@@ -164,9 +160,7 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
             ArrayList(),
             R.layout.item_song
         ) { songId ->
-            lifecycleScope.launch {
-                playerQueueAudioSourceManager.playSource(AudioSource.Song(songId))
-            }
+            viewModel.playSong(songId)
         }
         binding.fragmentAlbumContent.recyclerView.apply {
             layoutManager = LinearLayoutManager(requireContext())

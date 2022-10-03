@@ -200,6 +200,16 @@ object MusicUtil : KoinComponent {
         return ContentUris.withAppendedId(sArtworkUri, albumId)
     }
 
+    fun getPlaylistInfoString(
+        context: Context,
+        songCount: Int,
+        duration: Long
+    ): String {
+        return buildInfoString(
+            getSongCountString(context, songCount),
+            getReadableDurationString(duration)
+        )
+    }
 
     fun getPlaylistInfoString(
         context: Context,

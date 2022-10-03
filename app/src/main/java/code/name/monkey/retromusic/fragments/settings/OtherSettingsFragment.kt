@@ -23,7 +23,6 @@ import code.name.monkey.retromusic.LAST_ADDED_CUTOFF
 import code.name.monkey.retromusic.R
 import code.name.monkey.retromusic.extensions.installLanguageAndRecreate
 import code.name.monkey.retromusic.fragments.LibraryViewModel
-import code.name.monkey.retromusic.fragments.ReloadType.HomeSections
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 /**
@@ -50,7 +49,6 @@ class OtherSettingsFragment : AbsSettingsFragment() {
         val preference: Preference? = findPreference(LAST_ADDED_CUTOFF)
         preference?.setOnPreferenceChangeListener { lastAdded, newValue ->
             setSummary(lastAdded, newValue)
-            libraryViewModel.forceReload(HomeSections)
             true
         }
         val languagePreference: Preference? = findPreference(LANGUAGE_NAME)

@@ -6,7 +6,7 @@ import code.name.monkey.retromusic.feature.library.album.presentation.LibraryAlb
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val libraryAlbumModule = module {
+val libraryAlbumFeatureModule = module {
     viewModel { LibraryAlbumViewModel(get()) }
     single<LibraryAlbumRepository> { LibraryAlbumRepositoryImpl(get()) }
 }

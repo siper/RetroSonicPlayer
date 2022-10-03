@@ -33,7 +33,7 @@ import code.name.monkey.retromusic.adapter.album.AlbumAdapter
 import code.name.monkey.retromusic.adapter.artist.ArtistAdapter
 import code.name.monkey.retromusic.adapter.song.ShuffleButtonSongAdapter
 import code.name.monkey.retromusic.adapter.song.SongAdapter
-import code.name.monkey.retromusic.databinding.FragmentPlaylistDetailBinding
+import code.name.monkey.retromusic.databinding.FragmentGenreDetailBinding
 import code.name.monkey.retromusic.db.toSong
 import code.name.monkey.retromusic.fragments.base.AbsMainActivityFragment
 import code.name.monkey.retromusic.interfaces.IAlbumClickListener
@@ -46,10 +46,10 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialSharedAxis
 
 
-class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_detail),
+class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_genre_detail),
     IArtistClickListener, IAlbumClickListener {
     private val args by navArgs<DetailListFragmentArgs>()
-    private var _binding: FragmentPlaylistDetailBinding? = null
+    private var _binding: FragmentGenreDetailBinding? = null
     private val binding get() = _binding!!
     private var showClearHistoryOption = false
 
@@ -74,7 +74,7 @@ class DetailListFragment : AbsMainActivityFragment(R.layout.fragment_playlist_de
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        _binding = FragmentPlaylistDetailBinding.bind(view)
+        _binding = FragmentGenreDetailBinding.bind(view)
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
         mainActivity.setSupportActionBar(binding.toolbar)

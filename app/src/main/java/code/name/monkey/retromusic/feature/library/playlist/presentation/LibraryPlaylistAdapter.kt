@@ -12,7 +12,7 @@
  * See the GNU General Public License for more details.
  *
  */
-package code.name.monkey.retromusic.adapter.playlist
+package code.name.monkey.retromusic.feature.library.playlist.presentation
 
 import android.graphics.Color
 import android.graphics.drawable.Drawable
@@ -29,46 +29,41 @@ import code.name.monkey.appthemehelper.util.TintHelper
 import code.name.monkey.retromusic.R
 import code.name.monkey.retromusic.adapter.base.AbsMultiSelectAdapter
 import code.name.monkey.retromusic.adapter.base.MediaEntryViewHolder
-import code.name.monkey.retromusic.db.PlaylistEntity
-import code.name.monkey.retromusic.db.PlaylistWithSongs
-import code.name.monkey.retromusic.db.toSongs
 import code.name.monkey.retromusic.extensions.dipToPix
 import code.name.monkey.retromusic.glide.GlideApp
-import code.name.monkey.retromusic.glide.playlistPreview.PlaylistPreview
 import code.name.monkey.retromusic.helper.SortOrder.PlaylistSortOrder
-import code.name.monkey.retromusic.helper.menu.PlaylistMenuHelper
-import code.name.monkey.retromusic.helper.menu.SongsMenuHelper
-import code.name.monkey.retromusic.interfaces.IPlaylistClickListener
-import code.name.monkey.retromusic.model.Song
 import code.name.monkey.retromusic.util.MusicUtil
 import code.name.monkey.retromusic.util.PreferenceUtil
 import me.zhanghai.android.fastscroll.PopupTextProvider
 
-class PlaylistAdapter(
+class LibraryPlaylistAdapter(
     override val activity: FragmentActivity,
-    var dataSet: List<PlaylistWithSongs>,
     private var itemLayoutRes: Int,
-    private val listener: IPlaylistClickListener
-) : AbsMultiSelectAdapter<PlaylistAdapter.ViewHolder, PlaylistWithSongs>(
+    private val onClick: (view: View, id: String) -> Unit
+) : AbsMultiSelectAdapter<LibraryPlaylistAdapter.ViewHolder, LibraryPlaylistUi>(
     activity,
     R.menu.menu_playlists_selection
 ), PopupTextProvider {
+
+    private var dataSet: List<LibraryPlaylistUi> = emptyList()
 
     init {
         setHasStableIds(true)
     }
 
-    fun swapDataSet(dataSet: List<PlaylistWithSongs>) {
+    fun swapDataSet(dataSet: List<LibraryPlaylistUi>) {
         this.dataSet = dataSet
         notifyDataSetChanged()
     }
 
     override fun getItemId(position: Int): Long {
-        return dataSet[position].playlistEntity.playListId
+        return dataSet[position].id.hashCode().toLong()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(activity).inflate(itemLayoutRes, parent, false)
+        val view = LayoutInflater
+            .from(parent.context)
+            .inflate(itemLayoutRes, parent, false)
         return createViewHolder(view)
     }
 
@@ -76,18 +71,12 @@ class PlaylistAdapter(
         return ViewHolder(view)
     }
 
-    private fun getPlaylistTitle(playlist: PlaylistEntity): String {
-        return playlist.playlistName.ifEmpty { "-" }
-    }
-
-    private fun getPlaylistText(playlist: PlaylistWithSongs): String {
-        return MusicUtil.getPlaylistInfoString(activity, playlist.songs.toSongs())
-    }
-
     override fun getPopupText(position: Int): String {
         val sectionName: String = when (PreferenceUtil.playlistSortOrder) {
-            PlaylistSortOrder.PLAYLIST_A_Z, PlaylistSortOrder.PLAYLIST_Z_A -> dataSet[position].playlistEntity.playlistName
-            PlaylistSortOrder.PLAYLIST_SONG_COUNT, PlaylistSortOrder.PLAYLIST_SONG_COUNT_DESC -> dataSet[position].songs.size.toString()
+            PlaylistSortOrder.PLAYLIST_A_Z,
+            PlaylistSortOrder.PLAYLIST_Z_A -> dataSet[position].title
+            PlaylistSortOrder.PLAYLIST_SONG_COUNT,
+            PlaylistSortOrder.PLAYLIST_SONG_COUNT_DESC -> dataSet[position].songCount.toString()
             else -> {
                 return ""
             }
@@ -96,19 +85,24 @@ class PlaylistAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val context = holder.itemView.context
         val playlist = dataSet[position]
         holder.itemView.isActivated = isChecked(playlist)
-        holder.title?.text = getPlaylistTitle(playlist.playlistEntity)
-        holder.text?.text = getPlaylistText(playlist)
+        holder.title?.text = playlist.title
+        holder.text?.text = MusicUtil.getPlaylistInfoString(context, playlist.songCount, playlist.duration)
         holder.menu?.isGone = isChecked(playlist)
+        if (holder.imageContainer != null) {
+            holder.imageContainer?.transitionName = playlist.id
+        } else {
+            holder.image?.transitionName = playlist.id
+        }
         if (itemLayoutRes == R.layout.item_list) {
             holder.image?.setPadding(activity.dipToPix(8F).toInt())
             holder.image?.setImageDrawable(getIconRes())
         } else {
-            GlideApp.with(activity)
-                .load(
-                    PlaylistPreview(playlist)
-                )
+            GlideApp
+                .with(context)
+                .load(playlist.coverArtUrl)
                 .playlistOptions()
                 .into(holder.image!!)
         }
@@ -124,30 +118,24 @@ class PlaylistAdapter(
         return dataSet.size
     }
 
-    override fun getIdentifier(position: Int): PlaylistWithSongs {
+    override fun getIdentifier(position: Int): LibraryPlaylistUi {
         return dataSet[position]
     }
 
-    override fun getName(model: PlaylistWithSongs): String {
-        return model.playlistEntity.playlistName
+    override fun getName(model: LibraryPlaylistUi): String {
+        return model.title
     }
 
-    override fun onMultipleItemAction(menuItem: MenuItem, selection: List<PlaylistWithSongs>) {
+    override fun onMultipleItemAction(menuItem: MenuItem, selection: List<LibraryPlaylistUi>) {
         when (menuItem.itemId) {
-            else -> SongsMenuHelper.handleMenuClick(
-                activity,
-                getSongList(selection),
-                menuItem.itemId
-            )
+            else -> {
+//                SongsMenuHelper.handleMenuClick(
+//                    activity,
+//                    getSongList(selection),
+//                    menuItem.itemId
+//                )
+            }
         }
-    }
-
-    private fun getSongList(playlists: List<PlaylistWithSongs>): List<Song> {
-        val songs = mutableListOf<Song>()
-        playlists.forEach {
-            songs.addAll(it.songs.toSongs())
-        }
-        return songs
     }
 
     inner class ViewHolder(itemView: View) : MediaEntryViewHolder(itemView) {
@@ -156,7 +144,8 @@ class PlaylistAdapter(
                 val popupMenu = PopupMenu(activity, view)
                 popupMenu.inflate(R.menu.menu_item_playlist)
                 popupMenu.setOnMenuItemClickListener { item ->
-                    PlaylistMenuHelper.handleMenuClick(activity, dataSet[layoutPosition], item)
+//                    PlaylistMenuHelper.handleMenuClick(activity, dataSet[layoutPosition], item)
+                    return@setOnMenuItemClickListener true
                 }
                 popupMenu.show()
             }
@@ -172,7 +161,8 @@ class PlaylistAdapter(
                 toggleChecked(layoutPosition)
             } else {
                 itemView.transitionName = "playlist"
-                listener.onPlaylistClick(dataSet[layoutPosition], itemView)
+                val transitionView = imageContainer ?: return
+                onClick.invoke(transitionView, dataSet[layoutPosition].id)
             }
         }
 
@@ -183,6 +173,6 @@ class PlaylistAdapter(
     }
 
     companion object {
-        val TAG: String = PlaylistAdapter::class.java.simpleName
+        val TAG: String = LibraryPlaylistAdapter::class.java.simpleName
     }
 }

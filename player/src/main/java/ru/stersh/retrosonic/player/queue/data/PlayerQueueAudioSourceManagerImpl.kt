@@ -10,6 +10,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import ru.stersh.apisonic.ApiSonic
+import ru.stersh.apisonic.models.PlaylistResponse
 import ru.stersh.apisonic.models.Song
 import ru.stersh.retrosonic.player.android.MusicService
 import ru.stersh.retrosonic.player.queue.domain.AudioSource
@@ -31,6 +32,7 @@ internal class PlayerQueueAudioSourceManagerImpl(
             is AudioSource.Song -> listOf(getSong(source))
             is AudioSource.Album -> getSongs(source)
             is AudioSource.Artist -> getSongs(source)
+            is AudioSource.Playlist -> getSongs(source)
         }
         mediaController.withPlayer(mainExecutor) {
             if (shuffled) {
@@ -48,6 +50,7 @@ internal class PlayerQueueAudioSourceManagerImpl(
             is AudioSource.Song -> listOf(getSong(source))
             is AudioSource.Album -> getSongs(source)
             is AudioSource.Artist -> getSongs(source)
+            is AudioSource.Playlist -> getSongs(source)
         }
         mediaController.withPlayer(mainExecutor) {
             if (shuffled) {
@@ -91,6 +94,41 @@ internal class PlayerQueueAudioSourceManagerImpl(
             }
             .awaitAll()
             .flatten()
+    }
+
+    private suspend fun getSongs(source: AudioSource.Playlist): List<MediaItem> = coroutineScope {
+        return@coroutineScope apiSonic
+            .getPlaylist(source.id)
+            .entry
+            .map { it.toMediaItem() }
+    }
+
+    private fun PlaylistResponse.Entry.toMediaItem(): MediaItem {
+        val songUri = apiSonic.downloadUrl(id).toUri()
+        val metadata = MediaMetadata
+            .Builder()
+            .setTitle(title)
+            .setArtist(artist)
+            .setExtras(
+                bundleOf(
+                    MEDIA_ITEM_ALBUM_ID to albumId,
+                    MEDIA_ITEM_DURATION to duration * 1000L
+                )
+            )
+            .setArtworkUri(apiSonic.getCoverArtUrl(coverArt).toUri())
+            .build()
+        val requestMetadata = MediaItem
+            .RequestMetadata
+            .Builder()
+            .setMediaUri(songUri)
+            .build()
+        return MediaItem
+            .Builder()
+            .setMediaId(id)
+            .setMediaMetadata(metadata)
+            .setRequestMetadata(requestMetadata)
+            .setUri(songUri)
+            .build()
     }
 
     private fun Song.toMediaItem(): MediaItem {

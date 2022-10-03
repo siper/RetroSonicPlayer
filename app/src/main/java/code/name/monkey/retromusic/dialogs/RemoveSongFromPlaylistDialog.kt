@@ -67,7 +67,7 @@ class RemoveSongFromPlaylistDialog : DialogFragment() {
         return materialDialog(pair.first)
             .setMessage(pair.second)
             .setPositiveButton(R.string.remove_action) { _, _ ->
-                libraryViewModel.deleteSongsInPlaylist(songs)
+
             }
             .setNegativeButton(android.R.string.cancel, null)
             .create()

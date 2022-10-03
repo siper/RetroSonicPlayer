@@ -16,12 +16,12 @@
 
     <fragment
         android:id="@+id/playlistDetailsFragment"
-        android:name="code.name.monkey.retromusic.fragments.playlists.PlaylistDetailsFragment"
+        android:name="code.name.monkey.retromusic.feature.details.playlist.presentation.PlaylistDetailsFragment"
         android:label="PlaylistDetailsFragment"
         tools:layout="@layout/fragment_playlist_detail">
         <argument
-            android:name="extra_playlist"
-            app:argType="code.name.monkey.retromusic.db.PlaylistWithSongs" />
+            android:name="extra_playlist_id"
+            app:argType="string" />
     </fragment>
 
     <fragment
@@ -101,7 +101,7 @@
 
     <fragment
         android:id="@+id/action_playlist"
-        android:name="code.name.monkey.retromusic.fragments.playlists.PlaylistsFragment"
+        android:name="code.name.monkey.retromusic.feature.library.playlist.presentation.LibraryPlaylistFragment"
         tools:layout="@layout/fragment_main_recycler" />
 
     <fragment

@@ -6,7 +6,7 @@ import code.name.monkey.retromusic.feature.details.album.presentation.AlbumDetai
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-val detailsAlbumModule = module {
+val detailsAlbumFeatureModule = module {
     single<AlbumDetailsRepository> { AlbumDetailsRepositoryImpl(get()) }
     viewModel { (albumId: String) ->
         AlbumDetailsViewModel(get(), get(), albumId)

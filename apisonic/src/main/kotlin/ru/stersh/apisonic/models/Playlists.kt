@@ -65,8 +65,8 @@ data class PlaylistResponse(@Json(name = "playlist") val playlist: Playlist) : S
         @Json(name = "suffix") val suffix: String,
         @Json(name = "title") val title: String,
         @Json(name = "track") val track: Int,
-        @Json(name = "transcodedContentType") val transcodedContentType: String,
-        @Json(name = "transcodedSuffix") val transcodedSuffix: String,
+        @Json(name = "transcodedContentType") val transcodedContentType: String?,
+        @Json(name = "transcodedSuffix") val transcodedSuffix: String?,
         @Json(name = "type") val type: String,
         @Json(name = "year") val year: Int
     )

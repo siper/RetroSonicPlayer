@@ -29,7 +29,6 @@ import code.name.monkey.retromusic.activities.saf.SAFGuideActivity
 import code.name.monkey.retromusic.extensions.extraNotNull
 import code.name.monkey.retromusic.extensions.materialDialog
 import code.name.monkey.retromusic.fragments.LibraryViewModel
-import code.name.monkey.retromusic.fragments.ReloadType
 import code.name.monkey.retromusic.model.Song
 import code.name.monkey.retromusic.util.MusicUtil
 import code.name.monkey.retromusic.util.SAFUtil
@@ -157,9 +156,7 @@ class DeleteSongsDialog : DialogFragment() {
     }
 
     private fun reloadTabs() {
-        libraryViewModel.forceReload(ReloadType.Songs)
-        libraryViewModel.forceReload(ReloadType.HomeSections)
-        libraryViewModel.forceReload(ReloadType.Artists)
-        libraryViewModel.forceReload(ReloadType.Albums)
+
+
     }
 }

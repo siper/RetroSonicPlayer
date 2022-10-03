@@ -54,6 +54,10 @@ class AlbumDetailsViewModel(
         playerQueueAudioSourceManager.playSource(AudioSource.Album(albumId), true)
     }
 
+    fun playSong(songId: String) = viewModelScope.launch {
+        playerQueueAudioSourceManager.playSource(AudioSource.Song(songId))
+    }
+
     private fun AlbumDetails.toPresentation(): AlbumDetailsUi {
         return AlbumDetailsUi(
             id = id,

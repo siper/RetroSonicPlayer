@@ -12,38 +12,38 @@
  * See the GNU General Public License for more details.
  *
  */
-package code.name.monkey.retromusic.fragments.playlists
+package code.name.monkey.retromusic.feature.library.playlist.presentation
 
 import android.os.Bundle
 import android.view.*
 import androidx.core.os.bundleOf
 import androidx.core.view.MenuCompat
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import code.name.monkey.retromusic.EXTRA_PLAYLIST
+import code.name.monkey.retromusic.EXTRA_PLAYLIST_ID
 import code.name.monkey.retromusic.R
-import code.name.monkey.retromusic.adapter.playlist.PlaylistAdapter
 import code.name.monkey.retromusic.db.PlaylistWithSongs
 import code.name.monkey.retromusic.extensions.setUpMediaRouteButton
-import code.name.monkey.retromusic.fragments.ReloadType
 import code.name.monkey.retromusic.fragments.base.AbsRecyclerViewCustomGridSizeFragment
 import code.name.monkey.retromusic.helper.SortOrder.PlaylistSortOrder
 import code.name.monkey.retromusic.interfaces.IPlaylistClickListener
 import code.name.monkey.retromusic.util.PreferenceUtil
 import code.name.monkey.retromusic.util.RetroUtil
 import com.google.android.material.transition.MaterialSharedAxis
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PlaylistsFragment :
-    AbsRecyclerViewCustomGridSizeFragment<PlaylistAdapter, GridLayoutManager>(),
-    IPlaylistClickListener {
+class LibraryPlaylistFragment : AbsRecyclerViewCustomGridSizeFragment<LibraryPlaylistAdapter, GridLayoutManager>(), IPlaylistClickListener {
+    private val viewModel: LibraryPlaylistViewModel by viewModel()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        libraryViewModel.getPlaylists().observe(viewLifecycleOwner) {
-            if (it.isNotEmpty())
+        lifecycleScope.launchWhenStarted {
+            viewModel.playlist.collect {
                 adapter?.swapDataSet(it)
-            else
-                adapter?.swapDataSet(listOf())
+            }
         }
     }
 
@@ -60,14 +60,21 @@ class PlaylistsFragment :
         return GridLayoutManager(requireContext(), getGridSize())
     }
 
-    override fun createAdapter(): PlaylistAdapter {
-        val dataSet = if (adapter == null) mutableListOf() else adapter!!.dataSet
-        return PlaylistAdapter(
+    override fun createAdapter(): LibraryPlaylistAdapter {
+        return LibraryPlaylistAdapter(
             requireActivity(),
-            dataSet,
-            itemLayoutRes(),
-            this
-        )
+            itemLayoutRes()
+        ) { view, playlistId ->
+            findNavController().navigate(
+                R.id.playlistDetailsFragment,
+                bundleOf(EXTRA_PLAYLIST_ID to playlistId),
+                null,
+                FragmentNavigatorExtras(
+                    view to playlistId
+                )
+            )
+            reenterTransition = null
+        }
     }
 
     override fun onCreateMenu(menu: Menu, inflater: MenuInflater) {
@@ -204,7 +211,7 @@ class PlaylistsFragment :
     }
 
     override fun setSortOrder(sortOrder: String) {
-        libraryViewModel.forceReload(ReloadType.Playlists)
+
     }
 
     override fun loadSortOrder(): String {
