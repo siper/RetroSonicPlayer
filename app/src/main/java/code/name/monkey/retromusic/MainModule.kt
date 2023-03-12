@@ -1,6 +1,5 @@
 package code.name.monkey.retromusic
 
-import code.name.monkey.retromusic.auto.AutoMusicProvider
 import code.name.monkey.retromusic.cast.RetroWebServer
 import code.name.monkey.retromusic.feature.details.album.detailsAlbumFeatureModule
 import code.name.monkey.retromusic.feature.details.artist.detailsArtistFeatureModule
@@ -46,19 +45,6 @@ val networkModule = module {
     }
 }
 
-private val autoModule = module {
-    single {
-        AutoMusicProvider(
-            androidContext(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get(),
-            get()
-        )
-    }
-}
 private val mainModule = module {
     single {
         androidContext().contentResolver
@@ -152,7 +138,6 @@ private val viewModules = module {
 val appModules = listOf(
     mainModule,
     dataModule,
-    autoModule,
     viewModules,
     networkModule,
     roomModule,

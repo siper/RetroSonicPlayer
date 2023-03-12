@@ -7,7 +7,6 @@ import android.net.NetworkCapabilities
 import androidx.core.content.edit
 import androidx.core.content.getSystemService
 import androidx.core.content.res.use
-import androidx.fragment.app.Fragment
 import androidx.preference.PreferenceManager
 import androidx.viewpager.widget.ViewPager
 import code.name.monkey.appthemehelper.util.VersionUtils
@@ -98,15 +97,6 @@ object PreferenceUtil {
     }
 
     val languageCode: String get() = sharedPreferences.getString(LANGUAGE_NAME, "auto") ?: "auto"
-
-    var Fragment.userName
-        get() = sharedPreferences.getString(
-            USER_NAME,
-            getString(R.string.user_name)
-        )
-        set(value) = sharedPreferences.edit {
-            putString(USER_NAME, value)
-        }
 
     var safSdCardUri
         get() = sharedPreferences.getStringOrDefault(SAF_SDCARD_URI, "")
@@ -212,14 +202,6 @@ object PreferenceUtil {
         get() = sharedPreferences.getBoolean(
             TOGGLE_VOLUME, false
         )
-
-    var isInitializedBlacklist
-        get() = sharedPreferences.getBoolean(
-            INITIALIZED_BLACKLIST, false
-        )
-        set(value) = sharedPreferences.edit {
-            putBoolean(INITIALIZED_BLACKLIST, value)
-        }
 
     private val isBlackMode
         get() = sharedPreferences.getBoolean(
@@ -659,9 +641,6 @@ object PreferenceUtil {
             .getInt(LAST_USED_TAB, 0)
         set(value) = sharedPreferences.edit { putInt(LAST_USED_TAB, value) }
 
-    val isWhiteList: Boolean
-        get() = sharedPreferences.getBoolean(WHITELIST_MUSIC, false)
-
     val crossFadeDuration
         get() = sharedPreferences
             .getInt(CROSS_FADE_DURATION, 0)
@@ -673,9 +652,6 @@ object PreferenceUtil {
 
     val isCustomFont
         get() = sharedPreferences.getBoolean(CUSTOM_FONT, false)
-
-    val isSnowFalling
-        get() = sharedPreferences.getBoolean(SNOWFALL, false)
 
     val lyricsType: CoverLyricsType
         get() = if (sharedPreferences.getString(LYRICS_TYPE, "0") == "0") {

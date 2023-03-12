@@ -21,25 +21,25 @@ import androidx.fragment.app.DialogFragment
 import code.name.monkey.retromusic.EXTRA_PLAYLISTS
 import code.name.monkey.retromusic.EXTRA_SONG
 import code.name.monkey.retromusic.R
-import ru.stersh.apisonic.room.playlist.PlaylistEntity
 import code.name.monkey.retromusic.extensions.colorButtons
 import code.name.monkey.retromusic.extensions.extraNotNull
 import code.name.monkey.retromusic.extensions.materialDialog
 import code.name.monkey.retromusic.fragments.LibraryViewModel
 import code.name.monkey.retromusic.model.Song
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import ru.stersh.apisonic.room.playlist.PlaylistEntity
 
 class AddToPlaylistDialog : DialogFragment() {
     private val libraryViewModel by sharedViewModel<LibraryViewModel>()
 
     companion object {
-        fun create(playlistEntities: List<ru.stersh.apisonic.room.playlist.PlaylistEntity>, song: Song): AddToPlaylistDialog {
+        fun create(playlistEntities: List<PlaylistEntity>, song: Song): AddToPlaylistDialog {
             val list: MutableList<Song> = mutableListOf()
             list.add(song)
             return create(playlistEntities, list)
         }
 
-        fun create(playlistEntities: List<ru.stersh.apisonic.room.playlist.PlaylistEntity>, songs: List<Song>): AddToPlaylistDialog {
+        fun create(playlistEntities: List<PlaylistEntity>, songs: List<Song>): AddToPlaylistDialog {
             return AddToPlaylistDialog().apply {
                 arguments = bundleOf(
                     EXTRA_SONG to songs,
@@ -50,11 +50,11 @@ class AddToPlaylistDialog : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val playlistEntities = extraNotNull<List<ru.stersh.apisonic.room.playlist.PlaylistEntity>>(EXTRA_PLAYLISTS).value
+        val playlistEntities = extraNotNull<List<PlaylistEntity>>(EXTRA_PLAYLISTS).value
         val songs = extraNotNull<List<Song>>(EXTRA_SONG).value
         val playlistNames = mutableListOf<String>()
         playlistNames.add(requireContext().resources.getString(R.string.action_new_playlist))
-        for (entity: ru.stersh.apisonic.room.playlist.PlaylistEntity in playlistEntities) {
+        for (entity: PlaylistEntity in playlistEntities) {
             playlistNames.add(entity.playlistName)
         }
         return materialDialog(R.string.add_playlist_title)

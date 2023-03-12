@@ -51,7 +51,6 @@ import code.name.monkey.retromusic.interfaces.IMainActivityFragmentCallbacks
 import code.name.monkey.retromusic.misc.UpdateToastMediaScannerCompletionListener
 import code.name.monkey.retromusic.misc.WrappedAsyncTaskLoader
 import code.name.monkey.retromusic.model.Song
-import code.name.monkey.retromusic.providers.BlacklistStore
 import code.name.monkey.retromusic.util.FileUtil
 import code.name.monkey.retromusic.util.PreferenceUtil.startDirectory
 import code.name.monkey.retromusic.util.ThemedFastScroller.create
@@ -184,10 +183,6 @@ class FoldersFragment : AbsMainActivityFragment(R.layout.fragment_folder),
                                 }
                             }
                         }
-                        return@setOnMenuItemClickListener true
-                    }
-                    R.id.action_add_to_blacklist -> {
-                        BlacklistStore.getInstance(requireContext()).addPath(file)
                         return@setOnMenuItemClickListener true
                     }
                     R.id.action_set_as_start_directory -> {

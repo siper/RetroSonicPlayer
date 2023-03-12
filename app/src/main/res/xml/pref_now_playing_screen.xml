@@ -2,11 +2,11 @@
 <androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <code.name.monkey.retromusic.preferences.NowPlayingScreenPreference
-        android:key="now_playing_screen_id"
-        android:layout="@layout/list_item_view"
-        android:title="@string/pref_title_now_playing_screen_appearance"
-        app:icon="@drawable/ic_play_circle_filled" />
+<!--    <code.name.monkey.retromusic.preferences.NowPlayingScreenPreference-->
+<!--        android:key="now_playing_screen_id"-->
+<!--        android:layout="@layout/list_item_view"-->
+<!--        android:title="@string/pref_title_now_playing_screen_appearance"-->
+<!--        app:icon="@drawable/ic_play_circle_filled" />-->
 
     <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESwitchPreference
         android:defaultValue="false"

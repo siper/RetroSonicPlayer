@@ -29,7 +29,6 @@ import code.name.monkey.retromusic.activities.tageditor.SongTagEditorActivity
 import code.name.monkey.retromusic.dialogs.AddToPlaylistDialog
 import code.name.monkey.retromusic.interfaces.IPaletteColorHolder
 import code.name.monkey.retromusic.model.Song
-import code.name.monkey.retromusic.providers.BlacklistStore
 import code.name.monkey.retromusic.repository.Repository
 import code.name.monkey.retromusic.util.MusicUtil
 import code.name.monkey.retromusic.util.RingtoneManager
@@ -39,7 +38,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
-import java.io.File
 
 object SongMenuHelper : KoinComponent {
     const val MENU_RES = R.menu.menu_item_song
@@ -112,10 +110,6 @@ object SongMenuHelper : KoinComponent {
                     R.id.artistDetailsFragment,
                     bundleOf(EXTRA_ARTIST_ID to song.artistId)
                 )
-                return true
-            }
-            R.id.action_add_to_blacklist -> {
-                BlacklistStore.getInstance(activity).addPath(File(song.data))
                 return true
             }
         }

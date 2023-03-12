@@ -16,7 +16,6 @@ package code.name.monkey.retromusic.repository
 
 import android.content.Context
 import android.database.Cursor
-import android.os.Environment
 import android.provider.MediaStore
 import android.provider.MediaStore.Audio.AudioColumns
 import android.provider.MediaStore.Audio.Media
@@ -30,9 +29,7 @@ import code.name.monkey.retromusic.extensions.getString
 import code.name.monkey.retromusic.extensions.getStringOrNull
 import code.name.monkey.retromusic.helper.SortOrder
 import code.name.monkey.retromusic.model.Song
-import code.name.monkey.retromusic.providers.BlacklistStore
 import code.name.monkey.retromusic.util.PreferenceUtil
-import code.name.monkey.retromusic.util.getExternalStoragePublicDirectory
 import java.text.Collator
 
 /**
@@ -173,24 +170,6 @@ class RealSongRepository(private val context: Context) : SongRepository {
                 "$IS_MUSIC AND $selectionFinal"
             } else {
                 IS_MUSIC
-            }
-
-            // Whitelist
-            if (PreferenceUtil.isWhiteList) {
-                selectionFinal =
-                    selectionFinal + " AND " + Constants.DATA + " LIKE ?"
-                selectionValuesFinal = addSelectionValues(
-                    selectionValuesFinal, arrayListOf(
-                        getExternalStoragePublicDirectory(Environment.DIRECTORY_MUSIC).canonicalPath
-                    )
-                )
-            } else {
-                // Blacklist
-                val paths = BlacklistStore.getInstance(context).paths
-                if (paths.isNotEmpty()) {
-                    selectionFinal = generateBlacklistSelection(selectionFinal, paths.size)
-                    selectionValuesFinal = addSelectionValues(selectionValuesFinal, paths)
-                }
             }
 
             selectionFinal =

@@ -83,10 +83,6 @@ abstract class AbsSettingsFragment : ATEPreferenceFragmentCompat() {
                 val fragment = AlbumCoverStylePreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
             }
-            is BlacklistPreference -> {
-                val fragment = BlacklistPreferenceDialog.newInstance()
-                fragment.show(childFragmentManager, preference.key)
-            }
             is DurationPreference -> {
                 val fragment = DurationPreferenceDialog.newInstance()
                 fragment.show(childFragmentManager, preference.key)
