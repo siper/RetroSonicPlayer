@@ -14,7 +14,6 @@
 
 package code.name.monkey.retromusic.repository
 
-import ru.stersh.apisonic.ApiSonic
 import android.provider.MediaStore.Audio.AudioColumns
 import code.name.monkey.retromusic.helper.SortOrder
 import code.name.monkey.retromusic.model.Album
@@ -35,34 +34,11 @@ interface AlbumRepository {
 }
 
 class RealAlbumRepository(
-    private val apiSonic: ApiSonic,
     private val songRepository: RealSongRepository
 ) : AlbumRepository {
 
     override suspend fun albums(): List<Album> {
-        val albums = apiSonic.getAlbumList(ApiSonic.ListType.ALPHABETICAL_BY_ARTIST, size = 500).map { alb ->
-            Album(
-                id = alb.id.toLong(),
-                songs = listOf(
-                    Song(
-                        id = alb.id.toLong(),
-                        albumName = alb.title,
-                        albumArtist = alb.artist,
-                        title = "",
-                        trackNumber = -1,
-                        year = -1,
-                        duration = -1,
-                        data = "",
-                        dateModified = -1,
-                        albumId = -1,
-                        artistId = -1,
-                        artistName = "",
-                        composer = ""
-                    )
-                )
-            )
-        }
-        return albums
+        return emptyList()
     }
 
     override fun albums(query: String): List<Album> {

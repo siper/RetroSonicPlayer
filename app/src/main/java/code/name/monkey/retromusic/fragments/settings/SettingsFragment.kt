@@ -45,8 +45,9 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), ColorCallback {
         }
         val navController: NavController = findNavController(R.id.contentFrame)
         navController.addOnDestinationChangedListener { _, _, _ ->
-            binding.collapsingToolbarLayout.title =
-                navController.currentDestination?.let { getStringFromDestination(it) }
+            binding.collapsingToolbarLayout.title = navController.currentDestination?.let {
+                getStringFromDestination(it)
+            }
         }
     }
 
@@ -62,6 +63,7 @@ class SettingsFragment : Fragment(R.layout.fragment_settings), ColorCallback {
             R.id.themeSettingsFragment -> R.string.general_settings_title
             R.id.aboutActivity -> R.string.action_about
             R.id.backup_fragment -> R.string.backup_restore_title
+            R.id.servers_fragment -> R.string.server_settings_title
             else -> R.id.action_settings
         }
         return getString(idRes)

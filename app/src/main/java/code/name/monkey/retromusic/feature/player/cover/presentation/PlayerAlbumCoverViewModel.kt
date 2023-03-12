@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import ru.stersh.retrosonic.player.queue.domain.PlayerQueueManager
+import ru.stersh.retrosonic.player.queue.PlayerQueueManager
 
 class PlayerAlbumCoverViewModel(
     private val coverArtUrlsRepository: CoverArtUrlsRepository,

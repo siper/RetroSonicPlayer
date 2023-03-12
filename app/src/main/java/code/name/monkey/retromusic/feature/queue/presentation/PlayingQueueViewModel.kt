@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import ru.stersh.retrosonic.core.extensions.mapItems
-import ru.stersh.retrosonic.player.queue.domain.PlayerQueueManager
+import ru.stersh.retrosonic.player.queue.PlayerQueueManager
 import ru.stersh.retrosonic.player.utils.MEDIA_ITEM_ALBUM_ID
 import ru.stersh.retrosonic.player.utils.MEDIA_ITEM_DURATION
 

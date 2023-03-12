@@ -21,7 +21,7 @@ import androidx.core.text.parseAsHtml
 import androidx.fragment.app.DialogFragment
 import code.name.monkey.retromusic.EXTRA_SONG
 import code.name.monkey.retromusic.R
-import code.name.monkey.retromusic.db.SongEntity
+import ru.stersh.apisonic.room.playlist.SongEntity
 import code.name.monkey.retromusic.extensions.colorButtons
 import code.name.monkey.retromusic.extensions.extraNotNull
 import code.name.monkey.retromusic.extensions.materialDialog
@@ -32,13 +32,13 @@ class RemoveSongFromPlaylistDialog : DialogFragment() {
     private val libraryViewModel by sharedViewModel<LibraryViewModel>()
 
     companion object {
-        fun create(song: SongEntity): RemoveSongFromPlaylistDialog {
-            val list = mutableListOf<SongEntity>()
+        fun create(song: ru.stersh.apisonic.room.playlist.SongEntity): RemoveSongFromPlaylistDialog {
+            val list = mutableListOf<ru.stersh.apisonic.room.playlist.SongEntity>()
             list.add(song)
             return create(list)
         }
 
-        fun create(songs: List<SongEntity>): RemoveSongFromPlaylistDialog {
+        fun create(songs: List<ru.stersh.apisonic.room.playlist.SongEntity>): RemoveSongFromPlaylistDialog {
             return RemoveSongFromPlaylistDialog().apply {
                 arguments = bundleOf(
                     EXTRA_SONG to songs
@@ -48,7 +48,7 @@ class RemoveSongFromPlaylistDialog : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val songs = extraNotNull<List<SongEntity>>(EXTRA_SONG).value
+        val songs = extraNotNull<List<ru.stersh.apisonic.room.playlist.SongEntity>>(EXTRA_SONG).value
         val pair = if (songs.size > 1) {
             Pair(
                 R.string.remove_songs_from_playlist_title,

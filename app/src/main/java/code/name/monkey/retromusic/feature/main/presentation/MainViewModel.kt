@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import ru.stersh.retrosonic.player.queue.domain.PlayerQueueManager
+import ru.stersh.retrosonic.player.queue.PlayerQueueManager
 
 class MainViewModel(private val playerQueueManager: PlayerQueueManager) : ViewModel() {
     private val _showMiniPlayer = MutableStateFlow(false)

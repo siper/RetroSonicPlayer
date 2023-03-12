@@ -1,13 +1,13 @@
 package code.name.monkey.retromusic.glide.playlistPreview
 
-import code.name.monkey.retromusic.db.PlaylistEntity
-import code.name.monkey.retromusic.db.PlaylistWithSongs
+import ru.stersh.apisonic.room.playlist.PlaylistEntity
+import ru.stersh.apisonic.room.playlist.PlaylistWithSongs
 import code.name.monkey.retromusic.db.toSongs
 import code.name.monkey.retromusic.model.Song
 
-class PlaylistPreview(val playlistWithSongs: PlaylistWithSongs) {
+class PlaylistPreview(val playlistWithSongs: ru.stersh.apisonic.room.playlist.PlaylistWithSongs) {
 
-    val playlistEntity: PlaylistEntity get() = playlistWithSongs.playlistEntity
+    val playlistEntity: ru.stersh.apisonic.room.playlist.PlaylistEntity get() = playlistWithSongs.playlistEntity
     val songs: List<Song> get() = playlistWithSongs.songs.toSongs()
 
     override fun equals(other: Any?): Boolean {

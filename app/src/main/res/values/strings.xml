@@ -51,6 +51,7 @@
     <string name="action_tag_editor">Tag editor</string>
     <string name="action_toggle_favorite">Toggle favorite</string>
     <string name="action_toggle_shuffle">Toggle shuffle mode</string>
+    <string name="action_set_active">Activate</string>
     <string name="adaptive">Adaptive</string>
     <string name="add_action">Add</string>
     <string name="add_playlist_title">"Add to playlist"</string>
@@ -195,6 +196,8 @@
     <string name="full_card">Full card</string>
     <string name="general_settings_summary">Change the theme and colors of the app</string>
     <string name="general_settings_title">Look and feel</string>
+    <string name="server_settings_summary">Edit you Subsonic servers</string>
+    <string name="server_settings_title">Servers</string>
     <string name="genre">Genre</string>
     <string name="genres">Genres</string>
     <string name="git_hub_summary">Fork the project on GitHub</string>
@@ -562,4 +565,6 @@
     <string name="you_have_to_select_at_least_one_category">You have to select at least one category.</string>
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">You will be forwarded to the issue tracker website.</string>
     <string name="your_account_data_is_only_used_for_authentication">Your account data is only used for authentication.</string>
+    <string name="all_servers_title">All servers</string>
+    <string name="server_editor_title">Edit server</string>
 </resources>

@@ -21,7 +21,7 @@ import androidx.core.text.parseAsHtml
 import androidx.fragment.app.DialogFragment
 import code.name.monkey.retromusic.EXTRA_PLAYLIST
 import code.name.monkey.retromusic.R
-import code.name.monkey.retromusic.db.PlaylistEntity
+import ru.stersh.apisonic.room.playlist.PlaylistEntity
 import code.name.monkey.retromusic.extensions.colorButtons
 import code.name.monkey.retromusic.extensions.extraNotNull
 import code.name.monkey.retromusic.extensions.materialDialog
@@ -34,13 +34,13 @@ class DeletePlaylistDialog : DialogFragment() {
 
     companion object {
 
-        fun create(playlist: PlaylistEntity): DeletePlaylistDialog {
-            val list = mutableListOf<PlaylistEntity>()
+        fun create(playlist: ru.stersh.apisonic.room.playlist.PlaylistEntity): DeletePlaylistDialog {
+            val list = mutableListOf<ru.stersh.apisonic.room.playlist.PlaylistEntity>()
             list.add(playlist)
             return create(list)
         }
 
-        fun create(playlists: List<PlaylistEntity>): DeletePlaylistDialog {
+        fun create(playlists: List<ru.stersh.apisonic.room.playlist.PlaylistEntity>): DeletePlaylistDialog {
             return DeletePlaylistDialog().apply {
                 arguments = bundleOf(EXTRA_PLAYLIST to playlists)
             }
@@ -48,7 +48,7 @@ class DeletePlaylistDialog : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val playlists = extraNotNull<List<PlaylistEntity>>(EXTRA_PLAYLIST).value
+        val playlists = extraNotNull<List<ru.stersh.apisonic.room.playlist.PlaylistEntity>>(EXTRA_PLAYLIST).value
         val title: Int
         val message: CharSequence
         //noinspection ConstantConditions

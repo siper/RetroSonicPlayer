@@ -14,7 +14,7 @@
  */
 package code.name.monkey.retromusic.helper
 
-import code.name.monkey.retromusic.db.PlaylistWithSongs
+import ru.stersh.apisonic.room.playlist.PlaylistWithSongs
 import code.name.monkey.retromusic.db.toSongs
 import code.name.monkey.retromusic.model.Playlist
 import code.name.monkey.retromusic.model.Song
@@ -46,7 +46,7 @@ object M3UWriter : M3UConstants {
 
     @JvmStatic
     @Throws(IOException::class)
-    fun writeIO(dir: File, playlistWithSongs: PlaylistWithSongs): File {
+    fun writeIO(dir: File, playlistWithSongs: ru.stersh.apisonic.room.playlist.PlaylistWithSongs): File {
         if (!dir.exists()) dir.mkdirs()
         val fileName = "${playlistWithSongs.playlistEntity.playlistName}.${M3UConstants.EXTENSION}"
         val file = File(dir, fileName)
@@ -67,7 +67,7 @@ object M3UWriter : M3UConstants {
         return file
     }
 
-    fun writeIO(outputStream: OutputStream, playlistWithSongs: PlaylistWithSongs) {
+    fun writeIO(outputStream: OutputStream, playlistWithSongs: ru.stersh.apisonic.room.playlist.PlaylistWithSongs) {
         val songs: List<Song> = playlistWithSongs.songs.sortedBy {
             it.songPrimaryKey
         }.toSongs()

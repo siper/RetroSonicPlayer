@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/action_home"
-        android:name="code.name.monkey.retromusic.fragments.home.HomeFragment"
+        android:name="code.name.monkey.retromusic.feature.home.presentation.MyLibraryFragment"
         android:label=""
         tools:layout="@layout/fragment_home" />
 

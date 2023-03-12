@@ -121,6 +121,7 @@
         <activity android:name=".activities.ShareInstagramStory" />
         <activity android:name=".activities.DriveModeActivity" />
         <activity android:name=".activities.PermissionActivity" />
+        <activity android:name=".feature.settings.server.presentation.ServerSettingsActivity" />
         <activity
             android:name=".activities.LockScreenActivity"
             android:excludeFromRecents="true"

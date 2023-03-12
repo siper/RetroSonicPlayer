@@ -17,13 +17,12 @@ package code.name.monkey.retromusic.helper.menu
 import android.view.MenuItem
 import androidx.fragment.app.FragmentActivity
 import code.name.monkey.retromusic.R
-import code.name.monkey.retromusic.db.PlaylistWithSongs
 import code.name.monkey.retromusic.db.toSongs
 import code.name.monkey.retromusic.dialogs.AddToPlaylistDialog
 import code.name.monkey.retromusic.dialogs.DeletePlaylistDialog
 import code.name.monkey.retromusic.dialogs.RenamePlaylistDialog
 import code.name.monkey.retromusic.dialogs.SavePlaylistDialog
-import code.name.monkey.retromusic.repository.RealRepository
+import code.name.monkey.retromusic.repository.Repository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,7 +34,7 @@ object PlaylistMenuHelper : KoinComponent {
 
     fun handleMenuClick(
         activity: FragmentActivity,
-        playlistWithSongs: PlaylistWithSongs,
+        playlistWithSongs: ru.stersh.apisonic.room.playlist.PlaylistWithSongs,
         item: MenuItem
     ): Boolean {
         when (item.itemId) {
@@ -49,7 +48,7 @@ object PlaylistMenuHelper : KoinComponent {
             }
             R.id.action_add_to_playlist -> {
                 CoroutineScope(Dispatchers.IO).launch {
-                    val playlists = get<RealRepository>().fetchPlaylists()
+                    val playlists = get<Repository>().fetchPlaylists()
                     withContext(Dispatchers.Main) {
                         AddToPlaylistDialog.create(playlists, playlistWithSongs.songs.toSongs())
                             .show(activity.supportFragmentManager, "ADD_PLAYLIST")

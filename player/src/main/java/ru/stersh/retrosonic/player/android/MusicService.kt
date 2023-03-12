@@ -11,14 +11,12 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.android.inject
-import ru.stersh.apisonic.ApiSonic
 import timber.log.Timber
 
 
 class MusicService : MediaLibraryService() {
 
     private val notificationManager: NotificationManager by inject()
-    private val apiSonic: ApiSonic by inject()
 
     private lateinit var player: Player
     private lateinit var mediaSession: MediaLibrarySession

@@ -7,18 +7,18 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
-import ru.stersh.retrosonic.player.controls.domain.PlayerControls
-import ru.stersh.retrosonic.player.metadata.domain.CurrentSongInfoStorage
-import ru.stersh.retrosonic.player.metadata.domain.SongInfo
-import ru.stersh.retrosonic.player.progress.domain.PlayerProgress
-import ru.stersh.retrosonic.player.progress.domain.PlayerProgressStorage
-import ru.stersh.retrosonic.player.state.domain.PlayStateStorage
+import ru.stersh.retrosonic.player.controls.PlayerControls
+import ru.stersh.retrosonic.player.metadata.CurrentSongInfoStore
+import ru.stersh.retrosonic.player.metadata.SongInfo
+import ru.stersh.retrosonic.player.progress.PlayerProgress
+import ru.stersh.retrosonic.player.progress.PlayerProgressStore
+import ru.stersh.retrosonic.player.state.PlayStateStore
 
 class MiniPlayerViewModel(
     private val playerControls: PlayerControls,
-    private val playStateStorage: PlayStateStorage,
-    private val currentSongInfoStorage: CurrentSongInfoStorage,
-    private val playerProgressStorage: PlayerProgressStorage
+    private val playStateStore: PlayStateStore,
+    private val currentSongInfoStore: CurrentSongInfoStore,
+    private val playerProgressStore: PlayerProgressStore
 ) : ViewModel() {
 
     private val _progress = MutableStateFlow<SongProgressUi?>(null)
@@ -35,18 +35,18 @@ class MiniPlayerViewModel(
 
     init {
         viewModelScope.launch {
-            playStateStorage
+            playStateStore
                 .isPlaying()
                 .collect { _isPlaying.value = it }
         }
         viewModelScope.launch {
-            currentSongInfoStorage
+            currentSongInfoStore
                 .getCurrentSongInfo()
                 .map { it?.toPresentation() }
                 .collect { _info.value = it }
         }
         viewModelScope.launch {
-            playerProgressStorage
+            playerProgressStore
                 .playerProgress()
                 .map { it?.toPresentation() }
                 .collect { _progress.value = it }

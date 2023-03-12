@@ -19,12 +19,13 @@ import android.content.Context
 import androidx.core.animation.doOnEnd
 import androidx.lifecycle.*
 import code.name.monkey.retromusic.*
-import code.name.monkey.retromusic.db.*
+import code.name.monkey.retromusic.db.toSong
+import code.name.monkey.retromusic.db.toSongEntity
 import code.name.monkey.retromusic.extensions.showToast
 import code.name.monkey.retromusic.fragments.ReloadType.*
 import code.name.monkey.retromusic.fragments.search.Filter
 import code.name.monkey.retromusic.model.*
-import code.name.monkey.retromusic.repository.RealRepository
+import code.name.monkey.retromusic.repository.Repository
 import code.name.monkey.retromusic.util.DensityUtil
 import code.name.monkey.retromusic.util.PreferenceUtil
 import kotlinx.coroutines.Dispatchers.IO
@@ -34,7 +35,7 @@ import kotlinx.coroutines.withContext
 import java.io.File
 
 class LibraryViewModel(
-    private val repository: RealRepository,
+    private val repository: Repository,
 ) : ViewModel() {
 
     private val _paletteColor = MutableLiveData<Int>()
@@ -43,12 +44,12 @@ class LibraryViewModel(
     private val albums = MutableLiveData<List<Album>>()
     private val songs = MutableLiveData<List<Song>>()
     private val artists = MutableLiveData<List<Artist>>()
-    private val playlists = MutableLiveData<List<PlaylistWithSongs>>()
+    private val playlists = MutableLiveData<List<ru.stersh.apisonic.room.playlist.PlaylistWithSongs>>()
     private val genres = MutableLiveData<List<Genre>>()
     private val searchResults = MutableLiveData<List<Any>>()
     private val fabMargin = MutableLiveData(0)
     private val songHistory = MutableLiveData<List<Song>>()
-    private var previousSongHistory = ArrayList<HistoryEntity>()
+    private var previousSongHistory = ArrayList<ru.stersh.apisonic.room.history.HistoryEntity>()
     val paletteColor: LiveData<Int> = _paletteColor
 
     init {
@@ -71,7 +72,7 @@ class LibraryViewModel(
 
     fun getArtists(): LiveData<List<Artist>> = artists
 
-    fun getPlaylists(): LiveData<List<PlaylistWithSongs>> = playlists
+    fun getPlaylists(): LiveData<List<ru.stersh.apisonic.room.playlist.PlaylistWithSongs>> = playlists
 
     fun getGenre(): LiveData<List<Genre>> = genres
 
@@ -146,34 +147,34 @@ class LibraryViewModel(
         repository.renameRoomPlaylist(playListId, name)
     }
 
-    fun deleteSongsInPlaylist(songs: List<SongEntity>) {
+    fun deleteSongsInPlaylist(songs: List<ru.stersh.apisonic.room.playlist.SongEntity>) {
         viewModelScope.launch(IO) {
             repository.deleteSongsInPlaylist(songs)
             forceReload(Playlists)
         }
     }
 
-    fun deleteSongsFromPlaylist(playlists: List<PlaylistEntity>) = viewModelScope.launch(IO) {
+    fun deleteSongsFromPlaylist(playlists: List<ru.stersh.apisonic.room.playlist.PlaylistEntity>) = viewModelScope.launch(IO) {
         repository.deletePlaylistSongs(playlists)
     }
 
-    fun deleteRoomPlaylist(playlists: List<PlaylistEntity>) = viewModelScope.launch(IO) {
+    fun deleteRoomPlaylist(playlists: List<ru.stersh.apisonic.room.playlist.PlaylistEntity>) = viewModelScope.launch(IO) {
         repository.deleteRoomPlaylist(playlists)
     }
 
     fun albumById(id: Long) = repository.albumById(id)
     suspend fun artistById(id: Long) = repository.artistById(id)
     suspend fun favoritePlaylist() = repository.favoritePlaylist()
-    suspend fun isFavoriteSong(song: SongEntity) = repository.isFavoriteSong(song)
+    suspend fun isFavoriteSong(song: ru.stersh.apisonic.room.playlist.SongEntity) = repository.isFavoriteSong(song)
     suspend fun isSongFavorite(songId: Long) = repository.isSongFavorite(songId)
-    suspend fun insertSongs(songs: List<SongEntity>) = repository.insertSongs(songs)
-    suspend fun removeSongFromPlaylist(songEntity: SongEntity) =
+    suspend fun insertSongs(songs: List<ru.stersh.apisonic.room.playlist.SongEntity>) = repository.insertSongs(songs)
+    suspend fun removeSongFromPlaylist(songEntity: ru.stersh.apisonic.room.playlist.SongEntity) =
         repository.removeSongFromPlaylist(songEntity)
 
-    private suspend fun checkPlaylistExists(playlistName: String): List<PlaylistEntity> =
+    private suspend fun checkPlaylistExists(playlistName: String): List<ru.stersh.apisonic.room.playlist.PlaylistEntity> =
         repository.checkPlaylistExists(playlistName)
 
-    private suspend fun createPlaylist(playlistEntity: PlaylistEntity): Long =
+    private suspend fun createPlaylist(playlistEntity: ru.stersh.apisonic.room.playlist.PlaylistEntity): Long =
         repository.createPlaylist(playlistEntity)
 
     fun importPlaylists() = viewModelScope.launch(IO) {
@@ -187,7 +188,7 @@ class LibraryViewModel(
                 repository.insertSongs(songEntities)
             } else {
                 if (playlist != Playlist.empty) {
-                    val playListId = createPlaylist(PlaylistEntity(playlistName = playlist.name))
+                    val playListId = createPlaylist(ru.stersh.apisonic.room.playlist.PlaylistEntity(playlistName = playlist.name))
                     val songEntities = playlist.getSongs().map {
                         it.toSongEntity(playListId)
                     }
@@ -256,7 +257,7 @@ class LibraryViewModel(
 
     fun clearHistory() {
         viewModelScope.launch(IO) {
-            previousSongHistory = repository.historySong() as ArrayList<HistoryEntity>
+            previousSongHistory = repository.historySong() as ArrayList<ru.stersh.apisonic.room.history.HistoryEntity>
 
             repository.clearSongHistory()
         }
@@ -288,7 +289,7 @@ class LibraryViewModel(
             val playlists = checkPlaylistExists(playlistName)
             if (playlists.isEmpty()) {
                 val playlistId: Long =
-                    createPlaylist(PlaylistEntity(playlistName = playlistName))
+                    createPlaylist(ru.stersh.apisonic.room.playlist.PlaylistEntity(playlistName = playlistName))
                 insertSongs(songs.map { it.toSongEntity(playlistId) })
                 withContext(Main) {
                     context.showToast(context.getString(R.string.playlist_created_sucessfully,

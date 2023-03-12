@@ -1,19 +1,19 @@
 package code.name.monkey.retromusic
 
-import androidx.room.Room
 import code.name.monkey.retromusic.auto.AutoMusicProvider
 import code.name.monkey.retromusic.cast.RetroWebServer
-import code.name.monkey.retromusic.db.MIGRATION_23_24
-import code.name.monkey.retromusic.db.RetroDatabase
 import code.name.monkey.retromusic.feature.details.album.detailsAlbumFeatureModule
 import code.name.monkey.retromusic.feature.details.artist.detailsArtistFeatureModule
 import code.name.monkey.retromusic.feature.details.playlist.detailsPlaylistFeatureModule
+import code.name.monkey.retromusic.feature.home.myLibraryFeatureModule
 import code.name.monkey.retromusic.feature.library.album.libraryAlbumFeatureModule
 import code.name.monkey.retromusic.feature.library.artist.libraryArtistFeatureModule
 import code.name.monkey.retromusic.feature.library.playlist.libraryPlaylistFeatureModule
 import code.name.monkey.retromusic.feature.main.mainFeatureModule
 import code.name.monkey.retromusic.feature.player.playerFeatureModule
 import code.name.monkey.retromusic.feature.queue.queueFeatureModule
+import code.name.monkey.retromusic.feature.settings.server.serverSettingsFeatureModule
+import code.name.monkey.retromusic.feature.settings.servers.serversFeatureModule
 import code.name.monkey.retromusic.fragments.LibraryViewModel
 import code.name.monkey.retromusic.fragments.genres.GenreDetailsViewModel
 import code.name.monkey.retromusic.model.Genre
@@ -26,7 +26,8 @@ import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.bind
 import org.koin.dsl.module
-import ru.stersh.apisonic.ApiSonic
+import ru.stersh.apisonic.provider.providerModule
+import ru.stersh.apisonic.room.roomModule
 import ru.stersh.retrosonic.player.playerModule
 
 val networkModule = module {
@@ -43,42 +44,8 @@ val networkModule = module {
     single {
         provideLastFmRest(get())
     }
-
-    single {
-        ApiSonic(
-            url = "http://192.168.1.100:4040/rest/",
-            userName = "admin",
-            password = "admin",
-            apiVersion = "1.15.0",
-            clientId = "retro"
-        )
-    }
 }
 
-private val roomModule = module {
-
-    single {
-        Room.databaseBuilder(androidContext(), RetroDatabase::class.java, "playlist.db")
-            .addMigrations(MIGRATION_23_24)
-            .build()
-    }
-
-    factory {
-        get<RetroDatabase>().playlistDao()
-    }
-
-    factory {
-        get<RetroDatabase>().playCountDao()
-    }
-
-    factory {
-        get<RetroDatabase>().historyDao()
-    }
-
-    single {
-        RealRoomRepository(get(), get(), get())
-    } bind RoomRepository::class
-}
 private val autoModule = module {
     single {
         AutoMusicProvider(
@@ -101,6 +68,10 @@ private val mainModule = module {
     }
 }
 private val dataModule = module {
+    single {
+        RealRoomRepository(get(), get(), get())
+    } bind RoomRepository::class
+
     single {
         RealRepository(
             get(),
@@ -127,7 +98,7 @@ private val dataModule = module {
     } bind GenreRepository::class
 
     single {
-        RealAlbumRepository(get(), get())
+        RealAlbumRepository(get())
     } bind AlbumRepository::class
 
     single {
@@ -193,6 +164,10 @@ val appModules = listOf(
     playerFeatureModule,
     mainFeatureModule,
     queueFeatureModule,
+    myLibraryFeatureModule,
     libraryPlaylistFeatureModule,
-    detailsPlaylistFeatureModule
+    detailsPlaylistFeatureModule,
+    serverSettingsFeatureModule,
+    serversFeatureModule,
+    providerModule
 )

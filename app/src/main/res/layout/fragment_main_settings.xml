@@ -107,6 +107,15 @@
             app:settingListItemTitle="@string/general_settings_title" />
 
         <code.name.monkey.retromusic.views.SettingListItemView
+            android:id="@+id/serverSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:settingListItemIcon="@drawable/ic_storage"
+            app:settingListItemIconColor="@color/md_grey_400"
+            app:settingListItemText="@string/server_settings_summary"
+            app:settingListItemTitle="@string/server_settings_title" />
+
+        <code.name.monkey.retromusic.views.SettingListItemView
             android:id="@+id/nowPlayingSettings"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

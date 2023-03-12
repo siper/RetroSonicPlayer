@@ -24,7 +24,7 @@ import androidx.lifecycle.lifecycleScope
 import code.name.monkey.appthemehelper.util.VersionUtils
 import code.name.monkey.retromusic.EXTRA_PLAYLIST
 import code.name.monkey.retromusic.R
-import code.name.monkey.retromusic.db.PlaylistWithSongs
+import ru.stersh.apisonic.room.playlist.PlaylistWithSongs
 import code.name.monkey.retromusic.extensions.*
 import code.name.monkey.retromusic.helper.M3UWriter
 import code.name.monkey.retromusic.util.PlaylistsUtil
@@ -34,7 +34,7 @@ import kotlinx.coroutines.withContext
 
 class SavePlaylistDialog : DialogFragment() {
     companion object {
-        fun create(playlistWithSongs: PlaylistWithSongs): SavePlaylistDialog {
+        fun create(playlistWithSongs: ru.stersh.apisonic.room.playlist.PlaylistWithSongs): SavePlaylistDialog {
             return SavePlaylistDialog().apply {
                 arguments = bundleOf(
                     EXTRA_PLAYLIST to playlistWithSongs
@@ -45,7 +45,7 @@ class SavePlaylistDialog : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val playlistWithSongs = extraNotNull<PlaylistWithSongs>(EXTRA_PLAYLIST).value
+        val playlistWithSongs = extraNotNull<ru.stersh.apisonic.room.playlist.PlaylistWithSongs>(EXTRA_PLAYLIST).value
 
         if (VersionUtils.hasR()) {
             createNewFile(

@@ -18,7 +18,8 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import code.name.monkey.retromusic.*
-import code.name.monkey.retromusic.db.*
+import code.name.monkey.retromusic.db.fromHistoryToSongs
+import code.name.monkey.retromusic.db.toSong
 import code.name.monkey.retromusic.fragments.search.Filter
 import code.name.monkey.retromusic.model.*
 import code.name.monkey.retromusic.model.smartplaylist.NotPlayedPlaylist
@@ -32,11 +33,11 @@ import code.name.monkey.retromusic.util.logE
 
 interface Repository {
 
-    fun historySong(): List<HistoryEntity>
-    fun favorites(): LiveData<List<SongEntity>>
+    fun historySong(): List<ru.stersh.apisonic.room.history.HistoryEntity>
+    fun favorites(): LiveData<List<ru.stersh.apisonic.room.playlist.SongEntity>>
     fun observableHistorySongs(): LiveData<List<Song>>
     fun albumById(albumId: Long): Album
-    fun playlistSongs(playListId: Long): LiveData<List<SongEntity>>
+    fun playlistSongs(playListId: Long): LiveData<List<ru.stersh.apisonic.room.playlist.SongEntity>>
     suspend fun fetchAlbums(): List<Album>
     suspend fun albumByIdAsync(albumId: Long): Album
     suspend fun allSongs(): List<Song>
@@ -65,32 +66,32 @@ interface Repository {
     suspend fun playlists(): Home
     suspend fun homeSections(): List<Home>
     suspend fun playlist(playlistId: Long): Playlist
-    suspend fun fetchPlaylistWithSongs(): List<PlaylistWithSongs>
-    suspend fun playlistSongs(playlistWithSongs: PlaylistWithSongs): List<Song>
-    suspend fun insertSongs(songs: List<SongEntity>)
-    suspend fun checkPlaylistExists(playlistName: String): List<PlaylistEntity>
-    suspend fun createPlaylist(playlistEntity: PlaylistEntity): Long
-    suspend fun fetchPlaylists(): List<PlaylistEntity>
-    suspend fun deleteRoomPlaylist(playlists: List<PlaylistEntity>)
+    suspend fun fetchPlaylistWithSongs(): List<ru.stersh.apisonic.room.playlist.PlaylistWithSongs>
+    suspend fun playlistSongs(playlistWithSongs: ru.stersh.apisonic.room.playlist.PlaylistWithSongs): List<Song>
+    suspend fun insertSongs(songs: List<ru.stersh.apisonic.room.playlist.SongEntity>)
+    suspend fun checkPlaylistExists(playlistName: String): List<ru.stersh.apisonic.room.playlist.PlaylistEntity>
+    suspend fun createPlaylist(playlistEntity: ru.stersh.apisonic.room.playlist.PlaylistEntity): Long
+    suspend fun fetchPlaylists(): List<ru.stersh.apisonic.room.playlist.PlaylistEntity>
+    suspend fun deleteRoomPlaylist(playlists: List<ru.stersh.apisonic.room.playlist.PlaylistEntity>)
     suspend fun renameRoomPlaylist(playlistId: Long, name: String)
-    suspend fun deleteSongsInPlaylist(songs: List<SongEntity>)
-    suspend fun removeSongFromPlaylist(songEntity: SongEntity)
-    suspend fun deletePlaylistSongs(playlists: List<PlaylistEntity>)
-    suspend fun favoritePlaylist(): PlaylistEntity
-    suspend fun isFavoriteSong(songEntity: SongEntity): List<SongEntity>
+    suspend fun deleteSongsInPlaylist(songs: List<ru.stersh.apisonic.room.playlist.SongEntity>)
+    suspend fun removeSongFromPlaylist(songEntity: ru.stersh.apisonic.room.playlist.SongEntity)
+    suspend fun deletePlaylistSongs(playlists: List<ru.stersh.apisonic.room.playlist.PlaylistEntity>)
+    suspend fun favoritePlaylist(): ru.stersh.apisonic.room.playlist.PlaylistEntity
+    suspend fun isFavoriteSong(songEntity: ru.stersh.apisonic.room.playlist.SongEntity): List<ru.stersh.apisonic.room.playlist.SongEntity>
     suspend fun addSongToHistory(currentSong: Song)
-    suspend fun songPresentInHistory(currentSong: Song): HistoryEntity?
+    suspend fun songPresentInHistory(currentSong: Song): ru.stersh.apisonic.room.history.HistoryEntity?
     suspend fun updateHistorySong(currentSong: Song)
-    suspend fun favoritePlaylistSongs(): List<SongEntity>
+    suspend fun favoritePlaylistSongs(): List<ru.stersh.apisonic.room.playlist.SongEntity>
     suspend fun recentSongs(): List<Song>
     suspend fun topPlayedSongs(): List<Song>
-    suspend fun insertSongInPlayCount(playCountEntity: PlayCountEntity)
-    suspend fun updateSongInPlayCount(playCountEntity: PlayCountEntity)
-    suspend fun deleteSongInPlayCount(playCountEntity: PlayCountEntity)
+    suspend fun insertSongInPlayCount(playCountEntity: ru.stersh.apisonic.room.playcount.PlayCountEntity)
+    suspend fun updateSongInPlayCount(playCountEntity: ru.stersh.apisonic.room.playcount.PlayCountEntity)
+    suspend fun deleteSongInPlayCount(playCountEntity: ru.stersh.apisonic.room.playcount.PlayCountEntity)
     suspend fun deleteSongInHistory(songId: Long)
     suspend fun clearSongHistory()
-    suspend fun checkSongExistInPlayCount(songId: Long): List<PlayCountEntity>
-    suspend fun playCountSongs(): List<PlayCountEntity>
+    suspend fun checkSongExistInPlayCount(songId: Long): List<ru.stersh.apisonic.room.playcount.PlayCountEntity>
+    suspend fun playCountSongs(): List<ru.stersh.apisonic.room.playcount.PlayCountEntity>
     suspend fun deleteSongs(songs: List<Song>)
     suspend fun contributor(): List<Contributor>
     suspend fun searchArtists(query: String): List<Artist>
@@ -220,75 +221,75 @@ class RealRepository(
     override suspend fun playlist(playlistId: Long) =
         playlistRepository.playlist(playlistId)
 
-    override suspend fun fetchPlaylistWithSongs(): List<PlaylistWithSongs> =
+    override suspend fun fetchPlaylistWithSongs(): List<ru.stersh.apisonic.room.playlist.PlaylistWithSongs> =
         roomRepository.playlistWithSongs()
 
-    override suspend fun playlistSongs(playlistWithSongs: PlaylistWithSongs): List<Song> =
+    override suspend fun playlistSongs(playlistWithSongs: ru.stersh.apisonic.room.playlist.PlaylistWithSongs): List<Song> =
         playlistWithSongs.songs.map {
             it.toSong()
         }
 
-    override fun playlistSongs(playListId: Long): LiveData<List<SongEntity>> =
+    override fun playlistSongs(playListId: Long): LiveData<List<ru.stersh.apisonic.room.playlist.SongEntity>> =
         roomRepository.getSongs(playListId)
 
-    override suspend fun insertSongs(songs: List<SongEntity>) =
+    override suspend fun insertSongs(songs: List<ru.stersh.apisonic.room.playlist.SongEntity>) =
         roomRepository.insertSongs(songs)
 
-    override suspend fun checkPlaylistExists(playlistName: String): List<PlaylistEntity> =
+    override suspend fun checkPlaylistExists(playlistName: String): List<ru.stersh.apisonic.room.playlist.PlaylistEntity> =
         roomRepository.checkPlaylistExists(playlistName)
 
     override fun checkPlaylistExists(playListId: Long): LiveData<Boolean> =
         roomRepository.checkPlaylistExists(playListId)
 
-    override suspend fun createPlaylist(playlistEntity: PlaylistEntity): Long =
+    override suspend fun createPlaylist(playlistEntity: ru.stersh.apisonic.room.playlist.PlaylistEntity): Long =
         roomRepository.createPlaylist(playlistEntity)
 
-    override suspend fun fetchPlaylists(): List<PlaylistEntity> = roomRepository.playlists()
+    override suspend fun fetchPlaylists(): List<ru.stersh.apisonic.room.playlist.PlaylistEntity> = roomRepository.playlists()
 
-    override suspend fun deleteRoomPlaylist(playlists: List<PlaylistEntity>) =
+    override suspend fun deleteRoomPlaylist(playlists: List<ru.stersh.apisonic.room.playlist.PlaylistEntity>) =
         roomRepository.deletePlaylistEntities(playlists)
 
     override suspend fun renameRoomPlaylist(playlistId: Long, name: String) =
         roomRepository.renamePlaylistEntity(playlistId, name)
 
-    override suspend fun deleteSongsInPlaylist(songs: List<SongEntity>) =
+    override suspend fun deleteSongsInPlaylist(songs: List<ru.stersh.apisonic.room.playlist.SongEntity>) =
         roomRepository.deleteSongsInPlaylist(songs)
 
-    override suspend fun removeSongFromPlaylist(songEntity: SongEntity) =
+    override suspend fun removeSongFromPlaylist(songEntity: ru.stersh.apisonic.room.playlist.SongEntity) =
         roomRepository.removeSongFromPlaylist(songEntity)
 
-    override suspend fun deletePlaylistSongs(playlists: List<PlaylistEntity>) =
+    override suspend fun deletePlaylistSongs(playlists: List<ru.stersh.apisonic.room.playlist.PlaylistEntity>) =
         roomRepository.deletePlaylistSongs(playlists)
 
-    override suspend fun favoritePlaylist(): PlaylistEntity =
+    override suspend fun favoritePlaylist(): ru.stersh.apisonic.room.playlist.PlaylistEntity =
         roomRepository.favoritePlaylist(context.getString(R.string.favorites))
 
-    override suspend fun isFavoriteSong(songEntity: SongEntity): List<SongEntity> =
+    override suspend fun isFavoriteSong(songEntity: ru.stersh.apisonic.room.playlist.SongEntity): List<ru.stersh.apisonic.room.playlist.SongEntity> =
         roomRepository.isFavoriteSong(songEntity)
 
     override suspend fun addSongToHistory(currentSong: Song) =
         roomRepository.addSongToHistory(currentSong)
 
-    override suspend fun songPresentInHistory(currentSong: Song): HistoryEntity? =
+    override suspend fun songPresentInHistory(currentSong: Song): ru.stersh.apisonic.room.history.HistoryEntity? =
         roomRepository.songPresentInHistory(currentSong)
 
     override suspend fun updateHistorySong(currentSong: Song) =
         roomRepository.updateHistorySong(currentSong)
 
-    override suspend fun favoritePlaylistSongs(): List<SongEntity> =
+    override suspend fun favoritePlaylistSongs(): List<ru.stersh.apisonic.room.playlist.SongEntity> =
         roomRepository.favoritePlaylistSongs(context.getString(R.string.favorites))
 
     override suspend fun recentSongs(): List<Song> = lastAddedRepository.recentSongs()
 
     override suspend fun topPlayedSongs(): List<Song> = topPlayedRepository.topTracks()
 
-    override suspend fun insertSongInPlayCount(playCountEntity: PlayCountEntity) =
+    override suspend fun insertSongInPlayCount(playCountEntity: ru.stersh.apisonic.room.playcount.PlayCountEntity) =
         roomRepository.insertSongInPlayCount(playCountEntity)
 
-    override suspend fun updateSongInPlayCount(playCountEntity: PlayCountEntity) =
+    override suspend fun updateSongInPlayCount(playCountEntity: ru.stersh.apisonic.room.playcount.PlayCountEntity) =
         roomRepository.updateSongInPlayCount(playCountEntity)
 
-    override suspend fun deleteSongInPlayCount(playCountEntity: PlayCountEntity) =
+    override suspend fun deleteSongInPlayCount(playCountEntity: ru.stersh.apisonic.room.playcount.PlayCountEntity) =
         roomRepository.deleteSongInPlayCount(playCountEntity)
 
     override suspend fun deleteSongInHistory(songId: Long) =
@@ -298,10 +299,10 @@ class RealRepository(
         roomRepository.clearSongHistory()
     }
 
-    override suspend fun checkSongExistInPlayCount(songId: Long): List<PlayCountEntity> =
+    override suspend fun checkSongExistInPlayCount(songId: Long): List<ru.stersh.apisonic.room.playcount.PlayCountEntity> =
         roomRepository.checkSongExistInPlayCount(songId)
 
-    override suspend fun playCountSongs(): List<PlayCountEntity> =
+    override suspend fun playCountSongs(): List<ru.stersh.apisonic.room.playcount.PlayCountEntity> =
         roomRepository.playCountSongs()
 
     override fun observableHistorySongs(): LiveData<List<Song>> =
@@ -309,10 +310,10 @@ class RealRepository(
             it.fromHistoryToSongs()
         }
 
-    override fun historySong(): List<HistoryEntity> =
+    override fun historySong(): List<ru.stersh.apisonic.room.history.HistoryEntity> =
         roomRepository.historySongs()
 
-    override fun favorites(): LiveData<List<SongEntity>> =
+    override fun favorites(): LiveData<List<ru.stersh.apisonic.room.playlist.SongEntity>> =
         roomRepository.favoritePlaylistLiveData(context.getString(R.string.favorites))
 
     override suspend fun suggestions(): List<Song> {

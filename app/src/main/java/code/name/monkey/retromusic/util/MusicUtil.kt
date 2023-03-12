@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentActivity
 import code.name.monkey.appthemehelper.util.VersionUtils
 import code.name.monkey.retromusic.Constants
 import code.name.monkey.retromusic.R
-import code.name.monkey.retromusic.db.SongEntity
+import ru.stersh.apisonic.room.playlist.SongEntity
 import code.name.monkey.retromusic.model.Artist
 import code.name.monkey.retromusic.model.Song
 import code.name.monkey.retromusic.model.lyrics.AbsSynchronizedLyrics
@@ -224,7 +224,7 @@ object MusicUtil : KoinComponent {
 
     fun playlistInfoString(
         context: Context,
-        songs: List<SongEntity>,
+        songs: List<ru.stersh.apisonic.room.playlist.SongEntity>,
     ): String {
         return getSongCountString(context, songs.size)
     }

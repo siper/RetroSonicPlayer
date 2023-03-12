@@ -32,12 +32,13 @@ import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.commit
+import androidx.lifecycle.lifecycleScope
 import code.name.monkey.appthemehelper.util.VersionUtils
 import code.name.monkey.retromusic.*
-import code.name.monkey.retromusic.activities.PermissionActivity
 import code.name.monkey.retromusic.databinding.SlidingMusicPanelLayoutBinding
 import code.name.monkey.retromusic.extensions.*
 import code.name.monkey.retromusic.feature.player.mini.MiniPlayerFragment
+import code.name.monkey.retromusic.feature.settings.server.presentation.ServerSettingsActivity
 import code.name.monkey.retromusic.fragments.LibraryViewModel
 import code.name.monkey.retromusic.fragments.base.AbsPlayerFragment
 import code.name.monkey.retromusic.fragments.player.normal.PlayerFragment
@@ -48,7 +49,11 @@ import code.name.monkey.retromusic.util.logD
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetBehavior.*
+import kotlinx.coroutines.launch
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.stersh.apisonic.provider.apisonic.ApiSonicProvider
+import ru.stersh.apisonic.provider.apisonic.NoActiveServerSettingsFound
 import timber.log.Timber
 
 
@@ -59,6 +64,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
     }
 
     var fromNotification = false
+    private val apiSonicProvider: ApiSonicProvider by inject()
     private var windowInsets: WindowInsetsCompat? = null
     protected val libraryViewModel by viewModel<LibraryViewModel>()
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<FrameLayout>
@@ -127,10 +133,20 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        if (!hasPermissions()) {
-            startActivity(Intent(this, PermissionActivity::class.java))
-            finish()
+        lifecycleScope.launch {
+            try {
+                apiSonicProvider.getApiSonic()
+            } catch (e: NoActiveServerSettingsFound) {
+                val intent = Intent(this@AbsSlidingMusicPanelActivity, ServerSettingsActivity::class.java)
+                intent.putExtra(ServerSettingsActivity.FIRST_SERVER_CREATE, true)
+                startActivity(intent)
+                finish()
+            }
         }
+//        if (!hasPermissions()) {
+//            startActivity(Intent(this, PermissionActivity::class.java))
+//            finish()
+//        }
         binding = SlidingMusicPanelLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.root.setOnApplyWindowInsetsListener { _, insets ->

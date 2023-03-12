@@ -28,7 +28,6 @@ import androidx.recyclerview.widget.RecyclerView
 import code.name.monkey.appthemehelper.ThemeStore
 import code.name.monkey.retromusic.*
 import code.name.monkey.retromusic.adapter.base.MediaEntryViewHolder
-import code.name.monkey.retromusic.db.PlaylistWithSongs
 import code.name.monkey.retromusic.glide.GlideApp
 import code.name.monkey.retromusic.glide.RetroGlideExtension
 import code.name.monkey.retromusic.helper.menu.SongMenuHelper
@@ -54,7 +53,7 @@ class SearchAdapter(
         if (dataSet[position] is Album) return ALBUM
         if (dataSet[position] is Artist) return if ((dataSet[position] as Artist).isAlbumArtist) ALBUM_ARTIST else ARTIST
         if (dataSet[position] is Genre) return GENRE
-        if (dataSet[position] is PlaylistWithSongs) return PLAYLIST
+        if (dataSet[position] is ru.stersh.apisonic.room.playlist.PlaylistWithSongs) return PLAYLIST
         return if (dataSet[position] is Song) SONG else HEADER
     }
 
@@ -119,7 +118,7 @@ class SearchAdapter(
                 )
             }
             PLAYLIST -> {
-                val playlist = dataSet[position] as PlaylistWithSongs
+                val playlist = dataSet[position] as ru.stersh.apisonic.room.playlist.PlaylistWithSongs
                 holder.title?.text = playlist.playlistEntity.playlistName
                 //holder.text?.text = MusicUtil.playlistInfoString(activity, playlist.songs)
             }
@@ -197,7 +196,7 @@ class SearchAdapter(
                 PLAYLIST -> {
                     activity.findNavController(R.id.fragment_container).navigate(
                         R.id.playlistDetailsFragment,
-                        bundleOf(EXTRA_PLAYLIST to (item as PlaylistWithSongs))
+                        bundleOf(EXTRA_PLAYLIST to (item as ru.stersh.apisonic.room.playlist.PlaylistWithSongs))
                     )
                 }
                 SONG -> {

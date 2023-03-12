@@ -1,8 +1,8 @@
 package code.name.monkey.retromusic.interfaces
 
 import android.view.View
-import code.name.monkey.retromusic.db.PlaylistWithSongs
+import ru.stersh.apisonic.room.playlist.PlaylistWithSongs
 
 interface IPlaylistClickListener {
-    fun onPlaylistClick(playlistWithSongs: PlaylistWithSongs, view: View)
+    fun onPlaylistClick(playlistWithSongs: ru.stersh.apisonic.room.playlist.PlaylistWithSongs, view: View)
 }

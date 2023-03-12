@@ -21,14 +21,14 @@ import android.content.Intent
 import android.os.Bundle
 import code.name.monkey.appthemehelper.util.VersionUtils
 import code.name.monkey.retromusic.R
-import code.name.monkey.retromusic.repository.RealRepository
+import code.name.monkey.retromusic.repository.Repository
 import org.koin.android.ext.android.inject
 import ru.stersh.retrosonic.player.android.MusicService
 import java.lang.ref.WeakReference
 
 abstract class AbsMusicServiceActivity : AbsBaseActivity() {
 
-    private val repository: RealRepository by inject()
+    private val repository: Repository by inject()
     private var musicStateReceiver: MusicStateReceiver? = null
     private var receiverRegistered: Boolean = false
 

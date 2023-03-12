@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.core.content.ContextCompat
 import androidx.media3.common.Player
 import ru.stersh.retrosonic.player.android.MusicService
-import ru.stersh.retrosonic.player.controls.domain.PlayerControls
+import ru.stersh.retrosonic.player.controls.PlayerControls
 import ru.stersh.retrosonic.player.utils.mediaControllerFuture
 
 internal class PlayerControlsImpl(private val context: Context) : PlayerControls {

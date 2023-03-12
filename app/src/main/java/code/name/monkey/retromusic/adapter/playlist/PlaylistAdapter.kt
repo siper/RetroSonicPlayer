@@ -29,8 +29,8 @@ import code.name.monkey.appthemehelper.util.TintHelper
 import code.name.monkey.retromusic.R
 import code.name.monkey.retromusic.adapter.base.AbsMultiSelectAdapter
 import code.name.monkey.retromusic.adapter.base.MediaEntryViewHolder
-import code.name.monkey.retromusic.db.PlaylistEntity
-import code.name.monkey.retromusic.db.PlaylistWithSongs
+import ru.stersh.apisonic.room.playlist.PlaylistEntity
+import ru.stersh.apisonic.room.playlist.PlaylistWithSongs
 import code.name.monkey.retromusic.db.toSongs
 import code.name.monkey.retromusic.extensions.dipToPix
 import code.name.monkey.retromusic.glide.GlideApp
@@ -46,10 +46,10 @@ import me.zhanghai.android.fastscroll.PopupTextProvider
 
 class PlaylistAdapter(
     override val activity: FragmentActivity,
-    var dataSet: List<PlaylistWithSongs>,
+    var dataSet: List<ru.stersh.apisonic.room.playlist.PlaylistWithSongs>,
     private var itemLayoutRes: Int,
     private val listener: IPlaylistClickListener
-) : AbsMultiSelectAdapter<PlaylistAdapter.ViewHolder, PlaylistWithSongs>(
+) : AbsMultiSelectAdapter<PlaylistAdapter.ViewHolder, ru.stersh.apisonic.room.playlist.PlaylistWithSongs>(
     activity,
     R.menu.menu_playlists_selection
 ), PopupTextProvider {
@@ -58,7 +58,7 @@ class PlaylistAdapter(
         setHasStableIds(true)
     }
 
-    fun swapDataSet(dataSet: List<PlaylistWithSongs>) {
+    fun swapDataSet(dataSet: List<ru.stersh.apisonic.room.playlist.PlaylistWithSongs>) {
         this.dataSet = dataSet
         notifyDataSetChanged()
     }
@@ -76,11 +76,11 @@ class PlaylistAdapter(
         return ViewHolder(view)
     }
 
-    private fun getPlaylistTitle(playlist: PlaylistEntity): String {
+    private fun getPlaylistTitle(playlist: ru.stersh.apisonic.room.playlist.PlaylistEntity): String {
         return playlist.playlistName.ifEmpty { "-" }
     }
 
-    private fun getPlaylistText(playlist: PlaylistWithSongs): String {
+    private fun getPlaylistText(playlist: ru.stersh.apisonic.room.playlist.PlaylistWithSongs): String {
         return MusicUtil.getPlaylistInfoString(activity, playlist.songs.toSongs())
     }
 
@@ -124,15 +124,15 @@ class PlaylistAdapter(
         return dataSet.size
     }
 
-    override fun getIdentifier(position: Int): PlaylistWithSongs {
+    override fun getIdentifier(position: Int): ru.stersh.apisonic.room.playlist.PlaylistWithSongs {
         return dataSet[position]
     }
 
-    override fun getName(model: PlaylistWithSongs): String {
+    override fun getName(model: ru.stersh.apisonic.room.playlist.PlaylistWithSongs): String {
         return model.playlistEntity.playlistName
     }
 
-    override fun onMultipleItemAction(menuItem: MenuItem, selection: List<PlaylistWithSongs>) {
+    override fun onMultipleItemAction(menuItem: MenuItem, selection: List<ru.stersh.apisonic.room.playlist.PlaylistWithSongs>) {
         when (menuItem.itemId) {
             else -> SongsMenuHelper.handleMenuClick(
                 activity,
@@ -142,7 +142,7 @@ class PlaylistAdapter(
         }
     }
 
-    private fun getSongList(playlists: List<PlaylistWithSongs>): List<Song> {
+    private fun getSongList(playlists: List<ru.stersh.apisonic.room.playlist.PlaylistWithSongs>): List<Song> {
         val songs = mutableListOf<Song>()
         playlists.forEach {
             songs.addAll(it.songs.toSongs())

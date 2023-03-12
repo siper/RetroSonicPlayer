@@ -25,7 +25,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import code.name.monkey.retromusic.EXTRA_PLAYLIST
 import code.name.monkey.retromusic.EXTRA_PLAYLIST_ID
 import code.name.monkey.retromusic.R
-import code.name.monkey.retromusic.db.PlaylistWithSongs
+import ru.stersh.apisonic.room.playlist.PlaylistWithSongs
 import code.name.monkey.retromusic.extensions.setUpMediaRouteButton
 import code.name.monkey.retromusic.fragments.base.AbsRecyclerViewCustomGridSizeFragment
 import code.name.monkey.retromusic.helper.SortOrder.PlaylistSortOrder
@@ -246,7 +246,7 @@ class LibraryPlaylistFragment : AbsRecyclerViewCustomGridSizeFragment<LibraryPla
         //Save layout
     }
 
-    override fun onPlaylistClick(playlistWithSongs: PlaylistWithSongs, view: View) {
+    override fun onPlaylistClick(playlistWithSongs: ru.stersh.apisonic.room.playlist.PlaylistWithSongs, view: View) {
         exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).addTarget(requireView())
         reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false)
         findNavController().navigate(

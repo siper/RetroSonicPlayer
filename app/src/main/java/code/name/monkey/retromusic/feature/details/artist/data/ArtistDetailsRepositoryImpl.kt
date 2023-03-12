@@ -9,18 +9,18 @@ import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.stersh.apisonic.ApiSonic
 import ru.stersh.apisonic.models.Album
 import ru.stersh.apisonic.models.Song
+import ru.stersh.apisonic.provider.apisonic.ApiSonicProvider
 
-class ArtistDetailsRepositoryImpl(private val apiSonic: ApiSonic) : ArtistDetailsRepository {
+class ArtistDetailsRepositoryImpl(private val apiSonicProvider: ApiSonicProvider) : ArtistDetailsRepository {
     override fun getArtistDetails(id: String): Flow<ArtistDetails> = flow {
-        val artist = apiSonic.getArtist(id)
-        val artistInfo = apiSonic.getArtistInfo2(id)
+        val artist = apiSonicProvider.getApiSonic().getArtist(id)
+        val artistInfo = apiSonicProvider.getApiSonic().getArtistInfo2(id)
 
         ArtistDetails(
             title = artist.name,
-            coverArtUrl = apiSonic.getCoverArtUrl(artist.coverArt),
+            coverArtUrl = apiSonicProvider.getApiSonic().getCoverArtUrl(artist.coverArt),
             biography = artistInfo.biography,
             albumCount = artist.albumCount,
             songCount = artist.albums?.sumOf { it.songCount } ?: 0,
@@ -42,29 +42,30 @@ class ArtistDetailsRepositoryImpl(private val apiSonic: ApiSonic) : ArtistDetail
 
     private suspend fun getSongs(artistId: String): List<Song> = coroutineScope {
         return@coroutineScope getAlbums(artistId).map {
-            async { apiSonic.getAlbum(it.id).song ?: emptyList() }
+            async { apiSonicProvider.getApiSonic().getAlbum(it.id).song ?: emptyList() }
         }
             .awaitAll()
             .flatten()
     }
 
     private suspend fun getAlbums(artistId: String): List<Album> {
-        return apiSonic
+        return apiSonicProvider
+            .getApiSonic()
             .getArtist(artistId)
             .albums ?: emptyList()
     }
 
-    private fun Album.toDomain(): ArtistDetailsAlbum {
+    private suspend fun Album.toDomain(): ArtistDetailsAlbum {
         return ArtistDetailsAlbum(
             id = id,
             title = name,
             artist = artist,
-            coverArtUrl = apiSonic.getCoverArtUrl(coverArt),
+            coverArtUrl = apiSonicProvider.getApiSonic().getCoverArtUrl(coverArt),
             year = year,
         )
     }
 
-    private fun Song.toDomain(): ArtistDetailsSong {
+    private suspend fun Song.toDomain(): ArtistDetailsSong {
         return ArtistDetailsSong(
             id = id,
             title = title,
@@ -74,7 +75,7 @@ class ArtistDetailsRepositoryImpl(private val apiSonic: ApiSonic) : ArtistDetail
             track = track,
             duration = duration * 1000L,
             year = year,
-            coverArtUrl = apiSonic.getCoverArtUrl(coverArt)
+            coverArtUrl = apiSonicProvider.getApiSonic().getCoverArtUrl(coverArt)
         )
     }
 }

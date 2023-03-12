@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:transitionGroup="true">
 
-            <code.name.monkey.retromusic.views.HomeImageLayout
+            <code.name.monkey.retromusic.feature.home.presentation.UserLayout
                 android:id="@+id/imageLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

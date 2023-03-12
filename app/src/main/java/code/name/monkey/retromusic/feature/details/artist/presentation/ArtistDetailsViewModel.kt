@@ -29,8 +29,8 @@ import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import ru.stersh.retrosonic.core.extensions.mapItems
-import ru.stersh.retrosonic.player.queue.domain.AudioSource
-import ru.stersh.retrosonic.player.queue.domain.PlayerQueueAudioSourceManager
+import ru.stersh.retrosonic.player.queue.AudioSource
+import ru.stersh.retrosonic.player.queue.PlayerQueueAudioSourceManager
 
 class ArtistDetailsViewModel(
     private val artistId: String,

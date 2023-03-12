@@ -19,4 +19,5 @@ dependencyResolutionManagement {
     }
 }
 
-include ':app', ':appthemehelper', ':apisonic', ':core', ':player'
+include ':app', ':appthemehelper', ':source:apisonic', ':core', ':player', ':source:room'
+include ':provider'

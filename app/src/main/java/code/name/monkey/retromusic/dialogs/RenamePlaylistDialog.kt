@@ -20,7 +20,7 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.DialogFragment
 import code.name.monkey.retromusic.EXTRA_PLAYLIST_ID
 import code.name.monkey.retromusic.R
-import code.name.monkey.retromusic.db.PlaylistEntity
+import ru.stersh.apisonic.room.playlist.PlaylistEntity
 import code.name.monkey.retromusic.extensions.accentColor
 import code.name.monkey.retromusic.extensions.colorButtons
 import code.name.monkey.retromusic.extensions.extraNotNull
@@ -35,7 +35,7 @@ class RenamePlaylistDialog : DialogFragment() {
     private val libraryViewModel by sharedViewModel<LibraryViewModel>()
 
     companion object {
-        fun create(playlistEntity: PlaylistEntity): RenamePlaylistDialog {
+        fun create(playlistEntity: ru.stersh.apisonic.room.playlist.PlaylistEntity): RenamePlaylistDialog {
             return RenamePlaylistDialog().apply {
                 arguments = bundleOf(
                     EXTRA_PLAYLIST_ID to playlistEntity
@@ -45,7 +45,7 @@ class RenamePlaylistDialog : DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val playlistEntity = extraNotNull<PlaylistEntity>(EXTRA_PLAYLIST_ID).value
+        val playlistEntity = extraNotNull<ru.stersh.apisonic.room.playlist.PlaylistEntity>(EXTRA_PLAYLIST_ID).value
         val layout = layoutInflater.inflate(R.layout.dialog_playlist, null)
         val inputEditText: TextInputEditText = layout.findViewById(R.id.actionNewPlaylist)
         val nameContainer: TextInputLayout = layout.findViewById(R.id.actionNewPlaylistContainer)

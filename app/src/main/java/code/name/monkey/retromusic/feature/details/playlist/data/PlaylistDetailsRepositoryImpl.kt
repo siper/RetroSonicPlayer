@@ -5,13 +5,14 @@ import code.name.monkey.retromusic.feature.details.playlist.domain.PlaylistDetai
 import code.name.monkey.retromusic.feature.details.playlist.domain.PlaylistSong
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.stersh.apisonic.ApiSonic
 import ru.stersh.apisonic.models.PlaylistResponse
+import ru.stersh.apisonic.provider.apisonic.ApiSonicProvider
 
-class PlaylistDetailsRepositoryImpl(private val apiSonic: ApiSonic) : PlaylistDetailsRepository {
+class PlaylistDetailsRepositoryImpl(private val apiSonicProvider: ApiSonicProvider) : PlaylistDetailsRepository {
     override fun getPlaylistDetails(id: String): Flow<PlaylistDetails> {
         return flow {
-            apiSonic
+            apiSonicProvider
+                .getApiSonic()
                 .getPlaylist(id)
                 .toDomain()
                 .also { emit(it) }
@@ -20,7 +21,8 @@ class PlaylistDetailsRepositoryImpl(private val apiSonic: ApiSonic) : PlaylistDe
 
     override fun getPlaylistSongs(id: String): Flow<List<PlaylistSong>> {
         return flow {
-            apiSonic
+            apiSonicProvider
+                .getApiSonic()
                 .getPlaylist(id)
                 .entry
                 .map { it.toDomain() }
@@ -28,7 +30,7 @@ class PlaylistDetailsRepositoryImpl(private val apiSonic: ApiSonic) : PlaylistDe
         }
     }
 
-    private fun PlaylistResponse.Entry.toDomain(): PlaylistSong {
+    private suspend fun PlaylistResponse.Entry.toDomain(): PlaylistSong {
         return PlaylistSong(
             id = id,
             albumId = albumId,
@@ -36,19 +38,19 @@ class PlaylistDetailsRepositoryImpl(private val apiSonic: ApiSonic) : PlaylistDe
             artist = artist,
             artistId = artistId,
             title = title,
-            coverArtUrl = apiSonic.getCoverArtUrl(coverArt),
+            coverArtUrl = apiSonicProvider.getApiSonic().getCoverArtUrl(coverArt),
             duration = duration * 1000L,
             year = year,
             trackNumber = track
         )
     }
 
-    private fun PlaylistResponse.Playlist.toDomain(): PlaylistDetails {
+    private suspend fun PlaylistResponse.Playlist.toDomain(): PlaylistDetails {
         return PlaylistDetails(
             title = name,
             songCount = songCount,
             duration = duration * 1000L,
-            coverArtUrl = apiSonic.getCoverArtUrl(coverArt)
+            coverArtUrl = apiSonicProvider.getApiSonic().getCoverArtUrl(coverArt)
         )
     }
 }

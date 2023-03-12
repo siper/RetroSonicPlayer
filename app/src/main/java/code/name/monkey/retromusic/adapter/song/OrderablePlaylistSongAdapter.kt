@@ -20,7 +20,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import code.name.monkey.retromusic.R
-import code.name.monkey.retromusic.db.PlaylistEntity
+import ru.stersh.apisonic.room.playlist.PlaylistEntity
 import code.name.monkey.retromusic.extensions.accentColor
 import code.name.monkey.retromusic.extensions.accentOutlineColor
 import code.name.monkey.retromusic.fragments.LibraryViewModel
@@ -159,7 +159,7 @@ class OrderablePlaylistSongAdapter(
         notifyDataSetChanged()
     }
 
-    fun saveSongs(playlistEntity: PlaylistEntity) {
+    fun saveSongs(playlistEntity: ru.stersh.apisonic.room.playlist.PlaylistEntity) {
         activity.lifecycleScope.launch(Dispatchers.IO) {
 
         }

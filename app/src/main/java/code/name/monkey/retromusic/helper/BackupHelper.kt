@@ -4,7 +4,7 @@ import android.content.Context
 import android.os.Environment
 import code.name.monkey.retromusic.BuildConfig
 import code.name.monkey.retromusic.R
-import code.name.monkey.retromusic.db.PlaylistEntity
+import ru.stersh.apisonic.room.playlist.PlaylistEntity
 import code.name.monkey.retromusic.db.toSongEntity
 import code.name.monkey.retromusic.extensions.showToast
 import code.name.monkey.retromusic.extensions.zipOutputStream
@@ -209,7 +209,7 @@ object BackupHelper : KoinComponent {
             }
             repository.insertSongs(songEntities)
         } else {
-            val playListId = repository.createPlaylist(PlaylistEntity(playlistName = playlistName))
+            val playListId = repository.createPlaylist(ru.stersh.apisonic.room.playlist.PlaylistEntity(playlistName = playlistName))
             val songEntities = songs.map {
                 it.toSongEntity(playListId)
             }

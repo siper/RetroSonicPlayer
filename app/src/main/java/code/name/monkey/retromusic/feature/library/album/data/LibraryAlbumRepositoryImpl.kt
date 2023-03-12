@@ -4,23 +4,25 @@ import code.name.monkey.retromusic.feature.library.album.domain.LibraryAlbum
 import code.name.monkey.retromusic.feature.library.album.domain.LibraryAlbumRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import ru.stersh.apisonic.ApiSonic
 import ru.stersh.apisonic.models.AlbumList2
+import ru.stersh.apisonic.models.ListType
+import ru.stersh.apisonic.provider.apisonic.ApiSonicProvider
 
-class LibraryAlbumRepositoryImpl(private val apiSonic: ApiSonic) : LibraryAlbumRepository {
+class LibraryAlbumRepositoryImpl(private val apiSonicProvider: ApiSonicProvider) : LibraryAlbumRepository {
     override fun getAlbums(): Flow<List<LibraryAlbum>> = flow {
-        apiSonic
-            .getAlbumList2(ApiSonic.ListType.ALPHABETICAL_BY_ARTIST, size = 500)
+        apiSonicProvider
+            .getApiSonic()
+            .getAlbumList2(ListType.ALPHABETICAL_BY_ARTIST, size = 500)
             .map { it.toLibraryAlbum() }
             .also { emit(it) }
     }
 
-    private fun AlbumList2.Album.toLibraryAlbum(): LibraryAlbum {
+    private suspend fun AlbumList2.Album.toLibraryAlbum(): LibraryAlbum {
         return LibraryAlbum(
             id = id,
             title = name,
             artist = artist,
-            coverUrl = apiSonic.getCoverArtUrl(coverArt),
+            coverUrl = apiSonicProvider.getApiSonic().getCoverArtUrl(coverArt),
             year = year
         )
     }
