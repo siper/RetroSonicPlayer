@@ -25,7 +25,6 @@ import androidx.core.view.doOnPreDraw
 import androidx.core.view.isVisible
 import androidx.core.view.updateLayoutParams
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import code.name.monkey.appthemehelper.common.ATHToolbarActivity
@@ -132,14 +131,6 @@ class MyLibraryFragment : AbsMainActivityFragment(R.layout.fragment_home), IScro
                 bundleOf(EXTRA_PLAYLIST_TYPE to HISTORY_PLAYLIST)
             )
             setSharedAxisYTransitions()
-        }
-
-        binding.userImage.setOnClickListener {
-            findNavController().navigate(
-                R.id.user_info_fragment, null, null, FragmentNavigatorExtras(
-                    binding.userImage to "user_image"
-                )
-            )
         }
         // Reload suggestions
         binding.suggestions.refreshButton.setOnClickListener {

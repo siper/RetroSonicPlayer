@@ -47,7 +47,6 @@ object RetroGlideExtension {
         R.drawable.default_artist_art
     private const val DEFAULT_SONG_IMAGE: Int = R.drawable.default_audio_art
     private const val DEFAULT_ALBUM_IMAGE = R.drawable.default_album_art
-    private const val DEFAULT_ERROR_IMAGE_BANNER = R.drawable.material_design_default
 
     private val DEFAULT_DISK_CACHE_STRATEGY_ARTIST = DiskCacheStrategy.RESOURCE
     private val DEFAULT_DISK_CACHE_STRATEGY = DiskCacheStrategy.NONE
@@ -158,18 +157,6 @@ object RetroGlideExtension {
     ): BaseRequestOptions<*> {
         return baseRequestOptions.diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
             .error(getErrorUserProfile(context))
-            .signature(createSignature(file))
-    }
-
-    @JvmStatic
-    @GlideOption
-    fun profileBannerOptions(
-        baseRequestOptions: BaseRequestOptions<*>,
-        file: File
-    ): BaseRequestOptions<*> {
-        return baseRequestOptions.diskCacheStrategy(DEFAULT_DISK_CACHE_STRATEGY)
-            .placeholder(DEFAULT_ERROR_IMAGE_BANNER)
-            .error(DEFAULT_ERROR_IMAGE_BANNER)
             .signature(createSignature(file))
     }
 
