@@ -91,10 +91,10 @@ class AboutFragment : Fragment(R.layout.fragment_about), View.OnClickListener {
 
     private fun getAppVersion(): String {
         return try {
-            val isPro = if (App.isProVersion()) "Pro" else "Free"
-            val packageInfo =
-                requireActivity().packageManager.getPackageInfo(requireActivity().packageName, 0)
-            "${packageInfo.versionName} $isPro"
+            val packageInfo = requireActivity()
+                .packageManager
+                .getPackageInfo(requireActivity().packageName, 0)
+            packageInfo.versionName
         } catch (e: PackageManager.NameNotFoundException) {
             e.printStackTrace()
             "0.0.0"

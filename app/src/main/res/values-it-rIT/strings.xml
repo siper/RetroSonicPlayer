@@ -251,7 +251,6 @@ https://play.google.com/store/apps/details?id=%s</string>
     <string name="md_storage_perm_error">Errore di autorizzazione</string>
     <string name="message_backup_create_success">Backup creato con successo.</string>
     <string name="message_limit_tabs">Non più di 5 elementi</string>
-    <string name="message_pro_feature">%s è una funzionalità Pro.</string>
     <string name="message_restore_success">Ripristino completato con successo.</string>
     <string name="message_updated">Aggiornato</string>
     <string name="message_welcome"><![CDATA[Ciao! <br> Benvenuto su %s]]></string>

@@ -248,7 +248,6 @@
     <string name="md_storage_perm_error">權限錯誤</string>
     <string name="message_backup_create_success">已成功建立備份。</string>
     <string name="message_limit_tabs">不得多於 5 個項目</string>
-    <string name="message_pro_feature">%s 為 Pro 版功能。</string>
     <string name="message_restore_success">已成功完成復原。</string>
     <string name="message_updated">已更新</string>
     <string name="message_welcome"><![CDATA[嗨！<br> 歡迎使用 %s]]></string>

@@ -250,7 +250,6 @@
     <string name="md_storage_perm_error">Engedély hiba</string>
     <string name="message_backup_create_success">Biztonsági mentés sikeresen létrehozva</string>
     <string name="message_limit_tabs">Nem lehet több 5 elemnél</string>
-    <string name="message_pro_feature">%s egy prémium funkció</string>
     <string name="message_restore_success">A visszaállítás sikeresen befejeződött</string>
     <string name="message_updated">Frissítve</string>
     <string name="message_welcome"><![CDATA[Szia! <br>Üdv a %s-ban]]></string>

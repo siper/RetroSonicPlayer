@@ -254,7 +254,6 @@
     <string name="md_storage_perm_error">Ошибка разрешения</string>
     <string name="message_backup_create_success">Резервная копия успешно создана.</string>
     <string name="message_limit_tabs">Не более 5 элементов</string>
-    <string name="message_pro_feature">%s является Pro функцией.</string>
     <string name="message_restore_success">Восстановление успешно завершено.</string>
     <string name="message_updated">Обновлено</string>
     <string name="message_welcome"><![CDATA[Привет! <br>Добро пожаловать в %s]]></string>

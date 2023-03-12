@@ -254,7 +254,6 @@
     <string name="md_storage_perm_error">Błąd uprawnień</string>
     <string name="message_backup_create_success">Kopia zapasowa utworzona pomyślnie.</string>
     <string name="message_limit_tabs">Nie więcej niż 5 elementów</string>
-    <string name="message_pro_feature">%s jest funkcją wersji Pro.</string>
     <string name="message_restore_success">Przywracanie zakończone pomyślnie.</string>
     <string name="message_updated">Zaktualizowano</string>
     <string name="message_welcome"><![CDATA[Witaj! <br>Zapraszamy do %s]]></string>

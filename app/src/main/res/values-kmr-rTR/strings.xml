@@ -251,7 +251,6 @@ https://play.google.com/store/apps/details?id=%s</string>
     <string name="md_storage_perm_error">Çewtiya mafdayînê</string>
     <string name="message_backup_create_success">Hîlanîn bi serkeftî hate çêkirin.</string>
     <string name="message_limit_tabs">Ji 5 hêmanan ne bêtir e</string>
-    <string name="message_pro_feature">%s taybetmendiyeke Pro ye.</string>
     <string name="message_restore_success">Vegerandin bi serkeftî qediya.</string>
     <string name="message_updated">Rojanekirî ye</string>
     <string name="message_welcome"><![CDATA[Silav! <br>Tu bi xêr hatî %s]]></string>

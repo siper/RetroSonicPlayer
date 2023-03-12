@@ -250,7 +250,6 @@
     <string name="md_storage_perm_error">İzin hatası</string>
     <string name="message_backup_create_success">Yedekleme başarılı bir şekilde oluşturuldu.</string>
     <string name="message_limit_tabs">En fazla 5 öğe</string>
-    <string name="message_pro_feature">%s bir Pro özelliğidir.</string>
     <string name="message_restore_success">Geri yükleme başarıyla tamamlandı.</string>
     <string name="message_updated">Güncellendi</string>
     <string name="message_welcome"><![CDATA[Hello there! <br>Welcome to %s]]></string>

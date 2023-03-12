@@ -250,7 +250,6 @@
     <string name="md_storage_perm_error">Berechtigungsfehler</string>
     <string name="message_backup_create_success">Sicherung erfolgreich erstellt.</string>
     <string name="message_limit_tabs">Nicht mehr als 5 Registerkarten</string>
-    <string name="message_pro_feature">%s ist eine Pro-Funktion.</string>
     <string name="message_restore_success">Wiederherstellung erfolgreich abgeschlossen.</string>
     <string name="message_updated">Aktualisiert</string>
     <string name="message_welcome"><![CDATA[Hallo! <br>Willkommen bei %s]]></string>

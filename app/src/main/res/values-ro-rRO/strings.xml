@@ -252,7 +252,6 @@
     <string name="md_storage_perm_error">Eroare de permisiune</string>
     <string name="message_backup_create_success">Copie de rezervă creată cu succes.</string>
     <string name="message_limit_tabs">Cel mult 5 elemente</string>
-    <string name="message_pro_feature">%s este o caracteristică Pro.</string>
     <string name="message_restore_success">Restaurare finalizată cu succes.</string>
     <string name="message_updated">Actualizat</string>
     <string name="message_welcome"><![CDATA[Salut! <br>Bun venit la %s]]></string>

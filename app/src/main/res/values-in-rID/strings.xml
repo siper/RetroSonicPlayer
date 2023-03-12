@@ -248,7 +248,6 @@
     <string name="md_storage_perm_error">Kesalahan izin</string>
     <string name="message_backup_create_success">Cadangan berhasil dibuat.</string>
     <string name="message_limit_tabs">Tidak lebih dari 5 item</string>
-    <string name="message_pro_feature">%s adalah fitur Pro.</string>
     <string name="message_restore_success">Restorasi sukses.</string>
     <string name="message_updated">Diperbarui</string>
     <string name="message_welcome"><![CDATA[Halo! <br> Selamat datang ke %s]]></string>

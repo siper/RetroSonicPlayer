@@ -251,7 +251,6 @@
     <string name="md_storage_perm_error">ಅನುಮತಿ ದೋಷ</string>
     <string name="message_backup_create_success">ಬ್ಯಾಕಪ್ ಅನ್ನು ಯಶಸ್ವಿಯಾಗಿ ರಚಿಸಲಾಗಿದೆ.</string>
     <string name="message_limit_tabs">5 ಐಟಂಗಳಿಗಿಂತ ಹೆಚ್ಚಿಲ್ಲ</string>
-    <string name="message_pro_feature">%s ಪ್ರೊ ವೈಶಿಷ್ಟ್ಯವಾಗಿದೆ.</string>
     <string name="message_restore_success">ಮರುಸ್ಥಾಪನೆ ಯಶಸ್ವಿಯಾಗಿ ಪೂರ್ಣಗೊಂಡಿದೆ.</string>
     <string name="message_updated">ನವೀಕರಿಸಲಾಗಿದೆ</string>
     <string name="message_welcome"><![CDATA[ನಮಸ್ಕಾರ! <br>%s ಗೆ ಸುಸ್ವಾಗತ]]></string>

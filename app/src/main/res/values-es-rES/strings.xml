@@ -250,7 +250,6 @@
     <string name="md_storage_perm_error">Error de permisos</string>
     <string name="message_backup_create_success">Copia de seguridad creada con éxito.</string>
     <string name="message_limit_tabs">No más de 5 artículos</string>
-    <string name="message_pro_feature">%s es una característica Pro.</string>
     <string name="message_restore_success">La restauración se ha completado con éxito.</string>
     <string name="message_updated">Actualizado</string>
     <string name="message_welcome"><![CDATA[¡Hola! <br> Bienvenido(a) a %s]]></string>

@@ -27,7 +27,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.viewpager.widget.PagerAdapter
 import androidx.viewpager.widget.ViewPager
 import code.name.monkey.appthemehelper.common.prefs.supportv7.ATEDialogPreference
-import code.name.monkey.retromusic.App
 import code.name.monkey.retromusic.R
 import code.name.monkey.retromusic.databinding.PreferenceDialogNowPlayingScreenBinding
 import code.name.monkey.retromusic.databinding.PreferenceNowPlayingScreenItemBinding
@@ -151,5 +150,5 @@ class AlbumCoverStylePreferenceDialog : DialogFragment(),
 }
 
 private fun isAlbumCoverStyle(style: AlbumCoverStyle): Boolean {
-    return (!App.isProVersion() && (style == Circle || style == Card || style == FullCard))
+    return (style == Circle || style == Card || style == FullCard)
 }
