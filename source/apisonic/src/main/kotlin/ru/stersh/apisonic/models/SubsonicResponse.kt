@@ -29,5 +29,3 @@ data class License(
     @Json(name = "trialExpires") val trialExpires: String,
     @Json(name = "valid") val valid: Boolean
 )
-
-

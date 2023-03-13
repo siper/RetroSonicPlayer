@@ -5,10 +5,10 @@ import ru.stersh.apisonic.room.serversettings.ServerSettingsEntity
 
 internal fun ServerSettingsEntity.toDomain(): ServerSettings {
     return ServerSettings(
-        id, title, url, username, password, isActive
+        id, title, url, username, password, isActive, useLegacyAuth
     )
 }
 
 internal fun ServerSettings.toData(): ServerSettingsEntity {
-    return ServerSettingsEntity(id ?: 0, title, address, username, password, isActive)
+    return ServerSettingsEntity(id ?: 0, title, address, username, password, isActive, useLegacyAuth)
 }

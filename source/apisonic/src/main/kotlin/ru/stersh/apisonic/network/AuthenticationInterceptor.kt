@@ -8,21 +8,27 @@ internal class AuthenticationInterceptor(
     private val username: String,
     private val password: String,
     private val apiVersion: String,
-    private val clientId: String
+    private val clientId: String,
+    private val useLegacyAuth: Boolean
 ) : Interceptor {
 
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
-        val salt = Security.generateSalt()
-        val token = Security.getToken(salt, password)
-        val url = request.url.newBuilder()
+        val urlBuilder = request.url.newBuilder()
             .addQueryParameter("u", username)
-            .addQueryParameter("s", salt)
-            .addQueryParameter("t", token)
             .addQueryParameter("v", apiVersion)
             .addQueryParameter("c", clientId)
             .addQueryParameter("f", "json")
-            .build()
+        if (useLegacyAuth) {
+            urlBuilder.addQueryParameter("p", password)
+        } else {
+            val salt = Security.generateSalt()
+            val token = Security.getToken(salt, password)
+            urlBuilder
+                .addQueryParameter("s", salt)
+                .addQueryParameter("t", token)
+        }
+        val url = urlBuilder.build()
         return chain.proceed(request.newBuilder().url(url).build())
     }
 }

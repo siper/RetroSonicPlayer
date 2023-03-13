@@ -18,5 +18,7 @@ data class ServerSettingsEntity(
     @ColumnInfo(name = "password")
     val password: String,
     @ColumnInfo(name = "is_active")
-    val isActive: Boolean
+    val isActive: Boolean,
+    @ColumnInfo(name = "use_legacy_auth")
+    val useLegacyAuth: Boolean
 )

@@ -9,6 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
+        app:expanded="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -57,7 +58,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:hint="Server name"
+                    android:hint="@string/server_name_title"
                     android:inputType="textPersonName|textCapWords|text"
                     android:padding="16dp"
                     android:textAppearance="@style/TextViewNormal" />
@@ -77,8 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:hint="Server address"
-                    android:text="http://"
+                    android:hint="@string/server_address_title"
                     android:inputType="textWebEmailAddress"
                     android:padding="16dp"
                     android:textAppearance="@style/TextViewNormal" />
@@ -98,7 +98,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:hint="Username"
+                    android:hint="@string/username_title"
                     android:inputType="textPersonName|textCapWords|text"
                     android:padding="16dp"
                     android:textAppearance="@style/TextViewNormal" />
@@ -111,6 +111,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginHorizontal="16dp"
+                app:passwordToggleEnabled="true"
                 app:hintEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -118,23 +119,34 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@null"
-                    android:hint="Password"
+                    android:hint="@string/password_title"
                     android:inputType="textPassword"
                     android:padding="16dp"
                     android:textAppearance="@style/TextViewNormal" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.switchmaterial.SwitchMaterial
-                android:id="@+id/activeSwitch"
+                style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
+                android:id="@+id/legacyAuthSwitch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginHorizontal="16dp"
-                android:text="Set active"
+                android:text="@string/use_legacy_auth_title"
+                android:checked="false" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
+                android:id="@+id/activeSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginHorizontal="16dp"
+                android:text="@string/action_set_active"
                 android:checked="true" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/saveButton"
+                android:id="@+id/submitButton"
                 style="@style/Widget.Material3.Button.Icon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -142,7 +154,7 @@
                 android:layout_marginEnd="16dp"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"
-                android:text="Save"
+                android:text="@string/save"
                 android:textAppearance="@style/TextViewButton"
                 app:layout_constraintBottom_toBottomOf="@+id/playAction"
                 app:layout_constraintEnd_toEndOf="parent"

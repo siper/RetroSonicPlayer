@@ -8,8 +8,7 @@ import ru.stersh.apisonic.models.*
 interface Api {
 
     @GET("rest/ping")
-    suspend fun ping(
-    ): Response<EmptyResponse>
+    suspend fun ping(): Response<EmptyResponse>
 
     @GET("rest/getLicense")
     suspend fun getLicense(

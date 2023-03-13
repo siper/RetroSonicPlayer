@@ -13,10 +13,11 @@ class ApiSonic(
     val password: String,
     val apiVersion: String,
     val clientId: String,
+    val useLegacyAuth: Boolean,
     logLevel: LogLevel = LogLevel.NONE
 ) {
     private val authenticationInterceptor = AuthenticationInterceptor(
-        username, password, apiVersion, clientId
+        username, password, apiVersion, clientId, useLegacyAuth
     )
     private val network = NetworkFactory(authenticationInterceptor, logLevel)
 
@@ -43,14 +44,19 @@ class ApiSonic(
     }
 
     private fun Uri.Builder.appendAuth() {
-        val salt = Security.generateSalt()
-        val token = Security.getToken(salt, password)
         appendQueryParameter("u", username)
-        appendQueryParameter("s", salt)
-        appendQueryParameter("t", token)
         appendQueryParameter("c", clientId)
         appendQueryParameter("v", apiVersion)
         appendQueryParameter("f", "json")
+
+        if (useLegacyAuth) {
+            appendQueryParameter("p", password)
+        } else {
+            val salt = Security.generateSalt()
+            val token = Security.getToken(salt, password)
+            appendQueryParameter("s", salt)
+            appendQueryParameter("t", token)
+        }
     }
 
     suspend fun ping(): EmptyResponse = api.ping().subsonicResponse

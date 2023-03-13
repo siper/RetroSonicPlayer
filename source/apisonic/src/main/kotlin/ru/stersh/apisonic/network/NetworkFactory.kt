@@ -28,10 +28,13 @@ internal class NetworkFactory(
         val moshi = Moshi.Builder().build()
         val moshiConverterFactory = MoshiConverterFactory.create(moshi)
 
+        val errorInterceptor = ErrorInterceptor(moshi)
+
         okHttpClient = OkHttpClient()
             .newBuilder()
             .addInterceptor(authInterceptor)
             .addInterceptor(loggingInterceptor)
+            .addInterceptor(errorInterceptor)
             .build()
 
         retrofitBuilder = Retrofit

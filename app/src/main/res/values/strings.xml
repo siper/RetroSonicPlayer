@@ -448,4 +448,16 @@
     <string name="you_will_be_forwarded_to_the_issue_tracker_website">You will be forwarded to the issue tracker website.</string>
     <string name="all_servers_title">All servers</string>
     <string name="server_editor_title">Edit server</string>
+    <string name="test_connection_title">Test connection</string>
+    <string name="server_name_empty_error">Server name can\'t be empty</string>
+    <string name="server_address_invalid_error">Server address is not valid url</string>
+    <string name="server_username_empty_error">Username can\'t be empty</string>
+    <string name="server_password_empty_error">Password can\'t be empty</string>
+    <string name="use_legacy_auth_title">Use legacy auth</string>
+    <string name="password_title">Password</string>
+    <string name="username_title">Username</string>
+    <string name="server_address_title">Server address</string>
+    <string name="server_name_title">Server name</string>
+    <string name="connection_test_success_message">Connection test success</string>
+    <string name="testing_connection_title">Testing connection...</string>
 </resources>

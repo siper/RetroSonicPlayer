@@ -4,4 +4,5 @@ internal interface ServerSettingsRepository {
     suspend fun getSettings(settingsId: Long): ServerSettings?
     suspend fun saveSettings(settings: ServerSettings)
     suspend fun isFirstServer(id: Long?): Boolean
+    suspend fun testServerSettings(settings: ServerSettings)
 }

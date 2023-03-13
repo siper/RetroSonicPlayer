@@ -31,6 +31,7 @@ internal class ApiSonicProviderImpl(private val serverSettingsDao: ServerSetting
             password = serverSettings.password,
             apiVersion = API_VERSION,
             clientId = CLIENT_ID,
+            useLegacyAuth = serverSettings.useLegacyAuth,
             logLevel = LogLevel.BODY
         )
     }
@@ -40,6 +41,7 @@ internal class ApiSonicProviderImpl(private val serverSettingsDao: ServerSetting
         return currentApiSonic.username == serverSettingsEntity.username
                 && currentApiSonic.password == serverSettingsEntity.password
                 && currentApiSonic.url == serverSettingsEntity.url
+                && currentApiSonic.useLegacyAuth == serverSettingsEntity.useLegacyAuth
     }
 
     companion object {

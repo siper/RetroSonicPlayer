@@ -5,5 +5,6 @@ internal data class ServerSettingsUi(
     val address: String,
     val username: String,
     val password: String,
-    val isActive: Boolean
+    val isActive: Boolean,
+    val useLegacyAuth: Boolean
 )
