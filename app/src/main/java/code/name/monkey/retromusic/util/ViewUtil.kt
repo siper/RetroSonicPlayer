@@ -75,7 +75,10 @@ object ViewUtil {
             )
     }
 
-    fun hitTest(v: View, x: Int, y: Int): Boolean {
+    fun hitTest(v: View?, x: Int, y: Int): Boolean {
+        if (v == null) {
+            return false
+        }
         val tx = (v.translationX + 0.5f).toInt()
         val ty = (v.translationY + 0.5f).toInt()
         val left = v.left + tx
