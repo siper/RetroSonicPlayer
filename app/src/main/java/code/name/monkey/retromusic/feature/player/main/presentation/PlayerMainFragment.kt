@@ -12,14 +12,16 @@
  * See the GNU General Public License for more details.
  *
  */
-package code.name.monkey.retromusic.fragments.player.normal
+package code.name.monkey.retromusic.feature.player.main.presentation
 
 import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.lifecycleScope
 import code.name.monkey.appthemehelper.util.ToolbarContentTintHelper
 import code.name.monkey.retromusic.R
 import code.name.monkey.retromusic.databinding.FragmentPlayerBinding
@@ -34,8 +36,9 @@ import code.name.monkey.retromusic.util.PreferenceUtil
 import code.name.monkey.retromusic.util.ViewUtil
 import code.name.monkey.retromusic.util.color.MediaNotificationProcessor
 import code.name.monkey.retromusic.views.DrawableGradient
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player) {
+class PlayerMainFragment : AbsPlayerFragment(R.layout.fragment_player) {
 
     private var lastColor: Int = 0
     override val paletteColor: Int
@@ -48,6 +51,7 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player) {
     private val binding
         get() = _binding!!
 
+    private val viewModel: PlayerMainViewModel by viewModel()
 
     private fun colorize(i: Int) {
         if (valueAnimator != null) {
@@ -72,6 +76,15 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player) {
             }
         }
         valueAnimator?.setDuration(ViewUtil.RETRO_MUSIC_ANIM_TIME.toLong())?.start()
+    }
+
+    override fun onMenuItemClick(item: MenuItem): Boolean {
+        return if (item.itemId == R.id.action_toggle_favorite) {
+            viewModel.toggleFavorite(!item.isChecked)
+            return true
+        } else {
+            super.onMenuItemClick(item)
+        }
     }
 
     override fun onShow() {
@@ -105,23 +118,30 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player) {
         }
     }
 
-    override fun toggleFavorite(songId: String) {
-        super.toggleFavorite(songId)
-//        if (songId == MusicPlayerRemote.currentSongId) {
-//            updateIsFavorite()
-//        }
-    }
-
-    override fun onFavoriteToggled() {
-//        toggleFavorite(MusicPlayerRemote.currentSongId)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentPlayerBinding.bind(view)
         setUpSubFragments()
         setUpPlayerToolbar()
         playerToolbar().drawAboveSystemBars()
+
+        lifecycleScope.launchWhenStarted {
+            viewModel
+                .isFavorite
+                .collect { isFavorite ->
+                    val iconRes = if (isFavorite) {
+                        R.drawable.ic_favorite
+                    } else {
+                        R.drawable.ic_favorite_border
+                    }
+                    binding
+                        .playerToolbar
+                        .menu
+                        .findItem(R.id.action_toggle_favorite)
+                        .setIcon(iconRes)
+                        .setChecked(isFavorite)
+                }
+        }
     }
 
     override fun onDestroyView() {
@@ -155,8 +175,8 @@ class PlayerFragment : AbsPlayerFragment(R.layout.fragment_player) {
 
     companion object {
 
-        fun newInstance(): PlayerFragment {
-            return PlayerFragment()
+        fun newInstance(): PlayerMainFragment {
+            return PlayerMainFragment()
         }
     }
 }

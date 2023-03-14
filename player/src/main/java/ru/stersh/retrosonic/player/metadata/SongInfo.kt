@@ -5,5 +5,7 @@ data class SongInfo(
     val title: String?,
     val artist: String?,
     val album: String?,
-    val coverArtUrl: String?
+    val coverArtUrl: String?,
+    val favorite: Boolean,
+    val rating: Int
 )

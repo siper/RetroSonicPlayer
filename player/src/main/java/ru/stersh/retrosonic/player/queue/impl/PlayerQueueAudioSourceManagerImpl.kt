@@ -4,8 +4,10 @@ import android.content.Context
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.core.os.bundleOf
+import androidx.media3.common.HeartRating
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
+import androidx.media3.common.StarRating
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.coroutineScope
@@ -15,10 +17,7 @@ import ru.stersh.apisonic.provider.apisonic.ApiSonicProvider
 import ru.stersh.retrosonic.player.android.MusicService
 import ru.stersh.retrosonic.player.queue.AudioSource
 import ru.stersh.retrosonic.player.queue.PlayerQueueAudioSourceManager
-import ru.stersh.retrosonic.player.utils.MEDIA_ITEM_ALBUM_ID
-import ru.stersh.retrosonic.player.utils.MEDIA_ITEM_DURATION
-import ru.stersh.retrosonic.player.utils.mediaControllerFuture
-import ru.stersh.retrosonic.player.utils.withPlayer
+import ru.stersh.retrosonic.player.utils.*
 
 internal class PlayerQueueAudioSourceManagerImpl(
     private val context: Context,
@@ -112,6 +111,20 @@ internal class PlayerQueueAudioSourceManagerImpl(
             .getApiSonic()
             .downloadUrl(id)
             .toUri()
+
+        val artworkUri = apiSonicProvider
+            .getApiSonic()
+            .getCoverArtUrl(coverArt)
+            .toUri()
+
+        val songRating = userRating
+        val rating = if (songRating != null && songRating > 0) {
+            StarRating(5, songRating.toFloat())
+        } else {
+            StarRating(5)
+        }
+        val starredRating = HeartRating(starred != null)
+
         val metadata = MediaMetadata
             .Builder()
             .setTitle(title)
@@ -119,10 +132,13 @@ internal class PlayerQueueAudioSourceManagerImpl(
             .setExtras(
                 bundleOf(
                     MEDIA_ITEM_ALBUM_ID to albumId,
-                    MEDIA_ITEM_DURATION to duration * 1000L
+                    MEDIA_ITEM_DURATION to duration * 1000L,
+                    MEDIA_SONG_ID to id
                 )
             )
-            .setArtworkUri(apiSonicProvider.getApiSonic().getCoverArtUrl(coverArt).toUri())
+            .setUserRating(starredRating)
+            .setOverallRating(rating)
+            .setArtworkUri(artworkUri)
             .build()
         val requestMetadata = MediaItem
             .RequestMetadata
@@ -143,6 +159,20 @@ internal class PlayerQueueAudioSourceManagerImpl(
             .getApiSonic()
             .downloadUrl(id)
             .toUri()
+
+        val artworkUri = apiSonicProvider
+            .getApiSonic()
+            .getCoverArtUrl(coverArt)
+            .toUri()
+
+        val songRating = userRating
+        val rating = if (songRating != null && songRating > 0) {
+            StarRating(5, songRating.toFloat())
+        } else {
+            StarRating(5)
+        }
+        val starredRating = HeartRating(starred != null)
+
         val metadata = MediaMetadata
             .Builder()
             .setTitle(title)
@@ -150,10 +180,13 @@ internal class PlayerQueueAudioSourceManagerImpl(
             .setExtras(
                 bundleOf(
                     MEDIA_ITEM_ALBUM_ID to albumId,
-                    MEDIA_ITEM_DURATION to duration * 1000L
+                    MEDIA_ITEM_DURATION to duration * 1000L,
+                    MEDIA_SONG_ID to id
                 )
             )
-            .setArtworkUri(apiSonicProvider.getApiSonic().getCoverArtUrl(coverArt).toUri())
+            .setOverallRating(rating)
+            .setUserRating(starredRating)
+            .setArtworkUri(artworkUri)
             .build()
         val requestMetadata = MediaItem
             .RequestMetadata

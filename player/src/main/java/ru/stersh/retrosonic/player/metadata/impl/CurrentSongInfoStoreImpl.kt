@@ -2,9 +2,7 @@ package ru.stersh.retrosonic.player.metadata.impl
 
 import android.content.Context
 import androidx.core.content.ContextCompat
-import androidx.media3.common.MediaItem
-import androidx.media3.common.MediaMetadata
-import androidx.media3.common.Player
+import androidx.media3.common.*
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
@@ -54,7 +52,9 @@ internal class CurrentSongInfoStoreImpl(private val context: Context) : CurrentS
             title = mediaMetadata.title?.toString(),
             album = mediaMetadata.albumTitle?.toString(),
             artist = mediaMetadata.artist?.toString(),
-            coverArtUrl = mediaMetadata.artworkUri?.toString()
+            coverArtUrl = mediaMetadata.artworkUri?.toString(),
+            favorite = (mediaMetadata.userRating as? HeartRating)?.isHeart == true,
+            rating = (mediaMetadata.overallRating as? StarRating)?.starRating?.toInt() ?: 0
         )
     }
 }

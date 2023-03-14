@@ -66,7 +66,8 @@ class MusicService : MediaLibraryService() {
             mediaItems: MutableList<MediaItem>
         ): ListenableFuture<MutableList<MediaItem>> {
             val updatedMediaItems = mediaItems.map { mediaItem ->
-                mediaItem.buildUpon()
+                mediaItem
+                    .buildUpon()
                     .setUri(mediaItem.requestMetadata.mediaUri)
                     .build()
             }.toMutableList()

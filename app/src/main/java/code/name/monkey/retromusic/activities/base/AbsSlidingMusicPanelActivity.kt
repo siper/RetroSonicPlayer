@@ -41,7 +41,7 @@ import code.name.monkey.retromusic.feature.player.mini.MiniPlayerFragment
 import code.name.monkey.retromusic.feature.settings.server.presentation.ServerSettingsActivity
 import code.name.monkey.retromusic.fragments.LibraryViewModel
 import code.name.monkey.retromusic.fragments.base.AbsPlayerFragment
-import code.name.monkey.retromusic.fragments.player.normal.PlayerFragment
+import code.name.monkey.retromusic.feature.player.main.presentation.PlayerMainFragment
 import code.name.monkey.retromusic.model.CategoryInfo
 import code.name.monkey.retromusic.util.PreferenceUtil
 import code.name.monkey.retromusic.util.ViewUtil
@@ -440,7 +440,7 @@ abstract class AbsSlidingMusicPanelActivity : AbsMusicServiceActivity(),
 
     private fun setupPlayerFragment() {
         supportFragmentManager.commit {
-            replace(R.id.playerFragmentContainer, PlayerFragment())
+            replace(R.id.playerFragmentContainer, PlayerMainFragment())
         }
         supportFragmentManager.executePendingTransactions()
         playerFragment = whichFragment(R.id.playerFragmentContainer)

@@ -16,7 +16,7 @@ import ru.stersh.retrosonic.player.state.data.PlayStateStoreImpl
 
 val playerModule = module {
     single<PlayerQueueAudioSourceManager> { PlayerQueueAudioSourceManagerImpl(get(), get()) }
-    single<PlayerControls> { PlayerControlsImpl(get()) }
+    single<PlayerControls> { PlayerControlsImpl(get(), get()) }
     single<PlayStateStore> { PlayStateStoreImpl(get()) }
     single<PlayerProgressStore> { PlayerProgressStoreImpl(get()) }
     single<CurrentSongInfoStore> { CurrentSongInfoStoreImpl(get()) }

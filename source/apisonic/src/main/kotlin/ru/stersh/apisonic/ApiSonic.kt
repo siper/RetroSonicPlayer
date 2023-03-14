@@ -270,6 +270,13 @@ class ApiSonic(
     }
 
     //Todo test
+    suspend fun starSong(
+        vararg songId: String
+    ): EmptyResponse {
+        return api.star(id = songId.asList()).subsonicResponse
+    }
+
+    //Todo test
     suspend fun starAlbum(
         vararg albumId: String
     ): EmptyResponse {
@@ -289,6 +296,9 @@ class ApiSonic(
     ): EmptyResponse {
         return api.unstar(id = id.asList()).subsonicResponse
     }
+
+    //Todo test
+    suspend fun unstarSong(vararg id: String): EmptyResponse = api.unstar(id = id.asList()).subsonicResponse
 
     //Todo test
     suspend fun unstarAlbum(vararg albumId: String): EmptyResponse =

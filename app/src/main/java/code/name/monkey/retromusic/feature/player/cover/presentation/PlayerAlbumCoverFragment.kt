@@ -278,8 +278,6 @@ class PlayerAlbumCoverFragment : Fragment(R.layout.fragment_player_album_cover),
     interface Callbacks {
 
         fun onColorChanged(color: MediaNotificationProcessor)
-
-        fun onFavoriteToggled()
     }
 
     companion object {

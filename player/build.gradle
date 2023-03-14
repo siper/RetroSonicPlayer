@@ -15,7 +15,7 @@ dependencies {
     implementation(libs.bundles.koin)
     implementation(libs.timber)
 
-    def media3_version = "1.0.0-beta02"
+    def media3_version = "1.0.0-rc02"
 
     // For media playback using ExoPlayer
     api "androidx.media3:media3-exoplayer:$media3_version"

@@ -11,7 +11,7 @@ import ru.stersh.retrosonic.player.queue.PlayerQueueManager
 import ru.stersh.retrosonic.player.utils.MEDIA_ITEM_ALBUM_ID
 import ru.stersh.retrosonic.player.utils.MEDIA_ITEM_DURATION
 
-class PlayingQueueViewModel(private val playerQueueManager: PlayerQueueManager) : ViewModel() {
+internal class PlayingQueueViewModel(private val playerQueueManager: PlayerQueueManager) : ViewModel() {
     private val _queue = MutableStateFlow<List<QueueSongUi>>(emptyList())
     val queue: Flow<List<QueueSongUi>>
         get() = _queue
