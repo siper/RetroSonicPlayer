@@ -1,0 +1,25 @@
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.spotless)
+}
+
+apply from: "${project.rootDir}/buildscripts/spotless.gradle"
+apply from: "${project.rootDir}/buildscripts/android-library.gradle"
+
+android {
+    namespace 'ru.stersh.retrosonic.apisonic'
+}
+
+dependencies {
+    kapt(libs.moshi.codegen)
+    implementation(libs.moshi.core)
+    implementation(libs.moshi.adapters)
+
+    implementation(libs.logging.interceptor)
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.converter.moshi)
+
+    implementation(libs.kotlin.coroutines.core)
+}

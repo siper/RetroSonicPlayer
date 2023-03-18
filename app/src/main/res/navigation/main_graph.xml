@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/action_home">
+
+    <fragment
+        android:id="@+id/genreDetailsFragment"
+        android:name="ru.stersh.retrosonic.fragments.genres.GenreDetailsFragment"
+        android:label="GenreDetailsFragment"
+        tools:layout="@layout/fragment_playlist_detail">
+        <argument
+            android:name="extra_genre"
+            app:argType="ru.stersh.retrosonic.model.Genre" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/playlistDetailsFragment"
+        android:name="ru.stersh.retrosonic.feature.details.playlist.presentation.PlaylistDetailsFragment"
+        android:label="PlaylistDetailsFragment"
+        tools:layout="@layout/fragment_playlist_detail">
+        <argument
+            android:name="extra_playlist_id"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/albumDetailsFragment"
+        android:name="ru.stersh.retrosonic.feature.details.album.presentation.AlbumDetailsFragment"
+        android:label="AlbumDetailsFragment"
+        tools:layout="@layout/fragment_album_details">
+        <argument
+            android:name="extra_album_id"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/artistDetailsFragment"
+        android:name="ru.stersh.retrosonic.feature.details.artist.presentation.ArtistDetailsFragment"
+        android:label="ArtistDetailsFragment"
+        tools:layout="@layout/fragment_artist_details">
+        <argument
+            android:name="extra_artist_id"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/albumArtistDetailsFragment"
+        android:name="ru.stersh.retrosonic.feature.details.album.presentation.AlbumDetailsFragment"
+        android:label="AlbumArtistDetailsFragment"
+        tools:layout="@layout/fragment_artist_details">
+        <argument
+            android:name="extra_album_id"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/libraryFragment"
+        android:name="ru.stersh.retrosonic.fragments.library.LibraryFragment"
+        android:label=""
+        tools:layout="@layout/fragment_library" />
+
+    <fragment
+        android:id="@+id/detailListFragment"
+        android:name="ru.stersh.retrosonic.fragments.other.DetailListFragment"
+        android:label="DetailListFragment">
+        <argument
+            android:name="type"
+            app:argType="integer" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/action_search"
+        android:name="ru.stersh.retrosonic.fragments.search.SearchFragment"
+        android:label="SearchFragment"
+        tools:layout="@layout/fragment_search" />
+
+    <fragment
+        android:id="@+id/settings_fragment"
+        android:name="ru.stersh.retrosonic.fragments.settings.SettingsFragment" />
+
+    <fragment
+        android:id="@+id/action_album"
+        android:name="ru.stersh.retrosonic.feature.library.album.presentation.LibraryAlbumFragment"
+        tools:layout="@layout/fragment_main_recycler" />
+
+    <fragment
+        android:id="@+id/action_artist"
+        android:name="ru.stersh.retrosonic.feature.library.artist.presentation.LibraryArtistFragment"
+        tools:layout="@layout/fragment_main_recycler" />
+
+    <fragment
+        android:id="@+id/action_song"
+        android:name="ru.stersh.retrosonic.fragments.songs.SongsFragment"
+        tools:layout="@layout/fragment_main_recycler" />
+
+    <fragment
+        android:id="@+id/action_genre"
+        android:name="ru.stersh.retrosonic.fragments.genres.GenresFragment"
+        tools:layout="@layout/fragment_main_recycler" />
+
+    <fragment
+        android:id="@+id/action_playlist"
+        android:name="ru.stersh.retrosonic.feature.library.playlist.presentation.LibraryPlaylistFragment"
+        tools:layout="@layout/fragment_main_recycler" />
+
+    <fragment
+        android:id="@+id/action_folder"
+        android:name="ru.stersh.retrosonic.fragments.folder.FoldersFragment"
+        tools:layout="@layout/fragment_folder" />
+
+    <fragment
+        android:id="@+id/action_home"
+        android:name="ru.stersh.retrosonic.feature.home.presentation.MyLibraryFragment"
+        android:label=""
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/playing_queue_fragment"
+        android:name="ru.stersh.retrosonic.feature.queue.presentation.PlayingQueueFragment" />
+
+    <fragment
+        android:id="@+id/lyrics_fragment"
+        android:name="ru.stersh.retrosonic.fragments.lyrics.LyricsFragment" />
+</navigation>

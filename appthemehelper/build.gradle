@@ -1,0 +1,30 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+android {
+    compileSdk 32
+    namespace "code.name.monkey.appthemehelper"
+
+    defaultConfig {
+        minSdk 21
+        targetSdk 32
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    lint {
+        abortOnError false
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.androidx.preferences)
+}

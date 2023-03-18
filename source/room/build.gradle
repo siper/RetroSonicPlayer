@@ -1,0 +1,24 @@
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.kotlin.parcelize)
+    alias(libs.plugins.spotless)
+}
+
+apply from: "${project.rootDir}/buildscripts/spotless.gradle"
+apply from: "${project.rootDir}/buildscripts/android-library.gradle"
+
+android {
+    namespace 'ru.stersh.retrosonic.room'
+}
+
+dependencies {
+
+    api(libs.room.runtime)
+    api(libs.room.ktx)
+    kapt(libs.room.compiler)
+
+    implementation(libs.kotlin.coroutines.android)
+    implementation(libs.bundles.koin)
+}

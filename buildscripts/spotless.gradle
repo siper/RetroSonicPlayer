@@ -1,0 +1,35 @@
+spotless {
+
+    java {
+        target '**/*.java'
+        googleJavaFormat().aosp()
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+        licenseHeaderFile("${project.rootDir}/buildscripts/spotless.license")
+    }
+
+    kotlin {
+        target '**/*.kt'
+        ktlint().setEditorConfigPath("${project.rootDir}/.editorconfig")
+        trimTrailingWhitespace()
+        indentWithSpaces()
+        endWithNewline()
+        licenseHeaderFile("${project.rootDir}/buildscripts/spotless.license")
+    }
+
+    format 'misc', {
+        target '**/*.gradle', '**/*.md', '**/.gitignore'
+        indentWithSpaces()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+
+    format 'xml', {
+        target '**/*.xml'
+        indentWithSpaces()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}

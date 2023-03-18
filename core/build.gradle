@@ -1,0 +1,18 @@
+plugins {
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.spotless)
+}
+
+apply from: "${project.rootDir}/buildscripts/spotless.gradle"
+apply from: "${project.rootDir}/buildscripts/android-library.gradle"
+
+android {
+    namespace 'ru.stersh.retrosonic.core'
+}
+
+dependencies {
+    implementation project(':source:apisonic')
+    implementation(libs.kotlin.coroutines.android)
+    implementation(libs.bundles.koin)
+}

@@ -1,0 +1,93 @@
+[versions]
+adapterdelegates = "4.3.2"
+android-plugin = "7.2.1"
+appcompat = "1.4.2"
+constraintlayout = "2.1.4"
+detekt = "1.21.0"
+fragment = "1.5.1"
+koin = "3.3.3"
+kotlin = "1.7.10"
+kotlin-coroutines = "1.6.4"
+lifecycle = "2.5.1"
+material = "1.8.0"
+recyclerview = "1.2.1"
+room = "2.4.3"
+timber = "5.0.1"
+toml-checker = "0.42.0"
+toml-updater = "0.5.3"
+moshi = "1.14.0"
+coil = "2.2.2"
+spotless = "6.17.0"
+androidx-navigation = "2.5.1"
+retrofit = "2.9.0"
+
+[libraries]
+adapterdelegates-core = { module = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl", version.ref = "adapterdelegates" }
+adapterdelegates-viewbinding = { module = "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding", version.ref = "adapterdelegates" }
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
+detekt-formatting = { module = "io.gitlab.arturbosch.detekt:detekt-formatting", version.ref = "detekt" }
+fragment = { module = "androidx.fragment:fragment-ktx", version.ref = "fragment" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
+kotlin-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlin-coroutines" }
+kotlin-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlin-coroutines" }
+kotlin-std-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycle" }
+lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycle" }
+lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycle" }
+lifecycle-common-java8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "lifecycle" }
+material = { module = "com.google.android.material:material", version.ref = "material" }
+recyclerview-core = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerview" }
+room-compiler = { module = "androidx.room:room-compiler", version.ref = "room" }
+room-ktx = { module = "androidx.room:room-ktx", version.ref = "room" }
+room-runtime = { module = "androidx.room:room-runtime", version.ref = "room" }
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+validator = "com.afollestad:vvalidator:0.5.2"
+moshi-core = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
+moshi-codegen = { module = "com.squareup.moshi:moshi-kotlin-codegen", version.ref = "moshi" }
+moshi-adapters = { module = "com.squareup.moshi:moshi-adapters", version.ref = "moshi" }
+retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+retrofit-converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
+logging-interceptor = "com.squareup.okhttp3:logging-interceptor:4.3.1"
+coil-core = { module = "io.coil-kt:coil", version.ref = "coil" }
+androidx-navigation-runtime = { module = "androidx.navigation:navigation-runtime-ktx", version.ref = "androidx-navigation" }
+androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment-ktx", version.ref = "androidx-navigation" }
+androidx-navigation-ui = { module = "androidx.navigation:navigation-ui-ktx", version.ref = "androidx-navigation" }
+androidx-preferences = { module = "androidx.preference:preference-ktx", version = "1.2.0" }
+androidx-core = { module = "androidx.core:core-ktx", version = "1.9.0" }
+
+[bundles]
+adapterdelegates = [
+    "adapterdelegates-core",
+    "adapterdelegates-viewbinding",
+]
+koin = [
+    "koin-android",
+    "koin-core",
+]
+kotlin-coroutines = [
+    "kotlin-coroutines-android",
+    "kotlin-coroutines-core",
+]
+room = [
+    "room-ktx",
+    "room-runtime",
+]
+androidx-navigation = [
+    "androidx-navigation-runtime",
+    "androidx-navigation-fragment",
+    "androidx-navigation-ui"
+]
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "android-plugin" }
+android-library = { id = "com.android.library", version.ref = "android-plugin" }
+detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-kapt = { id = "org.jetbrains.kotlin.kapt", version.ref = "kotlin" }
+kotlin-parcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+toml-checker = { id = "com.github.ben-manes.versions", version.ref = "toml-checker" }
+toml-updater = { id = "nl.littlerobots.version-catalog-update", version.ref = "toml-updater" }
+spotless = { id = "com.diffplug.spotless", version.ref = "spotless" }
+androidx-navigation-safeargs = { id = "androidx.navigation.safeargs.kotlin", version.ref = "androidx-navigation" }

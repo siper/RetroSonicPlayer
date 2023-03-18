@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        app:expanded="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:liftOnScroll="true">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_collapseMode="pin"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="@string/server_editor_title"
+            app:titleTextAppearance="@style/ToolbarTextAppearanceNormal" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true"
+        android:overScrollMode="@integer/overScrollMode"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/serverNameInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                app:hintEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/serverName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="@string/server_name_title"
+                    android:inputType="textPersonName|textCapWords|text"
+                    android:padding="16dp"
+                    android:textAppearance="@style/TextViewNormal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/serverAddressInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="16dp"
+                app:hintEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/serverAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="@string/server_address_title"
+                    android:inputType="textWebEmailAddress"
+                    android:padding="16dp"
+                    android:textAppearance="@style/TextViewNormal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/usernameInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="16dp"
+                app:hintEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/username"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="@string/username_title"
+                    android:inputType="textPersonName|textCapWords|text"
+                    android:padding="16dp"
+                    android:textAppearance="@style/TextViewNormal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/passwordInputLayout"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="16dp"
+                app:passwordToggleEnabled="true"
+                app:hintEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:hint="@string/password_title"
+                    android:inputType="textPassword"
+                    android:padding="16dp"
+                    android:textAppearance="@style/TextViewNormal" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
+                android:id="@+id/legacyAuthSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="16dp"
+                android:text="@string/use_legacy_auth_title"
+                android:checked="false" />
+
+            <com.google.android.material.switchmaterial.SwitchMaterial
+                style="@style/Widget.Material3.CompoundButton.MaterialSwitch"
+                android:id="@+id/activeSwitch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:layout_marginHorizontal="16dp"
+                android:text="@string/action_set_active"
+                android:checked="true" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/submitButton"
+                style="@style/Widget.Material3.Button.Icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:text="@string/save"
+                android:textAppearance="@style/TextViewButton"
+                app:layout_constraintBottom_toBottomOf="@+id/playAction"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/playAction"
+                app:layout_constraintTop_toTopOf="@+id/playAction" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
