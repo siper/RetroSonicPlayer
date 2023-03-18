@@ -15,6 +15,7 @@
 package ru.stersh.retrosonic.player
 
 import org.koin.dsl.module
+import ru.stersh.retrosonic.player.android.ApiSonicPlayQueueSyncer
 import ru.stersh.retrosonic.player.controls.PlayerControls
 import ru.stersh.retrosonic.player.controls.data.PlayerControlsImpl
 import ru.stersh.retrosonic.player.metadata.CurrentSongInfoStore
@@ -35,4 +36,5 @@ val playerModule = module {
     single<PlayerProgressStore> { PlayerProgressStoreImpl(get(), get()) }
     single<CurrentSongInfoStore> { CurrentSongInfoStoreImpl(get()) }
     single<PlayerQueueManager> { PlayerQueueManagerImpl(get()) }
+    single { ApiSonicPlayQueueSyncer(get()) }
 }

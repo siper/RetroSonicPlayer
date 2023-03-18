@@ -30,6 +30,7 @@ import ru.stersh.apisonic.models.Indexes
 import ru.stersh.apisonic.models.License
 import ru.stersh.apisonic.models.MusicFolder
 import ru.stersh.apisonic.models.NowPlayingEntry
+import ru.stersh.apisonic.models.PlayQueueResponse
 import ru.stersh.apisonic.models.PlaylistResponse
 import ru.stersh.apisonic.models.Playlists
 import ru.stersh.apisonic.models.ScanStatus
@@ -104,34 +105,43 @@ class ApiSonic(
 
     suspend fun getLicense(): License = api.getLicense().subsonicResponse.license
 
+    suspend fun savePlayQueue(
+        id: List<String>,
+        current: String? = null,
+        position: Long? = null
+    ): EmptyResponse = api.savePlayQueue(id, current, position).subsonicResponse
+
+    suspend fun getPlayQueue(): PlayQueueResponse = api.getPlayQueue().subsonicResponse
+
     suspend fun getArtists(): Artists = api.getArtists().subsonicResponse.artists
 
-    // TODO Test
+
     suspend fun getGenres(): List<Genre> = api.getGenres().subsonicResponse.genres.genres
 
-    // TODO Test this
+
     suspend fun getArtist(id: String): Artist = api.getArtist(id).subsonicResponse.artist
 
-    // TODO Test this
+
     suspend fun getAlbum(id: String): Album = api.getAlbum(id).subsonicResponse.album
 
-    // TODO Test this
+
     suspend fun getSong(id: String): Song = api.getSong(id).subsonicResponse.song
 
-    // TODO Test this
+
     suspend fun getVideos(): List<Video> = api.getVideos().subsonicResponse.videos.videos
 
-    // TODO Test this
-    suspend fun getVideoInfo(id: String): VideoInfo = api.getVideoInfo(id).subsonicResponse.videoInfo
 
-    // TODO Test this
+    suspend fun getVideoInfo(id: String): VideoInfo =
+        api.getVideoInfo(id).subsonicResponse.videoInfo
+
+
     suspend fun getArtistInfo(
         id: String,
         count: Int? = null,
         includeNotPresent: Boolean? = null,
     ): ArtistInfo = api.getArtistInfo(id, count, includeNotPresent).subsonicResponse.artistInfo
 
-    // TODO Test this
+
     suspend fun getArtistInfo2(
         id: String,
         count: Int? = null,
@@ -145,7 +155,7 @@ class ApiSonic(
         return api.getSimilarSongs(id, count).subsonicResponse.similarSongs.similarSongs
     }
 
-    // TODO Test
+
     suspend fun getSimilarSongs2(
         id: String,
         count: Int? = null,
@@ -153,7 +163,7 @@ class ApiSonic(
         return api.getSimilarSongs2(id, count).subsonicResponse.similarSongs.similarSongs
     }
 
-    // TODO Test
+
     suspend fun getTopSongs(
         artist: String,
         count: Int? = null,
@@ -161,12 +171,12 @@ class ApiSonic(
         return api.getTopSongs(artist, count).subsonicResponse.topSongs.topSongs
     }
 
-    // TODO Test
+
     suspend fun getMusicFolders(): List<MusicFolder> {
         return api.getMusicFolders().subsonicResponse.musicFolders.musicFolders
     }
 
-    // TODO Test
+
     suspend fun getIndexes(
         musicFolderId: String? = null,
         ifModifiedSince: Long? = null,
@@ -174,7 +184,7 @@ class ApiSonic(
         return api.getIndexes(musicFolderId, ifModifiedSince).subsonicResponse.indexes
     }
 
-    // TODO test
+
     suspend fun getMusicDirectory(
         id: String,
     ): Directory {
@@ -194,7 +204,7 @@ class ApiSonic(
         BY_GENRE("byGenre"),
     }
 
-    // TODO test
+
     suspend fun getAlbumList(
         type: ListType,
         size: Int? = null,
@@ -213,7 +223,7 @@ class ApiSonic(
         musicFolderId,
     ).subsonicResponse.albumList.albums
 
-    // TODO test
+
     suspend fun getAlbumList2(
         type: ru.stersh.apisonic.models.ListType,
         size: Int? = null,
@@ -232,7 +242,7 @@ class ApiSonic(
         musicFolderId,
     ).subsonicResponse.albumList2.albums
 
-    // TODO test
+
     suspend fun getRandomSongs(
         size: Int? = null,
         genre: String? = null,
@@ -247,7 +257,7 @@ class ApiSonic(
         musicFolderId,
     ).subsonicResponse.randomSongs.randomSongs
 
-    // TODO test
+
     suspend fun getSongsByGenre(
         genre: String,
         count: Int? = null,
@@ -260,20 +270,21 @@ class ApiSonic(
         musicFolderId,
     ).subsonicResponse.songsByGenre.songsByGenre
 
-    // TODO test
-    suspend fun getNowPlaying(): List<NowPlayingEntry> = api.getNowPlaying().subsonicResponse.nowPlaying.entries
 
-    // TODO test
+    suspend fun getNowPlaying(): List<NowPlayingEntry> =
+        api.getNowPlaying().subsonicResponse.nowPlaying.entries
+
+
     suspend fun getStarred(
         musicFolderId: String? = null,
     ): Starred = api.getStarred(musicFolderId).subsonicResponse.starred
 
-    // TODO test
+
     suspend fun getStarred2(
         musicFolderId: String? = null,
     ): Starred2 = api.getStarred2(musicFolderId).subsonicResponse.starred2
 
-    // TODO TEST
+
     @Deprecated("Deprecated since 1.4.0, use search2 instead.")
     suspend fun search(
         artist: String? = null,
@@ -283,9 +294,17 @@ class ApiSonic(
         count: Int? = null,
         offset: Int? = null,
         newerThan: Long? = null,
-    ): SearchResult = api.search(artist, album, title, any, count, offset, newerThan).subsonicResponse.searchResult
+    ): SearchResult = api.search(
+        artist,
+        album,
+        title,
+        any,
+        count,
+        offset,
+        newerThan,
+    ).subsonicResponse.searchResult
 
-    // TODO TEST
+
     suspend fun search2(
         query: String,
         artistCount: Int? = null,
@@ -296,11 +315,20 @@ class ApiSonic(
         songOffset: Int? = null,
         musicFolderId: String? = null,
     ): SearchResult2 = api
-        .search2(query, artistCount, artistOffset, albumCount, albumOffset, songCount, songOffset, musicFolderId)
+        .search2(
+            query,
+            artistCount,
+            artistOffset,
+            albumCount,
+            albumOffset,
+            songCount,
+            songOffset,
+            musicFolderId,
+        )
         .subsonicResponse
         .searchResult2
 
-    // TODO TEST
+
     suspend fun search3(
         query: String,
         artistCount: Int? = null,
@@ -311,59 +339,69 @@ class ApiSonic(
         songOffset: Int? = null,
         musicFolderId: String? = null,
     ): SearchResult3 = api
-        .search3(query, artistCount, artistOffset, albumCount, albumOffset, songCount, songOffset, musicFolderId)
+        .search3(
+            query,
+            artistCount,
+            artistOffset,
+            albumCount,
+            albumOffset,
+            songCount,
+            songOffset,
+            musicFolderId,
+        )
         .subsonicResponse
         .searchResult3
 
-    // TODO Test
+
     suspend fun startScan(): ScanStatus = api.startScan().subsonicResponse.scanStatus
 
-    // Todo Test
+
     suspend fun getScanStatus(): ScanStatus = api.getScanStatus().subsonicResponse.scanStatus
 
-    // Todo test
+
     suspend fun starFileOrFolder(
         vararg id: String,
     ): EmptyResponse {
         return api.star(id = id.asList()).subsonicResponse
     }
 
-    // Todo test
+
     suspend fun starSong(
         vararg songId: String,
     ): EmptyResponse {
         return api.star(id = songId.asList()).subsonicResponse
     }
 
-    // Todo test
+
     suspend fun starAlbum(
         vararg albumId: String,
     ): EmptyResponse {
         return api.star(albumIds = albumId.asList()).subsonicResponse
     }
 
-    // Todo test
+
     suspend fun starArtist(
         vararg artistId: String,
     ): EmptyResponse {
         return api.star(artistIds = artistId.asList()).subsonicResponse
     }
 
-    // Todo test
+
     suspend fun unstarFileOrFolder(
         vararg id: String,
     ): EmptyResponse {
         return api.unstar(id = id.asList()).subsonicResponse
     }
 
-    // Todo test
-    suspend fun unstarSong(vararg id: String): EmptyResponse = api.unstar(id = id.asList()).subsonicResponse
 
-    // Todo test
+    suspend fun unstarSong(vararg id: String): EmptyResponse =
+        api.unstar(id = id.asList()).subsonicResponse
+
+
     suspend fun unstarAlbum(vararg albumId: String): EmptyResponse =
         api.unstar(albumIds = albumId.asList()).subsonicResponse
 
-    // Todo test
+
     suspend fun unstarArtist(vararg artistId: String): EmptyResponse =
         api.unstar(artistIds = artistId.asList()).subsonicResponse
 
@@ -376,49 +414,50 @@ class ApiSonic(
         RATE_5_STAR(5),
     }
 
-    // TODO TEST
+
     suspend fun setRating(
         id: String,
         rating: Rating,
     ): EmptyResponse = api.setRating(id, rating.value).subsonicResponse
 
-    // TODO TEST
+
     suspend fun removeRating(
         id: String,
     ): EmptyResponse = api.setRating(id, Rating.REMOVE_RATING.value).subsonicResponse
 
-    // TODO TEST
+
     suspend fun scrobble(
         id: String,
         time: Long? = null,
         submission: Boolean? = null,
     ): EmptyResponse = api.scrobble(id, time, submission).subsonicResponse
 
-    // TODO TEST
+
     suspend fun getPlaylists(
         username: String? = null,
-    ): List<Playlists.Playlist> = api.getPlaylists(username).subsonicResponse.playlists.playlists ?: emptyList()
+    ): List<Playlists.Playlist> =
+        api.getPlaylists(username).subsonicResponse.playlists.playlists ?: emptyList()
 
-    // TODO TEST
+
     suspend fun getPlaylist(
         id: String,
     ): PlaylistResponse.Playlist = api.getPlaylist(id).subsonicResponse.playlist
 
-    // TODO TEST
+
     suspend fun createPlaylist(
         name: String,
         songIds: List<String>? = null,
     ): EmptyResponse =
         api.createPlaylist(playlistId = null, name = name, songIds = songIds).subsonicResponse
 
-    // TODO TEST
+
     suspend fun overridePlaylist(
         playlistId: String,
         songIds: List<String>? = null,
     ): EmptyResponse =
         api.createPlaylist(playlistId = playlistId, name = null, songIds = songIds).subsonicResponse
 
-    // TODO TEST
+
     suspend fun overridePlaylist(
         playlistId: String,
         name: String? = null,
@@ -427,17 +466,24 @@ class ApiSonic(
         songIdsToAdd: List<String>? = null,
         songIndicesToRemove: List<String>? = null,
     ): EmptyResponse =
-        api.updatePlaylist(playlistId, name, comment, public, songIdsToAdd, songIndicesToRemove).subsonicResponse
+        api.updatePlaylist(
+            playlistId,
+            name,
+            comment,
+            public,
+            songIdsToAdd,
+            songIndicesToRemove,
+        ).subsonicResponse
 
     // TODO Helper method to remove songIds from playlist, not index
 
-    // TODO TEST
+
     suspend fun deletePlaylist(
         playlistId: String,
     ): EmptyResponse =
         api.deletePlaylist(playlistId).subsonicResponse
 
-    // TODO TEST
+
     fun streamAudioUrl(
         id: String,
         maxBitRate: Int? = null,
@@ -454,7 +500,7 @@ class ApiSonic(
         ),
     )
 
-    // TODO TEST
+
     fun streamVideoUrl(
         id: String,
         maxBitRate: Int? = null,
@@ -482,7 +528,7 @@ class ApiSonic(
         id: String,
     ): String = buildUrlManually("download", mapOf("id" to id))
 
-    // TODO TEST
+
     fun hlsUrl(
         id: String,
         bitRate: List<String>? = null,
@@ -496,7 +542,7 @@ class ApiSonic(
         ),
     )
 
-    // TODO TEST
+
     fun getCaptionsUrl(
         id: String,
         format: String? = null,
@@ -505,7 +551,7 @@ class ApiSonic(
         mapOf("id" to id, "format" to format),
     )
 
-    // TODO TEST
+
     fun getLyricsUrl(
         artist: String? = null,
         title: String? = null,
@@ -514,7 +560,7 @@ class ApiSonic(
         mapOf("artist" to artist, "title" to title),
     )
 
-    // TODO TEST
+
     fun getCoverArtUrl(
         id: String,
         size: Int? = null,
@@ -523,7 +569,7 @@ class ApiSonic(
         mapOf<String, Any?>("id" to id, "size" to size),
     )
 
-    // TODO TEST
+
     fun getAvatarUrl(
         username: String,
     ): String = buildUrlManually(
@@ -531,7 +577,7 @@ class ApiSonic(
         mapOf("username" to username),
     )
 
-    // TODO TEST
+
     fun streamAudio(
         id: String,
         maxBitRate: Int? = null,
@@ -548,7 +594,7 @@ class ApiSonic(
         converted = null,
     )
 
-    // TODO TEST
+
     fun streamVideo(
         id: String,
         maxBitRate: Int? = null,
@@ -568,37 +614,37 @@ class ApiSonic(
         converted = converted,
     )
 
-    // TODO TEST
+
     suspend fun download(
         id: String,
     ): ResponseBody = api.download(id)
 
-    // TODO TEST
+
     suspend fun hls(
         id: String,
         bitRate: List<String>? = null,
         audioTrack: String?,
     ): ResponseBody = api.hls(id, bitRate, audioTrack)
 
-    // TODO TEST
+
     suspend fun getCaptions(
         id: String,
         format: String? = null,
     ): ResponseBody = api.getCaptions(id, format)
 
-    // TODO TEST
+
     suspend fun getLyrics(
         artist: String? = null,
         title: String? = null,
     ): ResponseBody = api.getLyrics(artist, title)
 
-    // TODO TEST
+
     suspend fun getCoverArt(
         id: String,
         size: Int? = null,
     ): ResponseBody = api.getCoverArt(id, size)
 
-    // TODO TEST
+
     suspend fun getAvatar(
         username: String,
     ): ResponseBody = api.getAvatar(username)

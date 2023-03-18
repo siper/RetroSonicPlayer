@@ -29,17 +29,32 @@ import com.google.common.util.concurrent.ListenableFuture
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import timber.log.Timber
 
 class MusicService : MediaLibraryService() {
 
     private val notificationManager: NotificationManager by inject()
+    private val apiSonicPlayQueueSyncer: ApiSonicPlayQueueSyncer by inject()
 
     private lateinit var player: Player
     private lateinit var mediaSession: MediaLibrarySession
 
     private val serviceScope = CoroutineScope(SupervisorJob() + Dispatchers.Main)
+
+    private val playerListener = object : Player.Listener {
+        override fun onMediaMetadataChanged(mediaMetadata: MediaMetadata) {
+            onUpdateNotification(mediaSession)
+            syncQueue()
+        }
+
+        override fun onPlayerError(error: PlaybackException) {
+            Timber.w(error)
+        }
+    }
 
     override fun onCreate() {
         super.onCreate()
@@ -57,15 +72,10 @@ class MusicService : MediaLibraryService() {
             .build()
 
         addSession(mediaSession)
-        player.addListener(object : Player.Listener {
-            override fun onMediaMetadataChanged(mediaMetadata: MediaMetadata) {
-                onUpdateNotification(mediaSession)
-            }
+        player.addListener(playerListener)
 
-            override fun onPlayerError(error: PlaybackException) {
-                Timber.w(error)
-            }
-        })
+        loadPlayQueue()
+        syncQueueLoop()
     }
 
     override fun onDestroy() {
@@ -74,10 +84,26 @@ class MusicService : MediaLibraryService() {
         super.onDestroy()
     }
 
-    override fun onGetSession(controllerInfo: MediaSession.ControllerInfo): MediaLibrarySession = mediaSession
+    override fun onGetSession(controllerInfo: MediaSession.ControllerInfo) = mediaSession
+
+    private fun loadPlayQueue() = serviceScope.launch {
+        apiSonicPlayQueueSyncer.loadPlayQueue(player)
+    }
+
+    private fun syncQueue() = serviceScope.launch {
+        apiSonicPlayQueueSyncer.syncPlayQueue(player)
+    }
+
+    private fun syncQueueLoop() = serviceScope.launch {
+        withContext(Dispatchers.IO) {
+            while (true) {
+                delay(SYNC_QUEUE_PERIOD)
+                apiSonicPlayQueueSyncer.syncPlayQueue(player)
+            }
+        }
+    }
 
     private inner class CustomMediaSessionCallback : MediaLibrarySession.Callback {
-
         override fun onAddMediaItems(
             mediaSession: MediaSession,
             controller: MediaSession.ControllerInfo,
@@ -108,5 +134,9 @@ class MusicService : MediaLibraryService() {
                 connectionResult.availablePlayerCommands,
             )
         }
+    }
+
+    companion object {
+        private const val SYNC_QUEUE_PERIOD = 5000L
     }
 }

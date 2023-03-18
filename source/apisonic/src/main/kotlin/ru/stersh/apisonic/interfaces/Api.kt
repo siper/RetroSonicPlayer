@@ -31,6 +31,7 @@ import ru.stersh.apisonic.models.LicenseResponse
 import ru.stersh.apisonic.models.MusicDirectoryResponse
 import ru.stersh.apisonic.models.MusicFoldersResponse
 import ru.stersh.apisonic.models.NowPlayingResponse
+import ru.stersh.apisonic.models.PlayQueueResponse
 import ru.stersh.apisonic.models.PlaylistResponse
 import ru.stersh.apisonic.models.PlaylistsResponse
 import ru.stersh.apisonic.models.RandomSongsResponse
@@ -55,6 +56,19 @@ interface Api {
 
     @GET("rest/getLicense")
     suspend fun getLicense(): Response<LicenseResponse>
+
+    @GET("rest/savePlayQueue")
+    suspend fun savePlayQueue(
+        @Query("id")
+        id: List<String>,
+        @Query("current")
+        current: String?,
+        @Query("position")
+        position: Long?
+    ): Response<EmptyResponse>
+
+    @GET("rest/getPlayQueue")
+    suspend fun getPlayQueue(): Response<PlayQueueResponse>
 
     @GET("rest/getNowPlaying")
     suspend fun getNowPlaying(): Response<NowPlayingResponse>
