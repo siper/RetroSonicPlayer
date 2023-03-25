@@ -36,7 +36,7 @@
 
     <fragment
         android:id="@+id/action_home"
-        android:name="ru.stersh.retrosonic.feature.home.presentation.MyLibraryFragment"
+        android:name="ru.stersh.retrosonic.feature.mylibrary.presentation.MyLibraryFragment"
         android:label=""
         tools:layout="@layout/fragment_home" />
 

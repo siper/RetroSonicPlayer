@@ -12,12 +12,11 @@
  * See the GNU General Public License for more details.
  *
  */
-package ru.stersh.retrosonic.feature.home.domain
+package ru.stersh.retrosonic.feature.mylibrary.domain
 
 import kotlinx.coroutines.flow.Flow
 
 internal interface UserRepository {
     fun getUsername(): Flow<String>
-
     fun getAvatarUrl(): Flow<String>
 }

@@ -12,12 +12,20 @@
  * See the GNU General Public License for more details.
  *
  */
-package ru.stersh.retrosonic.feature.library.album.domain
+package ru.stersh.retrosonic.feature.mylibrary.presentation
 
-data class LibraryAlbum(
+import androidx.annotation.StringRes
+
+interface MyLibraryItemUi
+
+internal data class AlbumUi(
     val id: String,
     val title: String,
-    val artist: String,
-    val coverUrl: String?,
-    val year: Int,
-)
+    val coverUrl: String?
+) : MyLibraryItemUi
+
+
+internal data class SectionUi(
+    @StringRes
+    val titleId: Int
+) : MyLibraryItemUi

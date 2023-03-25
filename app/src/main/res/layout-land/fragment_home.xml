@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:transitionGroup="true">
 
-            <ru.stersh.retrosonic.feature.home.presentation.UserLayout
+            <ru.stersh.retrosonic.feature.mylibrary.presentation.UserLayout
                 android:id="@+id/imageLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

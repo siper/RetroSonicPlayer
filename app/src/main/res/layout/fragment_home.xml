@@ -50,7 +50,7 @@
 
             <ViewStub
                 android:id="@+id/cab_stub"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="@dimen/toolbar_height" />
         </FrameLayout>
     </com.google.android.material.appbar.AppBarLayout>
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:transitionGroup="true">
 
-            <ru.stersh.retrosonic.feature.home.presentation.UserLayout
+            <ru.stersh.retrosonic.feature.mylibrary.presentation.UserLayout
                 android:id="@+id/imageLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -83,6 +83,7 @@
                 layout="@layout/home_content"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/imageLayout" />

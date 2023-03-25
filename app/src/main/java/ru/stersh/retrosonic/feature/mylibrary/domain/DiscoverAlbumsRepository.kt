@@ -12,12 +12,12 @@
  * See the GNU General Public License for more details.
  *
  */
-package ru.stersh.retrosonic.feature.library.album.domain
+package ru.stersh.retrosonic.feature.mylibrary.domain
 
-data class LibraryAlbum(
-    val id: String,
-    val title: String,
-    val artist: String,
-    val coverUrl: String?,
-    val year: Int,
-)
+internal interface DiscoverAlbumsRepository {
+
+    suspend fun getRecentlyAdded(): List<Album>
+    suspend fun getRecentlyPlayed(): List<Album>
+    suspend fun getMostPlayed(): List<Album>
+    suspend fun getRandom(): List<Album>
+}

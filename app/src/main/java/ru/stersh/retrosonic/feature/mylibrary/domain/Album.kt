@@ -12,15 +12,10 @@
  * See the GNU General Public License for more details.
  *
  */
-package ru.stersh.retrosonic.feature.home
+package ru.stersh.retrosonic.feature.mylibrary.domain
 
-import org.koin.androidx.viewmodel.dsl.viewModel
-import org.koin.dsl.module
-import ru.stersh.retrosonic.feature.home.data.UserRepositoryImpl
-import ru.stersh.retrosonic.feature.home.domain.UserRepository
-import ru.stersh.retrosonic.feature.home.presentation.MyLibraryViewModel
-
-val myLibraryFeatureModule = module {
-    single<UserRepository> { UserRepositoryImpl(get(), get()) }
-    viewModel { MyLibraryViewModel(get()) }
-}
+internal data class Album(
+    val id: String,
+    val title: String,
+    val coverUrl: String?
+)

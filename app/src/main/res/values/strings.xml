@@ -460,4 +460,8 @@
     <string name="server_name_title">Server name</string>
     <string name="connection_test_success_message">Connection test success</string>
     <string name="testing_connection_title">Testing connection...</string>
+    <string name="discover_albums_random_title">Random</string>
+    <string name="discover_albums_most_played_title">Most played</string>
+    <string name="discover_albums_recently_played_title">Recently played</string>
+    <string name="discover_albums_recently_added_title">Recently added</string>
 </resources>

@@ -12,7 +12,7 @@
  * See the GNU General Public License for more details.
  *
  */
-package ru.stersh.retrosonic.feature.home.data
+package ru.stersh.retrosonic.feature.mylibrary.data
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flatMapLatest
@@ -20,7 +20,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.mapNotNull
 import ru.stersh.apisonic.provider.apisonic.ApiSonicProvider
 import ru.stersh.apisonic.room.serversettings.ServerSettingsDao
-import ru.stersh.retrosonic.feature.home.domain.UserRepository
+import ru.stersh.retrosonic.feature.mylibrary.domain.UserRepository
 
 internal class UserRepositoryImpl(
     private val serverSettingsDao: ServerSettingsDao,

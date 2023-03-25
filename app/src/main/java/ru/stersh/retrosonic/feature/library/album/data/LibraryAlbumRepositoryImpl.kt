@@ -36,7 +36,7 @@ class LibraryAlbumRepositoryImpl(private val apiSonicProvider: ApiSonicProvider)
             id = id,
             title = name,
             artist = artist,
-            coverUrl = apiSonicProvider.getApiSonic().getCoverArtUrl(coverArt),
+            coverUrl = coverArt?.let { apiSonicProvider.getApiSonic().getCoverArtUrl(it) },
             year = year,
         )
     }

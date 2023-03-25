@@ -24,7 +24,7 @@ import ru.stersh.retrosonic.cast.RetroWebServer
 import ru.stersh.retrosonic.feature.details.album.detailsAlbumFeatureModule
 import ru.stersh.retrosonic.feature.details.artist.detailsArtistFeatureModule
 import ru.stersh.retrosonic.feature.details.playlist.detailsPlaylistFeatureModule
-import ru.stersh.retrosonic.feature.home.myLibraryFeatureModule
+import ru.stersh.retrosonic.feature.mylibrary.myLibraryFeatureModule
 import ru.stersh.retrosonic.feature.library.album.libraryAlbumFeatureModule
 import ru.stersh.retrosonic.feature.library.artist.libraryArtistFeatureModule
 import ru.stersh.retrosonic.feature.library.playlist.libraryPlaylistFeatureModule

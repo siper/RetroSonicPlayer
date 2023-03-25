@@ -1,22 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="Theme.RetroMusic" parent="Theme.RetroMusic.Base" />
-
-    <style name="Theme.RetroMusic.Light" parent="Theme.RetroMusic.Base.Light" />
-
-    <style name="Theme.RetroMusic.Black" parent="Theme.RetroMusic.Base.Black" />
-
-    <style name="Theme.RetroMusic.FollowSystem" parent="Theme.RetroMusic.Base.Adaptive">
-        <item name="android:windowBackground">?colorSurface</item>
-    </style>
-
-    <style name="Theme.RetroMusic.MD3" parent="@style/Theme.Material3.DayNight.NoActionBar">
-        <item name="roundSelector">@drawable/round_selector</item>
-        <item name="rectSelector">@drawable/rect_selector</item>
-        <item name="materialCardViewStyle">@style/Widget.Material3.CardView.Elevated</item>
-        <item name="materialButtonStyle">@style/MaterialButtonTheme</item>
-    </style>
-
     <style name="OverFlowButton">
         <item name="srcCompat">@drawable/ic_more_vert</item>
         <item name="android:layout_width">48dp</item>

@@ -33,7 +33,7 @@ abstract class AbsMainActivityFragment(@LayoutRes layout: Int) : Fragment(layout
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val menuHost: MenuHost = requireActivity() as MenuHost
+        val menuHost: MenuHost = requireActivity()
         menuHost.addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.STARTED)
     }
 }

@@ -50,7 +50,7 @@ data class AlbumList2(@Json(name = "album") val albums: List<Album>) {
     data class Album(
         @Json(name = "artist") val artist: String,
         @Json(name = "artistId") val artistId: String,
-        @Json(name = "coverArt") val coverArt: String,
+        @Json(name = "coverArt") val coverArt: String?,
         @Json(name = "created") val created: String,
         @Json(name = "duration") val duration: Int,
         @Json(name = "genre") val genre: String,
