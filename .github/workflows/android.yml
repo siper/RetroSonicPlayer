@@ -19,7 +19,7 @@ jobs:
           java-version: 17
       - uses: gradle/gradle-build-action@v2
       - name: Lint Android
-        run: ./gradlew lint
+        run: ./gradlew spotlessCheck
 
   build:
     runs-on: ubuntu-latest
