@@ -47,7 +47,7 @@ internal class PlayerControlsImpl(
     }
 
     override fun previous() = withPlayer {
-        if (duration >= 3000) {
+        if (currentPosition >= 3000) {
             seekTo(0)
         } else {
             seekToPreviousMediaItem()
