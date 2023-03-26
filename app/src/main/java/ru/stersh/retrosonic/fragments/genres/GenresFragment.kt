@@ -27,7 +27,6 @@ import com.google.android.material.transition.MaterialSharedAxis
 import ru.stersh.retrosonic.EXTRA_GENRE
 import ru.stersh.retrosonic.R
 import ru.stersh.retrosonic.adapter.GenreAdapter
-import ru.stersh.retrosonic.extensions.setUpMediaRouteButton
 import ru.stersh.retrosonic.fragments.base.AbsRecyclerViewFragment
 import ru.stersh.retrosonic.interfaces.IGenreClickListener
 import ru.stersh.retrosonic.model.Genre
@@ -60,8 +59,6 @@ GenresFragment :
         menu.removeItem(R.id.action_layout_type)
         menu.removeItem(R.id.action_sort_order)
         menu.findItem(R.id.action_settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM)
-        // Setting up cast button
-        requireContext().setUpMediaRouteButton(menu)
     }
 
     override val titleRes: Int

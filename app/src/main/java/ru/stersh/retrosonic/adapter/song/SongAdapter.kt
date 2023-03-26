@@ -30,9 +30,6 @@ import ru.stersh.retrosonic.EXTRA_ALBUM_ID
 import ru.stersh.retrosonic.R
 import ru.stersh.retrosonic.adapter.base.AbsMultiSelectAdapter
 import ru.stersh.retrosonic.adapter.base.MediaEntryViewHolder
-import ru.stersh.retrosonic.glide.GlideApp
-import ru.stersh.retrosonic.glide.RetroGlideExtension
-import ru.stersh.retrosonic.glide.RetroMusicColoredTarget
 import ru.stersh.retrosonic.helper.SortOrder
 import ru.stersh.retrosonic.helper.menu.SongMenuHelper
 import ru.stersh.retrosonic.helper.menu.SongsMenuHelper
@@ -116,13 +113,13 @@ open class SongAdapter(
         if (holder.image == null) {
             return
         }
-        GlideApp.with(activity).asBitmapPalette().songCoverOptions(song)
-            .load(RetroGlideExtension.getSongModel(song))
-            .into(object : RetroMusicColoredTarget(holder.image!!) {
-                override fun onColorReady(colors: MediaNotificationProcessor) {
-                    setColors(colors, holder)
-                }
-            })
+//        GlideApp.with(activity).asBitmapPalette().songCoverOptions(song)
+//            .load(RetroGlideExtension.getSongModel(song))
+//            .into(object : RetroMusicColoredTarget(holder.image!!) {
+//                override fun onColorReady(colors: MediaNotificationProcessor) {
+//                    setColors(colors, holder)
+//                }
+//            })
     }
 
     private fun getSongTitle(song: Song): String {

@@ -28,7 +28,6 @@ import ru.stersh.retrosonic.LanguageContextWrapper
 import ru.stersh.retrosonic.R
 import ru.stersh.retrosonic.extensions.exitFullscreen
 import ru.stersh.retrosonic.extensions.hideStatusBar
-import ru.stersh.retrosonic.extensions.installSplitCompat
 import ru.stersh.retrosonic.extensions.maybeSetScreenOn
 import ru.stersh.retrosonic.extensions.setEdgeToEdgeOrImmersive
 import ru.stersh.retrosonic.extensions.setImmersiveFullscreen
@@ -112,6 +111,5 @@ abstract class AbsThemeActivity : ATHToolbarActivity(), Runnable {
             Locale.forLanguageTag(code)
         }
         super.attachBaseContext(LanguageContextWrapper.wrap(newBase, locale))
-        installSplitCompat()
     }
 }

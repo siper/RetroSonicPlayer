@@ -42,15 +42,12 @@ import ru.stersh.retrosonic.Constants.USER_PROFILE
 import ru.stersh.retrosonic.R
 import ru.stersh.retrosonic.extensions.accentColor
 import ru.stersh.retrosonic.glide.artistimage.ArtistImage
-import ru.stersh.retrosonic.glide.audiocover.AudioFileCover
 import ru.stersh.retrosonic.glide.palette.BitmapPaletteWrapper
 import ru.stersh.retrosonic.model.Artist
 import ru.stersh.retrosonic.model.Song
 import ru.stersh.retrosonic.util.ArtistSignatureUtil
 import ru.stersh.retrosonic.util.CustomArtistImageUtil.Companion.getFile
 import ru.stersh.retrosonic.util.CustomArtistImageUtil.Companion.getInstance
-import ru.stersh.retrosonic.util.MusicUtil.getMediaStoreAlbumCoverUri
-import ru.stersh.retrosonic.util.PreferenceUtil
 import java.io.File
 
 @GlideExtension
@@ -70,18 +67,6 @@ object RetroGlideExtension {
     @GlideType(BitmapPaletteWrapper::class)
     fun asBitmapPalette(requestBuilder: RequestBuilder<BitmapPaletteWrapper>): RequestBuilder<BitmapPaletteWrapper> {
         return requestBuilder
-    }
-
-    private fun getSongModel(song: Song, ignoreMediaStore: Boolean): Any {
-        return if (ignoreMediaStore) {
-            AudioFileCover(song.data)
-        } else {
-            getMediaStoreAlbumCoverUri(song.albumId)
-        }
-    }
-
-    fun getSongModel(song: Song): Any {
-        return getSongModel(song, PreferenceUtil.isIgnoreMediaStoreArtwork)
     }
 
     fun getArtistModel(artist: Artist): Any {

@@ -31,7 +31,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.stersh.retrosonic.EXTRA_PLAYLIST
 import ru.stersh.retrosonic.EXTRA_PLAYLIST_ID
 import ru.stersh.retrosonic.R
-import ru.stersh.retrosonic.extensions.setUpMediaRouteButton
 import ru.stersh.retrosonic.fragments.base.AbsRecyclerViewCustomGridSizeFragment
 import ru.stersh.retrosonic.helper.SortOrder.PlaylistSortOrder
 import ru.stersh.retrosonic.interfaces.IPlaylistClickListener
@@ -93,8 +92,6 @@ class LibraryPlaylistFragment : AbsRecyclerViewCustomGridSizeFragment<LibraryPla
         menu.findItem(R.id.action_settings).setShowAsAction(MenuItem.SHOW_AS_ACTION_NEVER)
         setUpSortOrderMenu(menu.findItem(R.id.action_sort_order).subMenu ?: return)
         MenuCompat.setGroupDividerEnabled(menu, true)
-        // Setting up cast button
-        requireContext().setUpMediaRouteButton(menu)
     }
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {

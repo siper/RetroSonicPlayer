@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">ಚಲಿಸುವ ಪಟ್ಟಿಯಲ್ಲಿ ಸೇರಿಸಿ</string>
     <string name="action_add_to_playlist">ಪ್ಲೇಲಿಸ್ಟ್‌ಗೆ ಸೇರಿಸಿ</string>
     <string name="action_cancel">ರದ್ದುಮಾಡಿ</string>
-    <string name="action_cast">ಕ್ಯಾಸ್ಟ್</string>
     <string name="action_clear_playing_queue">ಚಲಿಸುವ ಪಟ್ಟಿಯನ್ನು ತೆರವುಗೊಳಿಸಿ</string>
     <string name="action_delete">ಅಳಿಸಿ</string>
     <string name="action_delete_from_device">ಡಿವೈಸ್‌ ನಿಂದ ಅಳಿಸಿ</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">ಪ್ಲೇಲಿಸ್ಟ್ ಅನ್ನು ಷಫಲ್ ಮಾಡಿ</string>
     <string name="action_sleep_timer">ಸ್ಲೀಪ್ ಟೈಮರ್</string>
     <string name="action_sort_order">ವಿಂಗಡಣಾ ಕ್ರಮ</string>
-    <string name="action_tag_editor">ಟ್ಯಾಗ್ ಗಳನ್ನು ತಿದ್ದಿ</string>
     <string name="add_action">ಸೇರಿಸಿ</string>
     <string name="add_playlist_title">"ಪ್ಲೇಲಿಸ್ಟ್‌ಗೆ ಸೇರಿಸಿ"</string>
     <string name="added_song_count_to_playlist">%1$d ಹಾಡು(ಗಳನ್ನು) %2$s ಗೆ ಸೇರಿಸಲಾಗಿದೆ</string>

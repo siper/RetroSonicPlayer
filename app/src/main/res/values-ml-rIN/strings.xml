@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">ക്യൂലേക് ആഡ് ചെയ്യൂ</string>
     <string name="action_add_to_playlist">പ്ലേലിസ്റ്റിലേക്ക് ആഡ് ചെയ്യുക</string>
     <string name="action_cancel">Cancel</string>
-    <string name="action_cast">കാസ്റ്റ്</string>
     <string name="action_clear_playing_queue">നിലവിൽ ഉള്ള ക്യൂ ക്ലിയർ ചെയ്യൂ</string>
     <string name="action_delete">ഡിലീറ്റ്</string>
     <string name="action_delete_from_device">ഡിവൈസിൽ നിന്നും ഡിലീറ്റ് ചെയ്യൂ</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Shuffle playlist</string>
     <string name="action_sleep_timer">Sleep timer</string>
     <string name="action_sort_order">Sort order</string>
-    <string name="action_tag_editor">Tag editor</string>
     <string name="add_action">Add</string>
     <string name="add_playlist_title">"പ്ലേലിസ്റ്റിലേക്ക് ആഡ് ചെയ്യുക"</string>
     <string name="added_song_count_to_playlist">Added %1$d song(s) to %2$s</string>

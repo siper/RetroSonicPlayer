@@ -30,7 +30,6 @@ import ru.stersh.retrosonic.R
 import ru.stersh.retrosonic.databinding.FragmentLibraryBinding
 import ru.stersh.retrosonic.dialogs.CreatePlaylistDialog
 import ru.stersh.retrosonic.dialogs.ImportPlaylistDialog
-import ru.stersh.retrosonic.extensions.setUpMediaRouteButton
 import ru.stersh.retrosonic.extensions.whichFragment
 import ru.stersh.retrosonic.fragments.base.AbsMainActivityFragment
 import ru.stersh.retrosonic.model.CategoryInfo
@@ -99,8 +98,6 @@ class LibraryFragment : AbsMainActivityFragment(R.layout.fragment_library) {
             menu,
             getToolbarBackgroundColor(binding.toolbar),
         )
-        // Setting up cast button
-        requireContext().setUpMediaRouteButton(menu)
     }
 
     override fun onMenuItemSelected(item: MenuItem): Boolean {

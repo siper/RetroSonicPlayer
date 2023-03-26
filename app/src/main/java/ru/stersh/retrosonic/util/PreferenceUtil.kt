@@ -70,7 +70,6 @@ import ru.stersh.retrosonic.GENERAL_THEME
 import ru.stersh.retrosonic.GENRE_SORT_ORDER
 import ru.stersh.retrosonic.HOME_ALBUM_GRID_STYLE
 import ru.stersh.retrosonic.HOME_ARTIST_GRID_STYLE
-import ru.stersh.retrosonic.IGNORE_MEDIA_STORE_ARTWORK
 import ru.stersh.retrosonic.KEEP_SCREEN_ON
 import ru.stersh.retrosonic.LANGUAGE_NAME
 import ru.stersh.retrosonic.LAST_ADDED_CUTOFF
@@ -291,12 +290,6 @@ object PreferenceUtil {
         get() = sharedPreferences.getStringOrDefault(
             GENRE_SORT_ORDER,
             SortOrder.GenreSortOrder.GENRE_A_Z,
-        )
-
-    val isIgnoreMediaStoreArtwork
-        get() = sharedPreferences.getBoolean(
-            IGNORE_MEDIA_STORE_ARTWORK,
-            false,
         )
 
     val isVolumeVisibilityMode

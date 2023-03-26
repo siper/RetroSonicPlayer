@@ -41,7 +41,6 @@
     <string name="action_shuffle_playlist">Lejátszási lista keverése</string>
     <string name="action_sleep_timer">Elalvás időzítő</string>
     <string name="action_sort_order">Rendezési sorrend</string>
-    <string name="action_tag_editor">Címkeszerkesztő</string>
     <string name="add_action">Hozzáad</string>
     <string name="add_playlist_title">"Hozzáadás lejátszási listához"</string>
     <string name="added_song_count_to_playlist">%1$d zene hozzáadva a %2$s</string>

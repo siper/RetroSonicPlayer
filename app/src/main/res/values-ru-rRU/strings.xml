@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">Добавить в очередь воспроизведения</string>
     <string name="action_add_to_playlist">Добавить в плейлист</string>
     <string name="action_cancel">Отменить</string>
-    <string name="action_cast">Трансляция</string>
     <string name="action_clear_playing_queue">Очистить очередь воспроизведения</string>
     <string name="action_delete">Удалить</string>
     <string name="action_delete_from_device">Удалить с устройства</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Перемешать плейлист</string>
     <string name="action_sleep_timer">Таймер сна</string>
     <string name="action_sort_order">Порядок сортировки</string>
-    <string name="action_tag_editor">Редактор тегов</string>
     <string name="add_action">Добавить</string>
     <string name="add_playlist_title">"Добавить в плейлист"</string>
     <string name="added_song_count_to_playlist">Добавлено %1$d песни в %2$s</string>

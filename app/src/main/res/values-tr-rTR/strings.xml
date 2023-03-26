@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">Oynatma kuyruğuna ekle</string>
     <string name="action_add_to_playlist">Oynatma listesine ekle</string>
     <string name="action_cancel">İptal et</string>
-    <string name="action_cast">Yayınla</string>
     <string name="action_clear_playing_queue">Oynatma kuyruğunu temizle</string>
     <string name="action_delete">Sil</string>
     <string name="action_delete_from_device">Cihazdan sil</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Oynatma listesini karıştır</string>
     <string name="action_sleep_timer">Uyku zamanlayıcısı</string>
     <string name="action_sort_order">Sıralama tertipi</string>
-    <string name="action_tag_editor">Şarkı bilgilerini düzenle</string>
     <string name="add_action">Ekle</string>
     <string name="add_playlist_title">"Oynatma listesine ekle"</string>
     <string name="added_song_count_to_playlist">%2$s listesine %1$d parça eklendi</string>

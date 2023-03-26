@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">Aggiungi alla coda</string>
     <string name="action_add_to_playlist">Aggiungi alla playlist</string>
     <string name="action_cancel">Annulla</string>
-    <string name="action_cast">Trasmetti</string>
     <string name="action_clear_playing_queue">Cancella coda</string>
     <string name="action_delete">Elimina</string>
     <string name="action_delete_from_device">Elimina dal dispositivo</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Riproduzione casuale playlist</string>
     <string name="action_sleep_timer">Timer sonno</string>
     <string name="action_sort_order">Ordina per</string>
-    <string name="action_tag_editor">Modifica tag</string>
     <string name="add_action">Aggiungi</string>
     <string name="add_playlist_title">"Aggiungi alla playlist"</string>
     <string name="added_song_count_to_playlist">Aggiunte %1$d canzoni a %2$s</string>

@@ -23,9 +23,6 @@ import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.RecyclerView
 import ru.stersh.retrosonic.R
 import ru.stersh.retrosonic.databinding.ItemGenreBinding
-import ru.stersh.retrosonic.glide.GlideApp
-import ru.stersh.retrosonic.glide.RetroGlideExtension
-import ru.stersh.retrosonic.glide.RetroMusicColoredTarget
 import ru.stersh.retrosonic.interfaces.IGenreClickListener
 import ru.stersh.retrosonic.model.Genre
 import ru.stersh.retrosonic.util.MusicUtil
@@ -64,15 +61,15 @@ class GenreAdapter(
 
     private fun loadGenreImage(genre: Genre, holder: GenreAdapter.ViewHolder) {
         val genreSong = MusicUtil.songByGenre(genre.id)
-        GlideApp.with(activity)
-            .asBitmapPalette()
-            .load(RetroGlideExtension.getSongModel(genreSong))
-            .songCoverOptions(genreSong)
-            .into(object : RetroMusicColoredTarget(holder.binding.image) {
-                override fun onColorReady(colors: MediaNotificationProcessor) {
-                    setColors(holder, colors)
-                }
-            })
+//        GlideApp.with(activity)
+//            .asBitmapPalette()
+//            .load(RetroGlideExtension.getSongModel(genreSong))
+//            .songCoverOptions(genreSong)
+//            .into(object : RetroMusicColoredTarget(holder.binding.image) {
+//                override fun onColorReady(colors: MediaNotificationProcessor) {
+//                    setColors(holder, colors)
+//                }
+//            })
         // Just for a bit of shadow around image
         holder.binding.image.outlineProvider = ViewOutlineProvider.BOUNDS
     }

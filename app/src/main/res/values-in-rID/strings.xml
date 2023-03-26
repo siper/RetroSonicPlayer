@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">Tambahkan ke antrean putar</string>
     <string name="action_add_to_playlist">Tambah ke daftar putar</string>
     <string name="action_cancel">Batal</string>
-    <string name="action_cast">Transmisi</string>
     <string name="action_clear_playing_queue">Kosongkan antrean pemutaran</string>
     <string name="action_delete">Hapus</string>
     <string name="action_delete_from_device">Hapus dari perangkat</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Acak daftar putar</string>
     <string name="action_sleep_timer">Pengatur waktu tidur</string>
     <string name="action_sort_order">Urut berdasarkan</string>
-    <string name="action_tag_editor">Pengubah label</string>
     <string name="add_action">Tambah</string>
     <string name="add_playlist_title">"Tambah ke daftar putar"</string>
     <string name="added_song_count_to_playlist">Menambah %1$d lagu ke %2$s</string>

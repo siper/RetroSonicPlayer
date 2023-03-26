@@ -28,7 +28,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.stersh.retrosonic.EXTRA_ALBUM_ID
 import ru.stersh.retrosonic.R
-import ru.stersh.retrosonic.extensions.setUpMediaRouteButton
 import ru.stersh.retrosonic.fragments.GridStyle
 import ru.stersh.retrosonic.fragments.base.AbsRecyclerViewCustomGridSizeFragment
 import ru.stersh.retrosonic.helper.SortOrder.AlbumSortOrder
@@ -143,8 +142,6 @@ class LibraryAlbumFragment : AbsRecyclerViewCustomGridSizeFragment<LibraryAlbumA
         val layoutItem = menu.findItem(R.id.action_layout_type)
 //        setupLayoutMenu(layoutItem.subMenu)
 //        setUpSortOrderMenu(menu.findItem(R.id.action_sort_order).subMenu)
-        // Setting up cast button
-        requireContext().setUpMediaRouteButton(menu)
     }
 
     private fun setUpSortOrderMenu(

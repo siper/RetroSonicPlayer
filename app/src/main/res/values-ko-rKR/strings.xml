@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">재생 대기열에 추가</string>
     <string name="action_add_to_playlist">재생목록에 추가...</string>
     <string name="action_cancel">현재 타이머 취소</string>
-    <string name="action_cast">Cast</string>
     <string name="action_clear_playing_queue">재생 대기열 비우기</string>
     <string name="action_delete">삭제</string>
     <string name="action_delete_from_device">기기에서 삭제</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">재생목록 무작위 재생</string>
     <string name="action_sleep_timer">수면 타이머</string>
     <string name="action_sort_order">Sort order</string>
-    <string name="action_tag_editor">태그 편집기</string>
     <string name="add_action">추가</string>
     <string name="add_playlist_title">"재생목록에 추가"</string>
     <string name="added_song_count_to_playlist">Added %1$d song(s) to %2$s</string>

@@ -19,7 +19,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.UriPermission;
 import android.net.Uri;
-import android.os.ParcelFileDescriptor;
 import android.provider.DocumentsContract;
 import android.text.TextUtils;
 import android.util.Log;
@@ -28,14 +27,9 @@ import androidx.annotation.Nullable;
 import androidx.documentfile.provider.DocumentFile;
 import androidx.fragment.app.Fragment;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.jaudiotagger.audio.AudioFile;
-import org.jaudiotagger.audio.exceptions.CannotWriteException;
-import org.jaudiotagger.audio.generic.Utils;
 import ru.stersh.retrosonic.R;
 import ru.stersh.retrosonic.model.Song;
 
@@ -53,10 +47,6 @@ public class SAFUtil {
 
     public static boolean isSAFRequired(String path) {
         return isSAFRequired(new File(path));
-    }
-
-    public static boolean isSAFRequired(AudioFile audio) {
-        return isSAFRequired(audio.getFile());
     }
 
     public static boolean isSAFRequired(Song song) {
@@ -162,80 +152,6 @@ public class SAFUtil {
         }
 
         return null;
-    }
-
-    public static void write(Context context, AudioFile audio, Uri safUri) {
-        if (isSAFRequired(audio)) {
-            writeSAF(context, audio, safUri);
-        } else {
-            try {
-                writeFile(audio);
-            } catch (CannotWriteException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public static void writeFile(AudioFile audio) throws CannotWriteException {
-        audio.commit();
-    }
-
-    public static void writeSAF(Context context, AudioFile audio, Uri safUri) {
-        Uri uri = null;
-
-        if (context == null) {
-            Log.e(TAG, "writeSAF: context == null");
-            return;
-        }
-
-        if (isTreeUriSaved(context)) {
-            List<String> pathSegments =
-                    new ArrayList<>(Arrays.asList(audio.getFile().getAbsolutePath().split("/")));
-            Uri sdcard = Uri.parse(PreferenceUtil.INSTANCE.getSafSdCardUri());
-            uri = findDocument(DocumentFile.fromTreeUri(context, sdcard), pathSegments);
-        }
-
-        if (uri == null) {
-            uri = safUri;
-        }
-
-        if (uri == null) {
-            Log.e(TAG, "writeSAF: Can't get SAF URI");
-            toast(context, context.getString(R.string.saf_error_uri));
-            return;
-        }
-
-        try {
-            // copy file to app folder to use jaudiotagger
-            final File original = audio.getFile();
-            File temp = File.createTempFile("tmp-media", '.' + Utils.getExtension(original));
-            Utils.copy(original, temp);
-            temp.deleteOnExit();
-            audio.setFile(temp);
-            writeFile(audio);
-
-            ParcelFileDescriptor pfd = context.getContentResolver().openFileDescriptor(uri, "rw");
-            if (pfd == null) {
-                Log.e(TAG, "writeSAF: SAF provided incorrect URI: " + uri);
-                return;
-            }
-
-            // now read persisted data and write it to real FD provided by SAF
-            FileInputStream fis = new FileInputStream(temp);
-            byte[] audioContent = FileUtil.readBytes(fis);
-            FileOutputStream fos = new FileOutputStream(pfd.getFileDescriptor());
-            fos.write(audioContent);
-            fos.close();
-
-            temp.delete();
-        } catch (final Exception e) {
-            Log.e(TAG, "writeSAF: Failed to write to file descriptor provided by SAF", e);
-
-            toast(
-                    context,
-                    String.format(
-                            context.getString(R.string.saf_write_failed), e.getLocalizedMessage()));
-        }
     }
 
     public static void delete(Context context, String path, Uri safUri) {

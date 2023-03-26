@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">เพิ่มเข้าคิวเพลง</string>
     <string name="action_add_to_playlist">เพิ่มเข้าเพลย์ลิสต์</string>
     <string name="action_cancel">ยกเลิก</string>
-    <string name="action_cast">แคสต์</string>
     <string name="action_clear_playing_queue">ล้างคิวเพลง</string>
     <string name="action_delete">ลบ</string>
     <string name="action_delete_from_device">ลบออกจากเครื่อง</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">สุ่มจากเพลย์ลิสต์</string>
     <string name="action_sleep_timer">ตั้งเวลาหยุดเล่น</string>
     <string name="action_sort_order">เรียงลำดับ</string>
-    <string name="action_tag_editor">แก้ไข Tag</string>
     <string name="add_action">เพิ่ม</string>
     <string name="add_playlist_title">"เพิ่มชื่อเพลย์ลิสต์"</string>
     <string name="added_song_count_to_playlist">Added %1$d song(s) to %2$s</string>

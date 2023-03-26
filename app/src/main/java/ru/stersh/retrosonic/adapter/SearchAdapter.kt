@@ -33,8 +33,6 @@ import ru.stersh.retrosonic.EXTRA_GENRE
 import ru.stersh.retrosonic.EXTRA_PLAYLIST
 import ru.stersh.retrosonic.R
 import ru.stersh.retrosonic.adapter.base.MediaEntryViewHolder
-import ru.stersh.retrosonic.glide.GlideApp
-import ru.stersh.retrosonic.glide.RetroGlideExtension
 import ru.stersh.retrosonic.helper.menu.SongMenuHelper
 import ru.stersh.retrosonic.model.Album
 import ru.stersh.retrosonic.model.Artist
@@ -94,24 +92,24 @@ class SearchAdapter(
                 val album = dataSet[position] as Album
                 holder.title?.text = album.title
                 holder.text?.text = album.artistName
-                GlideApp.with(activity).asDrawable().albumCoverOptions(album.safeGetFirstSong()).load(RetroGlideExtension.getSongModel(album.safeGetFirstSong()))
-                    .into(holder.image!!)
+//                GlideApp.with(activity).asDrawable().albumCoverOptions(album.safeGetFirstSong()).load(RetroGlideExtension.getSongModel(album.safeGetFirstSong()))
+//                    .into(holder.image!!)
             }
             ARTIST -> {
                 holder.imageTextContainer?.isVisible = true
                 val artist = dataSet[position] as Artist
                 holder.title?.text = artist.name
                 holder.text?.text = MusicUtil.getArtistInfoString(activity, artist)
-                GlideApp.with(activity).asDrawable().artistImageOptions(artist).load(
-                    RetroGlideExtension.getArtistModel(artist),
-                ).into(holder.image!!)
+//                GlideApp.with(activity).asDrawable().artistImageOptions(artist).load(
+//                    RetroGlideExtension.getArtistModel(artist),
+//                ).into(holder.image!!)
             }
             SONG -> {
                 holder.imageTextContainer?.isVisible = true
                 val song = dataSet[position] as Song
                 holder.title?.text = song.title
                 holder.text?.text = song.albumName
-                GlideApp.with(activity).asDrawable().songCoverOptions(song).load(RetroGlideExtension.getSongModel(song)).into(holder.image!!)
+//                GlideApp.with(activity).asDrawable().songCoverOptions(song).load(RetroGlideExtension.getSongModel(song)).into(holder.image!!)
             }
             GENRE -> {
                 val genre = dataSet[position] as Genre
@@ -139,9 +137,9 @@ class SearchAdapter(
                 val artist = dataSet[position] as Artist
                 holder.title?.text = artist.name
                 holder.text?.text = MusicUtil.getArtistInfoString(activity, artist)
-                GlideApp.with(activity).asDrawable().artistImageOptions(artist).load(
-                    RetroGlideExtension.getArtistModel(artist),
-                ).into(holder.image!!)
+//                GlideApp.with(activity).asDrawable().artistImageOptions(artist).load(
+//                    RetroGlideExtension.getArtistModel(artist),
+//                ).into(holder.image!!)
             }
             else -> {
                 holder.title?.text = dataSet[position].toString()

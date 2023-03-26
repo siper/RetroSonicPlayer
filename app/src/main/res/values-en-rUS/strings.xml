@@ -39,7 +39,6 @@
     <string name="action_shuffle_playlist">Shuffle playlist</string>
     <string name="action_sleep_timer">Sleep timer</string>
     <string name="action_sort_order">Sort order</string>
-    <string name="action_tag_editor">Tag editor</string>
 
     <string name="add_action">Add</string>
     <string name="add_playlist_title">"Add to playlist"</string>

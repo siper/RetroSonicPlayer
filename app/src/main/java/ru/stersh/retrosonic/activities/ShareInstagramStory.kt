@@ -30,12 +30,8 @@ import ru.stersh.retrosonic.databinding.ActivityShareInstagramBinding
 import ru.stersh.retrosonic.extensions.accentColor
 import ru.stersh.retrosonic.extensions.setLightStatusBar
 import ru.stersh.retrosonic.extensions.setStatusBarColor
-import ru.stersh.retrosonic.glide.GlideApp
-import ru.stersh.retrosonic.glide.RetroGlideExtension
-import ru.stersh.retrosonic.glide.RetroMusicColoredTarget
 import ru.stersh.retrosonic.model.Song
 import ru.stersh.retrosonic.util.Share
-import ru.stersh.retrosonic.util.color.MediaNotificationProcessor
 
 /**
  * Created by hemanths on 2020-02-02.
@@ -68,16 +64,16 @@ class ShareInstagramStory : AbsThemeActivity() {
 
         val song = intent.extras?.getParcelable<Song>(EXTRA_SONG)
         song?.let { songFinal ->
-            GlideApp.with(this)
-                .asBitmapPalette()
-                .songCoverOptions(songFinal)
-                .load(RetroGlideExtension.getSongModel(songFinal))
-                .into(object : RetroMusicColoredTarget(binding.image) {
-                    override fun onColorReady(colors: MediaNotificationProcessor) {
-                        val isColorLight = ColorUtil.isColorLight(colors.backgroundColor)
-                        setColors(isColorLight, colors.backgroundColor)
-                    }
-                })
+//            GlideApp.with(this)
+//                .asBitmapPalette()
+//                .songCoverOptions(songFinal)
+//                .load(RetroGlideExtension.getSongModel(songFinal))
+//                .into(object : RetroMusicColoredTarget(binding.image) {
+//                    override fun onColorReady(colors: MediaNotificationProcessor) {
+//                        val isColorLight = ColorUtil.isColorLight(colors.backgroundColor)
+//                        setColors(isColorLight, colors.backgroundColor)
+//                    }
+//                })
 
             binding.shareTitle.text = songFinal.title
             binding.shareText.text = songFinal.artistName

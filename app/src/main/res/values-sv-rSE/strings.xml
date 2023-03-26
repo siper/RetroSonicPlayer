@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">Lägg till i spelkön</string>
     <string name="action_add_to_playlist">Lägg till i spellista</string>
     <string name="action_cancel">Avbryt</string>
-    <string name="action_cast">Cast</string>
     <string name="action_clear_playing_queue">Rensa spelkön</string>
     <string name="action_delete">Radera</string>
     <string name="action_delete_from_device">Radera från enheten</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Shuffle spellista</string>
     <string name="action_sleep_timer">Sömntimer</string>
     <string name="action_sort_order">Sorteras efter</string>
-    <string name="action_tag_editor">Tag redigerare</string>
     <string name="add_action">Lägg till</string>
     <string name="add_playlist_title">"Lägg till i spellista"</string>
     <string name="added_song_count_to_playlist">Added %1$d song(s) to %2$s</string>

@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">Voeg toe aan afspeel wachtrij</string>
     <string name="action_add_to_playlist">Voeg toe aan afspeellijst...</string>
     <string name="action_cancel">Annuleer huidige timer</string>
-    <string name="action_cast">Casten</string>
     <string name="action_clear_playing_queue">Afspeel wachtrij legen</string>
     <string name="action_delete">Verwijder</string>
     <string name="action_delete_from_device">Verwijder van apparaat</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Shuffle afspeellijst</string>
     <string name="action_sleep_timer">Slaap timer</string>
     <string name="action_sort_order">Sorteer volgorde</string>
-    <string name="action_tag_editor">Tags aanpassen</string>
     <string name="add_action">Toevoegen</string>
     <string name="add_playlist_title">"Toevogen aan afspeellijst"</string>
     <string name="added_song_count_to_playlist">Added %1$d song(s) to %2$s</string>

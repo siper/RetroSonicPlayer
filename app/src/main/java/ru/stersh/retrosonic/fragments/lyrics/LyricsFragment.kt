@@ -35,12 +35,7 @@ import code.name.monkey.appthemehelper.common.ATHToolbarActivity
 import code.name.monkey.appthemehelper.util.ToolbarContentTintHelper
 import code.name.monkey.appthemehelper.util.VersionUtils
 import com.afollestad.materialdialogs.input.input
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import org.jaudiotagger.audio.AudioFileIO
-import org.jaudiotagger.tag.FieldKey
 import ru.stersh.retrosonic.R
-import ru.stersh.retrosonic.activities.tageditor.TagWriter
 import ru.stersh.retrosonic.databinding.FragmentLyricsBinding
 import ru.stersh.retrosonic.extensions.accentColor
 import ru.stersh.retrosonic.extensions.materialDialog
@@ -49,7 +44,6 @@ import ru.stersh.retrosonic.extensions.uri
 import ru.stersh.retrosonic.fragments.base.AbsMainActivityFragment
 import ru.stersh.retrosonic.helper.MusicProgressViewUpdateHelper
 import ru.stersh.retrosonic.lyrics.LrcView
-import ru.stersh.retrosonic.model.AudioTagInfo
 import ru.stersh.retrosonic.model.Song
 import ru.stersh.retrosonic.util.FileUtils
 import ru.stersh.retrosonic.util.LyricUtil
@@ -57,7 +51,6 @@ import ru.stersh.retrosonic.util.UriUtil
 import java.io.File
 import java.io.FileOutputStream
 import java.util.*
-import kotlin.collections.set
 
 class LyricsFragment :
     AbsMainActivityFragment(R.layout.fragment_lyrics),
@@ -193,61 +186,7 @@ class LyricsFragment :
 
     @SuppressLint("CheckResult")
     private fun editNormalLyrics(lyrics: String? = null) {
-        val file = File(song.data)
-        val content = lyrics ?: try {
-            AudioFileIO.read(file).tagOrCreateDefault.getFirst(FieldKey.LYRICS)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            ""
-        }
-
-        val song = song
-
-        materialDialog().show {
-            title(res = R.string.edit_normal_lyrics)
-            input(
-                hintRes = R.string.paste_lyrics_here,
-                prefill = content,
-                inputType = InputType.TYPE_TEXT_FLAG_MULTI_LINE or InputType.TYPE_CLASS_TEXT,
-            ) { _, input ->
-                val fieldKeyValueMap = EnumMap<FieldKey, String>(FieldKey::class.java)
-                fieldKeyValueMap[FieldKey.LYRICS] = input.toString()
-                GlobalScope.launch {
-                    if (VersionUtils.hasR()) {
-                        cacheFile = TagWriter.writeTagsToFilesR(
-                            requireContext(),
-                            AudioTagInfo(
-                                listOf(song.data),
-                                fieldKeyValueMap,
-                                null,
-                            ),
-                        )[0]
-                        val pendingIntent =
-                            MediaStore.createWriteRequest(
-                                requireContext().contentResolver,
-                                listOf(song.uri),
-                            )
-
-                        normalLyricsLauncher.launch(
-                            IntentSenderRequest.Builder(pendingIntent).build(),
-                        )
-                    } else {
-                        TagWriter.writeTagsToFiles(
-                            requireContext(),
-                            AudioTagInfo(
-                                listOf(song.data),
-                                fieldKeyValueMap,
-                                null,
-                            ),
-                        )
-                    }
-                }
-            }
-            positiveButton(res = R.string.save) {
-                loadNormalLyrics()
-            }
-            negativeButton(res = android.R.string.cancel)
-        }
+        // TODO: Fix it later
     }
 
     @SuppressLint("CheckResult")
@@ -277,22 +216,7 @@ class LyricsFragment :
                             IntentSenderRequest.Builder(pendingIntent).build(),
                         )
                     } else {
-                        val fieldKeyValueMap = EnumMap<FieldKey, String>(FieldKey::class.java)
-                        fieldKeyValueMap[FieldKey.LYRICS] = input.toString()
-                        GlobalScope.launch {
-                            cacheFile = TagWriter.writeTagsToFilesR(
-                                requireContext(),
-                                AudioTagInfo(listOf(song.data), fieldKeyValueMap, null),
-                            )[0]
-                            val pendingIntent = MediaStore.createWriteRequest(
-                                requireContext().contentResolver,
-                                listOf(song.uri),
-                            )
-
-                            normalLyricsLauncher.launch(
-                                IntentSenderRequest.Builder(pendingIntent).build(),
-                            )
-                        }
+                        // TODO: Fix it later
                     }
                 } else {
                     LyricUtil.writeLrc(song, input.toString())
@@ -306,16 +230,7 @@ class LyricsFragment :
     }
 
     private fun loadNormalLyrics() {
-        val file = File(song.data)
-        val lyrics = try {
-            AudioFileIO.read(file).tagOrCreateDefault.getFirst(FieldKey.LYRICS)
-        } catch (e: Exception) {
-            e.printStackTrace()
-            ""
-        }
-        binding.normalLyrics.isVisible = !lyrics.isNullOrEmpty()
-        binding.noLyricsFound.isVisible = lyrics.isNullOrEmpty()
-        binding.normalLyrics.text = lyrics
+        // TODO: Fix it later
     }
 
     /**
@@ -326,13 +241,7 @@ class LyricsFragment :
         if (lrcFile != null) {
             binding.lyricsView.loadLrc(lrcFile)
         } else {
-            val embeddedLyrics = LyricUtil.getEmbeddedSyncedLyrics(song.data)
-            if (embeddedLyrics != null) {
-                binding.lyricsView.loadLrc(embeddedLyrics)
-            } else {
-                binding.lyricsView.setLabel(getString(R.string.empty))
-                return false
-            }
+            binding.lyricsView.setLabel(getString(R.string.empty))
         }
         return true
     }

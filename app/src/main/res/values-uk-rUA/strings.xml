@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">Додати до черги відтворення</string>
     <string name="action_add_to_playlist">Додати до списку відтворення</string>
     <string name="action_cancel">Відмінити</string>
-    <string name="action_cast">Трансляція на іншому дисплеї</string>
     <string name="action_clear_playing_queue">Очистити чергу відтворення</string>
     <string name="action_delete">Видалити</string>
     <string name="action_delete_from_device">Видалити з пристрою</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Перемішати список відтворення</string>
     <string name="action_sleep_timer">Таймер сну</string>
     <string name="action_sort_order">Порядок сортування</string>
-    <string name="action_tag_editor">Редактор тегів</string>
     <string name="add_action">Додати</string>
     <string name="add_playlist_title">"Додати до списку відтворення"</string>
     <string name="added_song_count_to_playlist">Added %1$d song(s) to %2$s</string>

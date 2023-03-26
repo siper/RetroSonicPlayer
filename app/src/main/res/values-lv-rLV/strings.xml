@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">Pievienot atskaņošanas rindai</string>
     <string name="action_add_to_playlist">Pievienot atskaņošanas sarakstam</string>
     <string name="action_cancel">Atcelt</string>
-    <string name="action_cast">Raidīt</string>
     <string name="action_clear_playing_queue">Noņemt visu no atskaņošanas rindas</string>
     <string name="action_delete">Dzēst</string>
     <string name="action_delete_from_device">Dzēst no šīs ierīces</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Jaukt atskaņošanas sarakstu</string>
     <string name="action_sleep_timer">Sleep timer</string>
     <string name="action_sort_order">Kārtošanas secība</string>
-    <string name="action_tag_editor">Atzīmju rediģēšana</string>
     <string name="add_action">Pievienot</string>
     <string name="add_playlist_title">"Pievienot atskaņošanas sarakstam"</string>
     <string name="added_song_count_to_playlist">%1$d dziesma(s) tika pievienota(s) %2$s</string>

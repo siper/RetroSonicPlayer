@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">新增至播放佇列</string>
     <string name="action_add_to_playlist">新增至播放清單</string>
     <string name="action_cancel">取消</string>
-    <string name="action_cast">投放</string>
     <string name="action_clear_playing_queue">清除播放佇列</string>
     <string name="action_delete">刪除</string>
     <string name="action_delete_from_device">從裝置刪除</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">隨機播放清單</string>
     <string name="action_sleep_timer">睡眠計時器</string>
     <string name="action_sort_order">排序</string>
-    <string name="action_tag_editor">編輯音樂資訊</string>
     <string name="add_action">新增</string>
     <string name="add_playlist_title">"新增至播放清單"</string>
     <string name="added_song_count_to_playlist">已新增 %1$d 首歌至 %2$s</string>

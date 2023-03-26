@@ -30,10 +30,7 @@ import org.koin.core.component.get
 import ru.stersh.retrosonic.EXTRA_ALBUM_ID
 import ru.stersh.retrosonic.EXTRA_ARTIST_ID
 import ru.stersh.retrosonic.R
-import ru.stersh.retrosonic.activities.tageditor.AbsTagEditorActivity
-import ru.stersh.retrosonic.activities.tageditor.SongTagEditorActivity
 import ru.stersh.retrosonic.dialogs.AddToPlaylistDialog
-import ru.stersh.retrosonic.interfaces.IPaletteColorHolder
 import ru.stersh.retrosonic.model.Song
 import ru.stersh.retrosonic.repository.Repository
 import ru.stersh.retrosonic.util.MusicUtil
@@ -81,18 +78,6 @@ object SongMenuHelper : KoinComponent {
             }
             R.id.action_add_to_current_playing -> {
 //                MusicPlayerRemote.enqueue(song)
-                return true
-            }
-            R.id.action_tag_editor -> {
-                val tagEditorIntent = Intent(activity, SongTagEditorActivity::class.java)
-                tagEditorIntent.putExtra(AbsTagEditorActivity.EXTRA_ID, song.id)
-                if (activity is IPaletteColorHolder) {
-                    tagEditorIntent.putExtra(
-                        AbsTagEditorActivity.EXTRA_PALETTE,
-                        (activity as IPaletteColorHolder).paletteColor,
-                    )
-                }
-                activity.startActivity(tagEditorIntent)
                 return true
             }
             R.id.action_details -> {

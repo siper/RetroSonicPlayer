@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">加入播放队列</string>
     <string name="action_add_to_playlist">加入播放列表</string>
     <string name="action_cancel">取消</string>
-    <string name="action_cast">投射</string>
     <string name="action_clear_playing_queue">清空播放队列</string>
     <string name="action_delete">删除</string>
     <string name="action_delete_from_device">从设备中删除</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">随机播放列表</string>
     <string name="action_sleep_timer">睡眠定时器</string>
     <string name="action_sort_order">排序</string>
-    <string name="action_tag_editor">标签编辑器</string>
     <string name="add_action">添加</string>
     <string name="add_playlist_title">"加入播放列表"</string>
     <string name="added_song_count_to_playlist">已将 %1$d 首歌添加到 %2$s</string>

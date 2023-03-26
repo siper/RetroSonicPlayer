@@ -14,8 +14,6 @@
  */
 package ru.stersh.retrosonic.feature.details.album.presentation
 
-import android.app.ActivityOptions
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
@@ -47,8 +45,6 @@ import ru.stersh.retrosonic.EXTRA_ALBUM_ID
 import ru.stersh.retrosonic.EXTRA_ARTIST_ID
 import ru.stersh.retrosonic.EXTRA_ARTIST_NAME
 import ru.stersh.retrosonic.R
-import ru.stersh.retrosonic.activities.tageditor.AbsTagEditorActivity
-import ru.stersh.retrosonic.activities.tageditor.AlbumTagEditorActivity
 import ru.stersh.retrosonic.adapter.album.HorizontalAlbumAdapter
 import ru.stersh.retrosonic.databinding.FragmentAlbumDetailsBinding
 import ru.stersh.retrosonic.extensions.applyColor
@@ -344,20 +340,6 @@ class AlbumDetailsFragment : AbsMainActivityFragment(R.layout.fragment_album_det
             R.id.action_delete_from_device -> {
 //                TODO: fix delete
 //                DeleteSongsDialog.create(songs).show(childFragmentManager, "DELETE_SONGS")
-                return true
-            }
-            R.id.action_tag_editor -> {
-                val intent = Intent(requireContext(), AlbumTagEditorActivity::class.java)
-                intent.putExtra(AbsTagEditorActivity.EXTRA_ID, albumDetails.id)
-                val options = ActivityOptions.makeSceneTransitionAnimation(
-                    requireActivity(),
-                    binding.albumCoverContainer,
-                    "${getString(R.string.transition_album_art)}_${albumDetails.id}",
-                )
-                startActivity(
-                    intent,
-                    options.toBundle(),
-                )
                 return true
             }
             R.id.action_sort_order_title -> sortOrder = SONG_A_Z

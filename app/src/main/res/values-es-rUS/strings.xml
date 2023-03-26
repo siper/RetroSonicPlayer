@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">Agregar a la cola de reproducción</string>
     <string name="action_add_to_playlist">Agregar a playlist</string>
     <string name="action_cancel">Cancelar</string>
-    <string name="action_cast">Emitir</string>
     <string name="action_clear_playing_queue">Vaciar cola de reproducción</string>
     <string name="action_delete">Eliminar</string>
     <string name="action_delete_from_device">Eliminar del dispositivo</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Lista de reproducción aleatoria</string>
     <string name="action_sleep_timer">Temporizador de sueño</string>
     <string name="action_sort_order">Ordenar por</string>
-    <string name="action_tag_editor">Editor de etiquetas</string>
     <string name="add_action">Agregar</string>
     <string name="add_playlist_title">"Añadir a la lista de reproducción"</string>
     <string name="added_song_count_to_playlist">%1$d cancion(es) añadidas a %2$s</string>

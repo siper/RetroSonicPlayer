@@ -6,7 +6,6 @@
     <string name="action_about">గురించి</string>
     <string name="action_add_to_playing_queue">క్యూ ఆడటానికి జోడించండి</string>
     <string name="action_add_to_playlist">పాటల క్రమంలో చేర్చు</string>
-    <string name="action_cast">తారాగణం</string>
     <string name="action_clear_playing_queue">క్యూ ప్లే చేయడం క్లియర్</string>
     <string name="action_delete">తొలగించు</string>
     <string name="action_delete_from_device">పరికరం నుండి తొలగించండి</string>
@@ -38,7 +37,6 @@
     <string name="action_shuffle_playlist">ప్లేజాబితాను షఫుల్ చేయండి</string>
     <string name="action_sleep_timer">స్లీప్ టైమర్</string>
     <string name="action_sort_order">క్రమాన్ని క్రమబద్ధీకరించు</string>
-    <string name="action_tag_editor">ట్యాగ్ ఎడిటర్</string>
     <string name="add_action">చేర్చు</string>
     <string name="add_playlist_title">"పాటల క్రమంలో చేర్చు"</string>
     <string name="album">ఆల్బమ్</string>

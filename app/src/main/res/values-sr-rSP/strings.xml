@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">Dodaj u listu za pustanje</string>
     <string name="action_add_to_playlist">Dodaj na plejlistu</string>
     <string name="action_cancel">Otkazi trenutni tajmer</string>
-    <string name="action_cast">Cast</string>
     <string name="action_clear_playing_queue">Izbrisi trenutnu plejlistu za pustanje</string>
     <string name="action_delete">Obrisi</string>
     <string name="action_delete_from_device">Izbrisi sa uredjaja</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Nasumicno pusti plejlistu</string>
     <string name="action_sleep_timer">Tajmer za iskljucivanje</string>
     <string name="action_sort_order">Sort order</string>
-    <string name="action_tag_editor">Uredjivac tagova</string>
     <string name="add_action">Dodaj</string>
     <string name="add_playlist_title">"Dodaj na plejlistu"</string>
     <string name="added_song_count_to_playlist">Added %1$d song(s) to %2$s</string>

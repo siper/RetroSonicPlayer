@@ -22,8 +22,6 @@ import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule
 import ru.stersh.retrosonic.glide.artistimage.ArtistImage
 import ru.stersh.retrosonic.glide.artistimage.Factory
-import ru.stersh.retrosonic.glide.audiocover.AudioFileCover
-import ru.stersh.retrosonic.glide.audiocover.AudioFileCoverLoader
 import ru.stersh.retrosonic.glide.palette.BitmapPaletteTranscoder
 import ru.stersh.retrosonic.glide.palette.BitmapPaletteWrapper
 import ru.stersh.retrosonic.glide.playlistPreview.PlaylistPreview
@@ -34,11 +32,6 @@ import java.io.InputStream
 class RetroMusicGlideModule : AppGlideModule() {
     override fun registerComponents(context: Context, glide: Glide, registry: Registry) {
         registry.prepend(PlaylistPreview::class.java, Bitmap::class.java, PlaylistPreviewLoader.Factory(context))
-        registry.prepend(
-            AudioFileCover::class.java,
-            InputStream::class.java,
-            AudioFileCoverLoader.Factory(),
-        )
         registry.prepend(ArtistImage::class.java, InputStream::class.java, Factory(context))
         registry.register(
             Bitmap::class.java,

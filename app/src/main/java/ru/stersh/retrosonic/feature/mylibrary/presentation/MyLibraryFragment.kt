@@ -46,7 +46,6 @@ import ru.stersh.retrosonic.extensions.accentColor
 import ru.stersh.retrosonic.extensions.dip
 import ru.stersh.retrosonic.extensions.drawNextToNavbar
 import ru.stersh.retrosonic.extensions.findActivityNavController
-import ru.stersh.retrosonic.extensions.setUpMediaRouteButton
 import ru.stersh.retrosonic.fragments.ReloadType
 import ru.stersh.retrosonic.fragments.base.AbsMainActivityFragment
 import ru.stersh.retrosonic.glide.GlideApp
@@ -163,8 +162,6 @@ class MyLibraryFragment : AbsMainActivityFragment(R.layout.fragment_home), IScro
             menu,
             ATHToolbarActivity.getToolbarBackgroundColor(binding.toolbar),
         )
-        // Setting up cast button
-        requireContext().setUpMediaRouteButton(menu)
     }
 
     override fun scrollToTop() {

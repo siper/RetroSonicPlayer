@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">افزودن به لیست پخش آهنگ</string>
     <string name="action_add_to_playlist">افزودن به لیست پخش</string>
     <string name="action_cancel">انصراف</string>
-    <string name="action_cast">پخش و نمایش تصویر</string>
     <string name="action_clear_playing_queue">لیست پخش اهنگ هارا پاک کنید</string>
     <string name="action_delete">حذف</string>
     <string name="action_delete_from_device">حذف از دستگاه</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">پخش تصادفی</string>
     <string name="action_sleep_timer">تایمر خواب</string>
     <string name="action_sort_order">مرتب سازی</string>
-    <string name="action_tag_editor"> ویرایشگر برچسب </string>
     <string name="add_action">ﺍﻓﺰﻭﺩﻥ</string>
     <string name="add_playlist_title">"افزودن به لیست پخش"</string>
     <string name="added_song_count_to_playlist">Added %1$d song(s) to %2$s</string>

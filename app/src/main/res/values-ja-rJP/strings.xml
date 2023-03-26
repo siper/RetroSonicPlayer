@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">再生キューに追加</string>
     <string name="action_add_to_playlist">プレイリストに追加…</string>
     <string name="action_cancel">キャンセル</string>
-    <string name="action_cast">キャスト</string>
     <string name="action_clear_playing_queue">再生キューをクリア</string>
     <string name="action_delete">削除</string>
     <string name="action_delete_from_device">デバイスから削除</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">プレイリストをシャッフル</string>
     <string name="action_sleep_timer">スリープタイマー</string>
     <string name="action_sort_order">順番をソート</string>
-    <string name="action_tag_editor">音楽タグエディター</string>
     <string name="add_action">追加</string>
     <string name="add_playlist_title">"プレイリストに追加"</string>
     <string name="added_song_count_to_playlist">%2$s に%1$d曲追加しました</string>

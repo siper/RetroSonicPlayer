@@ -26,21 +26,18 @@ import androidx.fragment.app.FragmentActivity
 import code.name.monkey.appthemehelper.util.VersionUtils
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
-import org.jaudiotagger.audio.AudioFileIO
-import org.jaudiotagger.tag.FieldKey
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import ru.stersh.retrosonic.Constants
 import ru.stersh.retrosonic.R
 import ru.stersh.retrosonic.model.Artist
 import ru.stersh.retrosonic.model.Song
-import ru.stersh.retrosonic.model.lyrics.AbsSynchronizedLyrics
 import ru.stersh.retrosonic.repository.Repository
 import java.io.File
 import java.io.IOException
 import java.text.SimpleDateFormat
-import java.util.*
-import java.util.regex.Pattern
+import java.util.Calendar
+import java.util.Locale
 
 object MusicUtil : KoinComponent {
     fun createShareSongFileIntent(context: Context, song: Song): Intent {
@@ -149,68 +146,6 @@ object MusicUtil : KoinComponent {
     // this method converts those values to normal tracknumbers
     fun getFixedTrackNumber(trackNumberToFix: Int): Int {
         return trackNumberToFix % 1000
-    }
-
-    fun getLyrics(song: Song): String? {
-        var lyrics: String? = "No lyrics found"
-        val file = File(song.data)
-        try {
-            lyrics = AudioFileIO.read(file).tagOrCreateDefault.getFirst(FieldKey.LYRICS)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        if (lyrics == null || lyrics.trim { it <= ' ' }.isEmpty() || AbsSynchronizedLyrics
-                .isSynchronized(lyrics)
-        ) {
-            val dir = file.absoluteFile.parentFile
-            if (dir != null && dir.exists() && dir.isDirectory) {
-                val format = ".*%s.*\\.(lrc|txt)"
-                val filename = Pattern.quote(
-                    FileUtil.stripExtension(file.name),
-                )
-                val songtitle = Pattern.quote(song.title)
-                val patterns =
-                    ArrayList<Pattern>()
-                patterns.add(
-                    Pattern.compile(
-                        String.format(format, filename),
-                        Pattern.CASE_INSENSITIVE or Pattern.UNICODE_CASE,
-                    ),
-                )
-                patterns.add(
-                    Pattern.compile(
-                        String.format(format, songtitle),
-                        Pattern.CASE_INSENSITIVE or Pattern.UNICODE_CASE,
-                    ),
-                )
-                val files =
-                    dir.listFiles { f: File ->
-                        for (pattern in patterns) {
-                            if (pattern.matcher(f.name).matches()) {
-                                return@listFiles true
-                            }
-                        }
-                        false
-                    }
-                if (files != null && files.isNotEmpty()) {
-                    for (f in files) {
-                        try {
-                            val newLyrics =
-                                FileUtil.read(f)
-                            if (newLyrics != null && newLyrics.trim { it <= ' ' }.isNotEmpty()) {
-                                if (AbsSynchronizedLyrics.isSynchronized(newLyrics)) {
-                                    return newLyrics
-                                }
-                                lyrics = newLyrics
-                            }
-                        } catch (e: Exception) {
-                            e.printStackTrace()
-                        }
-                    }
-                }
-            }
-        }
-        return lyrics
     }
 
     @JvmStatic

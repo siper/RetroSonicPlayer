@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">Προσθήκη στην ουρά αναπαραγωγής</string>
     <string name="action_add_to_playlist">Προσθήκη στη λίστα αναπαραγωγής</string>
     <string name="action_cancel">Ακύρωση τρέχων χρονοδιακόπτη</string>
-    <string name="action_cast">Μετάδοση</string>
     <string name="action_clear_playing_queue">Εκκαθάριση ουράς αναπαραγωγής</string>
     <string name="action_delete">Διαγραφή</string>
     <string name="action_delete_from_device">Διαγραφή από την συσκευή</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Τυχαία λίστα αναπαραγωγής</string>
     <string name="action_sleep_timer">Χρονοδιακόπτης Ύπνου</string>
     <string name="action_sort_order">Σειρά ταξινόμησης</string>
-    <string name="action_tag_editor">Επεξεργασία Ετικετών</string>
     <string name="add_action">Προσθήκη</string>
     <string name="add_playlist_title">"Προσθήκη στη λίστα αναπαραγωγής"</string>
     <string name="added_song_count_to_playlist">Added %1$d song(s) to %2$s</string>

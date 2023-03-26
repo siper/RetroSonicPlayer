@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">Přidat do fronty </string>
     <string name="action_add_to_playlist">Přidat do seznamu skladeb…</string>
     <string name="action_cancel">Zrušit aktuální časovač</string>
-    <string name="action_cast">Hliník</string>
     <string name="action_clear_playing_queue">Vyčistit frontu</string>
     <string name="action_delete">Smazat</string>
     <string name="action_delete_from_device">Vymazat ze zařízení</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Náhodný výběr playlistu</string>
     <string name="action_sleep_timer">Časovač vypnutí</string>
     <string name="action_sort_order">Sort order</string>
-    <string name="action_tag_editor">Editor tagů</string>
     <string name="add_action">Přidat</string>
     <string name="add_playlist_title">"Přidat do seznamu skladeb"</string>
     <string name="added_song_count_to_playlist">Added %1$d song(s) to %2$s</string>

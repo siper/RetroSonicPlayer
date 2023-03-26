@@ -218,7 +218,7 @@ class FoldersFragment :
             popupMenu.inflate(R.menu.menu_item_file)
             popupMenu.setOnMenuItemClickListener { item: MenuItem ->
                 when (val itemId = item.itemId) {
-                    R.id.action_play_next, R.id.action_add_to_current_playing, R.id.action_add_to_playlist, R.id.action_go_to_album, R.id.action_go_to_artist, R.id.action_share, R.id.action_tag_editor, R.id.action_details, R.id.action_set_as_ringtone, R.id.action_delete_from_device -> {
+                    R.id.action_play_next, R.id.action_add_to_current_playing, R.id.action_add_to_playlist, R.id.action_go_to_album, R.id.action_go_to_artist, R.id.action_share, R.id.action_details, R.id.action_set_as_ringtone, R.id.action_delete_from_device -> {
                         lifecycleScope.launch(Dispatchers.IO) {
                             listSongs(
                                 requireContext(),

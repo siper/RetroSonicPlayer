@@ -36,7 +36,6 @@
     <string name="action_shuffle_playlist">隨機播放播放清單</string>
     <string name="action_sleep_timer">休眠計時器</string>
     <string name="action_sort_order">排序方式</string>
-    <string name="action_tag_editor">標籤編輯</string>
     <string name="add_action">增加</string>
     <string name="add_playlist_title">"加入至播放清單"</string>
     <string name="album">專輯</string>

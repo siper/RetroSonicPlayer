@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">နားထောင်နေသည့်စာရင်းထဲသို့ထည့်မည်</string>
     <string name="action_add_to_playlist">Playlist သို့ထည့်မည်</string>
     <string name="action_cancel">ပယ်ဖျက်မည်</string>
-    <string name="action_cast">Cast</string>
     <string name="action_clear_playing_queue">နားထောင်နေသည့်စာရင်းအားရှင်းမည်</string>
     <string name="action_delete">ဖျက်မည်</string>
     <string name="action_delete_from_device">Device မှဖျက်မည်</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Playlist အား Shuffle play မည်</string>
     <string name="action_sleep_timer">Sleep Timer</string>
     <string name="action_sort_order">အထားအသိုပြင်မည်</string>
-    <string name="action_tag_editor">Tag တည်းဖြတ်ခြင်း</string>
     <string name="add_action">ထည့်မည်</string>
     <string name="add_playlist_title">"အောက်ပါ Playlist သို့ထည့်မည်"</string>
     <string name="added_song_count_to_playlist">Added %1$d song(s) to %2$s</string>

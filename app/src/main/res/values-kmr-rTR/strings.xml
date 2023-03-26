@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">Tevlî rêzê stranên têne lêdan bike</string>
     <string name="action_add_to_playlist">Tevlî rêzoka lêdanê bike</string>
     <string name="action_cancel">Têk bibe</string>
-    <string name="action_cast">Biweşîne</string>
     <string name="action_clear_playing_queue">Rêzê stranên têne lêdan pak bike</string>
     <string name="action_delete">Jê bibe</string>
     <string name="action_delete_from_device">Ji amûrê jê bibe</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Rêzoka lêdanê tevlihev bike</string>
     <string name="action_sleep_timer">Demkera xewê</string>
     <string name="action_sort_order">Rêzkirin bi</string>
-    <string name="action_tag_editor">Zanyariyên stranê serrast bike</string>
     <string name="add_action">Tevlî bike</string>
     <string name="add_playlist_title">"Tevlî rêzoka lêdanê bike"</string>
     <string name="added_song_count_to_playlist">%1$d stran tevlî %2$s bû</string>

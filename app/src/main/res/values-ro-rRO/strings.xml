@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">Adaugă la coada de redare</string>
     <string name="action_add_to_playlist">Adaugă la un playlist</string>
     <string name="action_cancel">Anulează cronometrul curent</string>
-    <string name="action_cast">Transmite</string>
     <string name="action_clear_playing_queue">Curăță coada de redare</string>
     <string name="action_delete">Șterge</string>
     <string name="action_delete_from_device">Șterge de pe dispozitiv</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Amestecă playlist</string>
     <string name="action_sleep_timer">Cronometru de somn</string>
     <string name="action_sort_order">Ordine de sortare</string>
-    <string name="action_tag_editor">Redactor info</string>
     <string name="add_action">Adaugă</string>
     <string name="add_playlist_title">"Adaugă la playlist"</string>
     <string name="added_song_count_to_playlist">S-au adăugat %1$d melodii la %2$s</string>

@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">Add to playing queue</string>
     <string name="action_add_to_playlist">प्लेलिस्ट में जोड़ें</string>
     <string name="action_cancel">वर्तमान टाइमर को रद्द करें</string>
-    <string name="action_cast">Cast</string>
     <string name="action_clear_playing_queue">Clear playing queue</string>
     <string name="action_delete">हटाएं</string>
     <string name="action_delete_from_device">डिवाइस से हटाएं</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">शफ़ल प्लेलिस्ट</string>
     <string name="action_sleep_timer">स्लीप टाइमर</string>
     <string name="action_sort_order">क्रमबद्ध आदेश</string>
-    <string name="action_tag_editor">टैग एडिटर</string>
     <string name="add_action">जोड़ें</string>
     <string name="add_playlist_title">"प्लेलिस्ट में जोड़ें"</string>
     <string name="added_song_count_to_playlist">Added %1$d song(s) to %2$s</string>

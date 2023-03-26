@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">Dodaj u red čekanja</string>
     <string name="action_add_to_playlist">Dodaj na popis</string>
     <string name="action_cancel">Odustani</string>
-    <string name="action_cast">Emitiraj</string>
     <string name="action_clear_playing_queue">Očisti red čekanja</string>
     <string name="action_delete">Izbriši</string>
     <string name="action_delete_from_device">Izbriši s uređaja</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Shuffle playlist</string>
     <string name="action_sleep_timer">Sleep timer</string>
     <string name="action_sort_order">Redoslijed sortiranja</string>
-    <string name="action_tag_editor">Tag editor</string>
     <string name="add_action">Dodaj</string>
     <string name="add_playlist_title">"Dodaj na popis"</string>
     <string name="added_song_count_to_playlist">Added %1$d song(s) to %2$s</string>

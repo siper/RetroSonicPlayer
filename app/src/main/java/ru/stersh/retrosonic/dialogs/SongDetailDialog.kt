@@ -22,7 +22,6 @@ import android.util.Log
 import androidx.core.os.bundleOf
 import androidx.core.text.parseAsHtml
 import androidx.fragment.app.DialogFragment
-import org.jaudiotagger.audio.AudioFileIO
 import ru.stersh.retrosonic.EXTRA_SONG
 import ru.stersh.retrosonic.R
 import ru.stersh.retrosonic.databinding.DialogFileDetailsBinding
@@ -70,27 +69,27 @@ class SongDetailDialog : DialogFragment() {
                         getFileSizeString(songFile.length()),
                     )
                 try {
-                    val audioFile = AudioFileIO.read(songFile)
-                    val audioHeader = audioFile.audioHeader
-
-                    binding.fileFormat.text =
-                        makeTextWithTitle(context, R.string.label_file_format, audioHeader.format)
-                    binding.trackLength.text = makeTextWithTitle(
-                        context,
-                        R.string.label_track_length,
-                        MusicUtil.getReadableDurationString((audioHeader.trackLength * 1000).toLong()),
-                    )
-                    binding.bitrate.text = makeTextWithTitle(
-                        context,
-                        R.string.label_bit_rate,
-                        audioHeader.bitRate + " kb/s",
-                    )
-                    binding.samplingRate.text =
-                        makeTextWithTitle(
-                            context,
-                            R.string.label_sampling_rate,
-                            audioHeader.sampleRate + " Hz",
-                        )
+//                    val audioFile = AudioFileIO.read(songFile)
+//                    val audioHeader = audioFile.audioHeader
+//
+//                    binding.fileFormat.text =
+//                        makeTextWithTitle(context, R.string.label_file_format, audioHeader.format)
+//                    binding.trackLength.text = makeTextWithTitle(
+//                        context,
+//                        R.string.label_track_length,
+//                        MusicUtil.getReadableDurationString((audioHeader.trackLength * 1000).toLong()),
+//                    )
+//                    binding.bitrate.text = makeTextWithTitle(
+//                        context,
+//                        R.string.label_bit_rate,
+//                        audioHeader.bitRate + " kb/s",
+//                    )
+//                    binding.samplingRate.text =
+//                        makeTextWithTitle(
+//                            context,
+//                            R.string.label_sampling_rate,
+//                            audioHeader.sampleRate + " Hz",
+//                        )
                 } catch (e: Exception) {
                     Log.e(TAG, "error while reading the song file", e)
                     // fallback

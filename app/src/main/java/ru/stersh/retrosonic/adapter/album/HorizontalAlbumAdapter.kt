@@ -17,9 +17,6 @@ package ru.stersh.retrosonic.adapter.album
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentActivity
-import ru.stersh.retrosonic.glide.GlideApp
-import ru.stersh.retrosonic.glide.RetroGlideExtension
-import ru.stersh.retrosonic.glide.RetroMusicColoredTarget
 import ru.stersh.retrosonic.helper.HorizontalAdapterHelper
 import ru.stersh.retrosonic.interfaces.IAlbumClickListener
 import ru.stersh.retrosonic.model.Album
@@ -50,13 +47,13 @@ class HorizontalAlbumAdapter(
 
     override fun loadAlbumCover(album: Album, holder: ViewHolder) {
         if (holder.image == null) return
-        GlideApp.with(activity).asBitmapPalette().albumCoverOptions(album.safeGetFirstSong())
-            .load(RetroGlideExtension.getSongModel(album.safeGetFirstSong()))
-            .into(object : RetroMusicColoredTarget(holder.image!!) {
-                override fun onColorReady(colors: MediaNotificationProcessor) {
-                    setColors(colors, holder)
-                }
-            })
+//        GlideApp.with(activity).asBitmapPalette().albumCoverOptions(album.safeGetFirstSong())
+//            .load(RetroGlideExtension.getSongModel(album.safeGetFirstSong()))
+//            .into(object : RetroMusicColoredTarget(holder.image!!) {
+//                override fun onColorReady(colors: MediaNotificationProcessor) {
+//                    setColors(colors, holder)
+//                }
+//            })
     }
 
     override fun getAlbumText(album: Album): String {

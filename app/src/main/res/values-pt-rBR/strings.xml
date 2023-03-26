@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">Adicionar à fila</string>
     <string name="action_add_to_playlist">Adicionar à playlist</string>
     <string name="action_cancel">Cancelar</string>
-    <string name="action_cast">Transmitir</string>
     <string name="action_clear_playing_queue">Limpar a fila</string>
     <string name="action_delete">Excluir</string>
     <string name="action_delete_from_device">Excluir do dispositivo</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Embaralhar playlist</string>
     <string name="action_sleep_timer">Temporizador</string>
     <string name="action_sort_order">Ordem de classificação</string>
-    <string name="action_tag_editor">Editor de tags</string>
     <string name="add_action">Adicionar</string>
     <string name="add_playlist_title">"Adicionar à playlist"</string>
     <string name="added_song_count_to_playlist">%1$d Música(s) adicionada(s) a %2$s</string>

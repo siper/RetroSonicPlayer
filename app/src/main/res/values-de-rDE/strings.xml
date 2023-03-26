@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">Zur Wiedergabeliste hinzufügen</string>
     <string name="action_add_to_playlist">Zur Playlist hinzufügen</string>
     <string name="action_cancel">Timer stoppen</string>
-    <string name="action_cast">Übertragen</string>
     <string name="action_clear_playing_queue">Wiedergabeliste leeren</string>
     <string name="action_delete">Löschen</string>
     <string name="action_delete_from_device">Vom Gerät löschen</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Playlist zufällig abspielen</string>
     <string name="action_sleep_timer">Einschlafmodus</string>
     <string name="action_sort_order">Sortierreihenfolge</string>
-    <string name="action_tag_editor">Tag-Editor</string>
     <string name="add_action">Hinzufügen</string>
     <string name="add_playlist_title">"Zur Playlist hinzufügen"</string>
     <string name="added_song_count_to_playlist">%1$d Titel zu %2$s hinzugefügt</string>

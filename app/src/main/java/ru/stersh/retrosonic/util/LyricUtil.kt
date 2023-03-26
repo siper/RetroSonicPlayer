@@ -15,10 +15,7 @@
 package ru.stersh.retrosonic.util
 
 import android.util.Log
-import org.jaudiotagger.audio.AudioFileIO
-import org.jaudiotagger.tag.FieldKey
 import ru.stersh.retrosonic.model.Song
-import ru.stersh.retrosonic.model.lyrics.AbsSynchronizedLyrics
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileInputStream
@@ -162,19 +159,6 @@ object LyricUtil {
             else -> {
                 null
             }
-        }
-    }
-
-    fun getEmbeddedSyncedLyrics(data: String): String? {
-        val embeddedLyrics = try {
-            AudioFileIO.read(File(data)).tagOrCreateDefault.getFirst(FieldKey.LYRICS)
-        } catch (e: Exception) {
-            return null
-        }
-        return if (AbsSynchronizedLyrics.isSynchronized(embeddedLyrics)) {
-            embeddedLyrics
-        } else {
-            null
         }
     }
 }

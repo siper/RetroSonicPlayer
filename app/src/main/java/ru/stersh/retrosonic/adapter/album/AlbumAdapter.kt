@@ -25,9 +25,6 @@ import me.zhanghai.android.fastscroll.PopupTextProvider
 import ru.stersh.retrosonic.R
 import ru.stersh.retrosonic.adapter.base.AbsMultiSelectAdapter
 import ru.stersh.retrosonic.adapter.base.MediaEntryViewHolder
-import ru.stersh.retrosonic.glide.GlideApp
-import ru.stersh.retrosonic.glide.RetroGlideExtension
-import ru.stersh.retrosonic.glide.RetroMusicColoredTarget
 import ru.stersh.retrosonic.helper.SortOrder
 import ru.stersh.retrosonic.helper.menu.SongsMenuHelper
 import ru.stersh.retrosonic.interfaces.IAlbumClickListener
@@ -111,14 +108,14 @@ open class AlbumAdapter(
             return
         }
         val song = album.safeGetFirstSong()
-        GlideApp.with(activity).asBitmapPalette().albumCoverOptions(song)
-            // .checkIgnoreMediaStore()
-            .load(RetroGlideExtension.getSongModel(song))
-            .into(object : RetroMusicColoredTarget(holder.image!!) {
-                override fun onColorReady(colors: MediaNotificationProcessor) {
-                    setColors(colors, holder)
-                }
-            })
+//        GlideApp.with(activity).asBitmapPalette().albumCoverOptions(song)
+//            // .checkIgnoreMediaStore()
+//            .load(RetroGlideExtension.getSongModel(song))
+//            .into(object : RetroMusicColoredTarget(holder.image!!) {
+//                override fun onColorReady(colors: MediaNotificationProcessor) {
+//                    setColors(colors, holder)
+//                }
+//            })
     }
 
     override fun getItemCount(): Int {

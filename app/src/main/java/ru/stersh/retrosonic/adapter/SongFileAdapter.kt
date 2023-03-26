@@ -22,16 +22,11 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import code.name.monkey.appthemehelper.util.ATHUtil
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.signature.MediaStoreSignature
 import me.zhanghai.android.fastscroll.PopupTextProvider
 import ru.stersh.retrosonic.R
 import ru.stersh.retrosonic.adapter.base.AbsMultiSelectAdapter
 import ru.stersh.retrosonic.adapter.base.MediaEntryViewHolder
 import ru.stersh.retrosonic.extensions.getTintedDrawable
-import ru.stersh.retrosonic.glide.GlideApp
-import ru.stersh.retrosonic.glide.RetroGlideExtension
-import ru.stersh.retrosonic.glide.audiocover.AudioFileCover
 import ru.stersh.retrosonic.interfaces.ICallbacks
 import ru.stersh.retrosonic.util.MusicUtil
 import java.io.File
@@ -111,14 +106,14 @@ class SongFileAdapter(
             )
         } else {
             val error = activity.getTintedDrawable(R.drawable.ic_audio_file, iconColor)
-            GlideApp.with(activity)
-                .load(AudioFileCover(file.path))
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .error(error)
-                .placeholder(error)
-                .transition(RetroGlideExtension.getDefaultTransition())
-                .signature(MediaStoreSignature("", file.lastModified(), 0))
-                .into(holder.image!!)
+//            GlideApp.with(activity)
+//                .load(AudioFileCover(file.path))
+//                .diskCacheStrategy(DiskCacheStrategy.NONE)
+//                .error(error)
+//                .placeholder(error)
+//                .transition(RetroGlideExtension.getDefaultTransition())
+//                .signature(MediaStoreSignature("", file.lastModified(), 0))
+//                .into(holder.image!!)
         }
     }
 

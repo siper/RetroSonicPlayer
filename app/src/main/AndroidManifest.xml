@@ -113,8 +113,6 @@
                 <data android:mimeType="vnd.android.cursor.dir/audio" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.tageditor.AlbumTagEditorActivity" />
-        <activity android:name=".activities.tageditor.SongTagEditorActivity" />
         <activity android:name=".activities.SupportDevelopmentActivity" />
         <activity android:name=".activities.LicenseActivity" />
         <activity android:name=".activities.bugreport.BugReportActivity" />

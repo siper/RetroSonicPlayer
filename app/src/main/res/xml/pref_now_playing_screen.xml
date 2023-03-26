@@ -15,12 +15,6 @@
         android:summary="@string/pref_summary_extra_song_info"
         android:title="@string/pref_title_extra_song_info" />
 
-    <code.name.monkey.appthemehelper.common.prefs.supportv7.ATESwitchPreference
-        android:defaultValue="false"
-        android:key="snowfall"
-        android:layout="@layout/list_item_view_switch_no_title"
-        android:title="@string/pref_snow_fall_title" />
-
     <code.name.monkey.appthemehelper.common.prefs.supportv7.ATEListPreference
         android:defaultValue="0"
         android:entries="@array/pref_lyrics_type_entries"

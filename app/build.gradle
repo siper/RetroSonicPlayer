@@ -52,15 +52,6 @@ android {
             versionNameSuffix ' DEBUG'
         }
     }
-    flavorDimensions "version"
-    productFlavors {
-        normal {
-            dimension "version"
-        }
-        fdroid {
-            dimension "version"
-        }
-    }
 
     buildFeatures {
         viewBinding true
@@ -73,10 +64,6 @@ android {
     lint {
         abortOnError true
         warning 'ImpliedQuantity', 'Instantiatable', 'MissingQuantity', 'MissingTranslation'
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
     }
     kotlinOptions {
         jvmTarget = "1.8"
@@ -112,71 +99,49 @@ dependencies {
     implementation project(':player')
     implementation project(':provider')
     implementation project(':source:room')
-    implementation "androidx.gridlayout:gridlayout:1.0.0"
 
     implementation(libs.kotlin.std.jdk8)
     implementation(libs.appcompat)
-    implementation 'androidx.annotation:annotation:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation(libs.androidx.annotation)
+    implementation(libs.recyclerview.core)
+    implementation(libs.constraintlayout)
     implementation(libs.androidx.preferences)
+    implementation(libs.androidx.gridlayout)
     implementation(libs.androidx.core)
-    implementation 'androidx.palette:palette-ktx:1.0.0'
+    implementation(libs.androidx.palette)
+    implementation(libs.androidx.splashscreen)
     implementation(libs.timber)
-
-    implementation 'androidx.mediarouter:mediarouter:1.3.1'
 
     implementation(libs.bundles.androidx.navigation)
     implementation(libs.bundles.adapterdelegates)
+    implementation(libs.bundles.kotlin.coroutines)
+    implementation(libs.bundles.koin)
 
     implementation(libs.lifecycle.viewmodel)
     implementation(libs.lifecycle.livedata)
     implementation(libs.lifecycle.common.java8)
 
-    implementation "androidx.core:core-splashscreen:1.0.0"
-
-    normalImplementation 'com.google.android.play:feature-delivery:2.0.0'
-    normalImplementation 'com.google.android.play:review:2.0.0'
-
     implementation(libs.material)
 
-    def retrofit_version = '2.9.0'
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation 'com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.9'
+    implementation(libs.retrofit.core)
+    implementation(libs.retrofit.converter.moshi)
+    implementation(libs.retrofit.converter.gson)
+    implementation(libs.logging.interceptor)
 
-    def material_dialog_version = "3.3.0"
-    implementation "com.afollestad.material-dialogs:core:$material_dialog_version"
-    implementation "com.afollestad.material-dialogs:input:$material_dialog_version"
-    implementation "com.afollestad.material-dialogs:color:$material_dialog_version"
+    implementation(libs.materialdialogs.core)
+    implementation(libs.materialdialogs.input)
+    implementation(libs.materialdialogs.color)
 
-    implementation 'com.afollestad:material-cab:2.0.1'
+    implementation(libs.glide.core)
+    kapt(libs.glide.compiler)
+    implementation(libs.glide.okhttp3integration)
 
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
-
-    implementation(libs.bundles.koin)
-
-    def glide_version = '4.13.2'
-    implementation "com.github.bumptech.glide:glide:$glide_version"
-    kapt "com.github.bumptech.glide:compiler:$glide_version"
-    implementation "com.github.bumptech.glide:okhttp3-integration:$glide_version"
-
-    implementation 'com.h6ah4i.android.widget.advrecyclerview:advrecyclerview:1.0.0'
-
-    implementation 'com.github.bosphere.android-fadingedgelayout:fadingedgelayout:1.0.0'
-
-    implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC3'
-    implementation 'com.github.jetradarmobile:android-snowfall:1.2.1'
-
-    implementation "dev.chrisbanes.insetter:insetter:0.6.1"
-
-    implementation 'org.eclipse.mylyn.github:org.eclipse.egit.github.core:2.1.5'
-    implementation 'com.github.Adonai:jaudiotagger:2.3.15'
-    normalImplementation 'com.anjlab.android.iab.v3:library:2.0.3'
-    implementation 'com.r0adkll:slidableactivity:2.1.0'
-    implementation 'com.heinrichreimersoftware:material-intro:2.0.0'
-    implementation 'com.github.dhaval2404:imagepicker:2.1'
-    implementation 'me.zhanghai.android.fastscroll:library:1.1.8'
-    implementation 'cat.ereza:customactivityoncrash:2.4.0'
-    implementation 'me.tankery.lib:circularSeekBar:1.4.1'
+    implementation(libs.advrecyclerview)
+    implementation(libs.fadingedgelayout)
+    implementation(libs.keyboardvisibilityevent)
+    implementation(libs.insetter)
+    implementation(libs.slidableactivity)
+    implementation(libs.materialintro)
+    implementation(libs.fastscroll)
+    implementation(libs.customactivityoncrash)
 }

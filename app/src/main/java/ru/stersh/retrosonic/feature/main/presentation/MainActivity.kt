@@ -23,7 +23,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.stersh.retrosonic.R
 import ru.stersh.retrosonic.activities.WhatsNewFragment
-import ru.stersh.retrosonic.activities.base.AbsCastActivity
+import ru.stersh.retrosonic.activities.base.AbsSlidingMusicPanelActivity
 import ru.stersh.retrosonic.extensions.currentFragment
 import ru.stersh.retrosonic.extensions.extra
 import ru.stersh.retrosonic.extensions.findNavController
@@ -31,10 +31,9 @@ import ru.stersh.retrosonic.extensions.hideStatusBar
 import ru.stersh.retrosonic.extensions.setTaskDescriptionColorAuto
 import ru.stersh.retrosonic.interfaces.IScrollHelper
 import ru.stersh.retrosonic.model.CategoryInfo
-import ru.stersh.retrosonic.util.AppRater
 import ru.stersh.retrosonic.util.PreferenceUtil
 
-class MainActivity : AbsCastActivity() {
+class MainActivity : AbsSlidingMusicPanelActivity() {
 
     private val viewModel: MainViewModel by viewModel()
 
@@ -43,7 +42,6 @@ class MainActivity : AbsCastActivity() {
         setTaskDescriptionColorAuto()
         hideStatusBar()
         updateTabs()
-        AppRater.appLaunched(this)
 
         setupNavigationController()
 

@@ -17,7 +17,6 @@ package ru.stersh.retrosonic.fragments.base
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.GestureDetector
 import android.view.MenuItem
@@ -35,7 +34,6 @@ import code.name.monkey.appthemehelper.util.VersionUtils
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import ru.stersh.retrosonic.R
-import ru.stersh.retrosonic.activities.tageditor.SongTagEditorActivity
 import ru.stersh.retrosonic.dialogs.PlaybackSpeedDialog
 import ru.stersh.retrosonic.dialogs.SleepTimerDialog
 import ru.stersh.retrosonic.extensions.currentFragment
@@ -121,12 +119,6 @@ abstract class AbsPlayerFragment(@LayoutRes layout: Int) :
             R.id.action_save_playing_queue -> {
 //                CreatePlaylistDialog.create(ArrayList(MusicPlayerRemote.playingQueue))
 //                    .show(childFragmentManager, "ADD_TO_PLAYLIST")
-                return true
-            }
-            R.id.action_tag_editor -> {
-                val intent = Intent(activity, SongTagEditorActivity::class.java)
-//                intent.putExtra(AbsTagEditorActivity.EXTRA_ID, songId)
-                startActivity(intent)
                 return true
             }
             R.id.action_details -> {

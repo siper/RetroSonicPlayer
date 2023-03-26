@@ -8,7 +8,6 @@
     <string name="action_add_to_playing_queue">Thêm vào danh sách chờ phát</string>
     <string name="action_add_to_playlist">Thêm vào danh sách phát</string>
     <string name="action_cancel">Hủy</string>
-    <string name="action_cast">Truyền màn hình</string>
     <string name="action_clear_playing_queue">Xoá danh sách chờ phát</string>
     <string name="action_delete">Xoá</string>
     <string name="action_delete_from_device">Xóa khỏi thiết bị</string>
@@ -41,7 +40,6 @@
     <string name="action_shuffle_playlist">Phát ngẫu nhiên theo danh sách phát</string>
     <string name="action_sleep_timer">Hẹn giờ ngừng phát</string>
     <string name="action_sort_order">Thứ tự sắp xếp</string>
-    <string name="action_tag_editor">Sửa thẻ</string>
     <string name="add_action">Thêm</string>
     <string name="add_playlist_title">"Thêm vào danh sách phát"</string>
     <string name="added_song_count_to_playlist">Added %1$d song(s) to %2$s</string>
